@@ -1,0 +1,2509 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coverly KG — Digitale Versicherungsberatung für Betriebe</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Spectral:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --paper: #EEF0EA;
+  --paper-alt: #E3E7DC;
+  --card: #F8F9F4;
+  --ink: #15211C;
+  --ink-soft: #4A564E;
+  --navy: #16302B;
+  --navy-2: #0E211C;
+  --brass: #C0973E;
+  --brass-light: #E4C179;
+  --teal: #4ECBA4;
+  --teal-dim: rgba(78,203,164,0.18);
+  --white: #FCFCF9;
+  --line: rgba(21,33,28,0.14);
+  --line-light: rgba(252,252,249,0.18);
+  --radius: 2px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans', sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+ul{list-style:none;}
+h1,h2,h3,h4{font-family:'Spectral', serif; font-weight:600; letter-spacing:-0.01em; color:var(--ink);}
+.mono{font-family:'IBM Plex Mono', monospace;}
+
+.wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+@media (max-width:640px){ .wrap{padding:0 20px;} }
+
+/* ---------- reveal on scroll ---------- */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
+.reveal.is-visible{opacity:1; transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1; transform:none; transition:none;}
+  *{animation:none !important; scroll-behavior:auto !important;}
+}
+
+/* ---------- header ---------- */
+header{
+  position:sticky; top:0; z-index:100;
+  background:var(--navy-2);
+  border-bottom:1px solid rgba(192,151,62,0.18);
+}
+header::after{
+  content:'';
+  display:block;
+  height:1px;
+  background:linear-gradient(90deg, transparent 0%, var(--brass) 30%, var(--brass-light) 50%, var(--brass) 70%, transparent 100%);
+  opacity:0.45;
+}
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  height:72px;
+}
+
+/* Logo */
+/* ── Logo A ── */
+.logo{
+  display:flex; align-items:center; gap:12px;
+  text-decoration:none; flex-shrink:0;
+}
+.logo-mark{flex:0 0 36px; display:block;}
+.logo-wordmark{
+  font-family:'DM Sans', sans-serif; font-size:22px; font-weight:700;
+  color:var(--white); letter-spacing:-.03em; line-height:1;
+}
+.logo-wordmark .tl{color:var(--teal);}
+.logo-kg{
+  font-family:'IBM Plex Mono', monospace; font-size:10.5px; font-weight:400;
+  color:rgba(255,255,255,0.35); letter-spacing:.1em; text-transform:uppercase;
+  margin-top:3px; display:block;
+}
+
+/* Nav links */
+.nav-links{display:flex; align-items:center; gap:6px;}
+.nav-links a{
+  font-size:13.5px; font-weight:500; color:rgba(252,252,249,0.65);
+  transition:color .18s, background .18s;
+  padding:7px 14px; border-radius:4px;
+  position:relative; letter-spacing:.01em;
+}
+.nav-links a:hover{color:var(--white); background:rgba(255,255,255,0.07);}
+
+/* Active link indicator */
+.nav-links a.active{color:var(--brass-light);}
+
+/* Divider between links and CTA */
+.nav-divider{width:1px; height:22px; background:rgba(252,252,249,0.15); margin:0 8px;}
+
+/* CTA button */
+.nav-cta{
+  display:inline-flex; align-items:center; gap:7px;
+  background:var(--brass) !important; color:var(--navy-2) !important;
+  padding:9px 18px; border-radius:4px;
+  font-size:13.5px; font-weight:700; letter-spacing:.01em;
+  border:none !important;
+  transition:background .18s, transform .18s, box-shadow .18s;
+  box-shadow:0 2px 10px rgba(192,151,62,0.3);
+}
+.nav-cta::after{ content:'→'; font-size:12px; }
+.nav-cta:hover{
+  background:var(--brass-light) !important;
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(192,151,62,0.4);
+}
+
+/* Trust badge in header */
+.nav-badge{
+  display:flex; align-items:center; gap:6px;
+  font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.06em;
+  color:rgba(252,252,249,0.4); text-transform:uppercase;
+  border:1px solid rgba(252,252,249,0.12); padding:4px 10px; border-radius:3px;
+  margin-right:6px;
+}
+.nav-badge .nb-dot{width:5px; height:5px; border-radius:50%; background:var(--teal); flex:0 0 5px;}
+
+/* Burger */
+.burger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px;}
+.burger span{width:22px; height:2px; background:rgba(252,252,249,0.8); transition:transform .25s, opacity .25s;}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Mobile menu */
+.mobile-menu{
+  display:none; flex-direction:column;
+  background:var(--navy-2);
+  border-top:1px solid rgba(252,252,249,0.1);
+}
+.mobile-menu a{
+  padding:15px 24px; border-bottom:1px solid rgba(252,252,249,0.07);
+  font-size:15px; font-weight:500; color:rgba(252,252,249,0.8);
+  transition:background .18s, color .18s;
+}
+.mobile-menu a:hover{background:rgba(255,255,255,0.05); color:var(--white);}
+.mobile-menu a:last-child{
+  background:var(--brass); color:var(--navy-2); font-weight:700;
+  margin:12px 16px; border-radius:4px; border-bottom:none; text-align:center;
+}
+.mobile-menu.open{display:flex;}
+
+@media (max-width:860px){
+  .nav-links{display:none;}
+  .nav-badge{display:none;}
+  .burger{display:flex;}
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:76px 0 100px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center;
+}
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr; gap:56px;}
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:.06em;
+  color:var(--brick); text-transform:uppercase; margin-bottom:22px;
+}
+.eyebrow::before{content:"§34d GewO"; border:1px solid var(--brick); padding:3px 8px; border-radius:2px; font-size:11px;}
+h1.hero-title{
+  font-size:clamp(38px, 5.2vw, 60px);
+  line-height:1.06;
+  margin-bottom:22px;
+}
+h1.hero-title em{font-style:italic; color:var(--navy);}
+.hero-sub{
+  font-size:18px; color:var(--ink-soft); max-width:46ch; margin-bottom:34px;
+}
+.hero-ctas{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:40px;}
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:15px 26px; border-radius:var(--radius);
+  font-size:15px; font-weight:600; cursor:pointer;
+  transition:transform .2s, background .2s, border-color .2s;
+  border:1px solid transparent;
+}
+.btn-primary{background:var(--navy); color:var(--white);}
+.btn-primary:hover{transform:translateY(-2px); background:var(--navy-2);}
+.btn-ghost{background:transparent; color:var(--ink); border-color:var(--ink);}
+.btn-ghost:hover{transform:translateY(-2px); border-color:var(--brass); color:var(--brass);}
+.hero-trust{display:flex; gap:28px; flex-wrap:wrap; font-size:13.5px; color:var(--ink-soft);}
+.hero-trust span{display:flex; align-items:center; gap:8px;}
+.hero-trust .dot{width:6px; height:6px; border-radius:50%; background:var(--brass);}
+
+/* signature: coverage stack */
+.stack{
+  position:relative; height:420px;
+  display:flex; align-items:center; justify-content:center;
+}
+.policy-card{
+  position:absolute;
+  width:260px; height:170px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:6px;
+  box-shadow:0 18px 40px -18px rgba(15,30,25,0.25);
+  padding:20px 22px;
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.policy-card .pc-top{display:flex; justify-content:space-between; align-items:flex-start;}
+.policy-card .pc-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--brass); border:1px solid var(--brass); padding:2px 7px; border-radius:2px;}
+.policy-card .pc-title{font-family:'Spectral', serif; font-size:19px; margin-top:14px; font-weight:600;}
+.policy-card .pc-check{width:22px; height:22px; border-radius:50%; background:var(--navy); color:var(--white); display:flex; align-items:center; justify-content:center; font-size:12px;}
+.stack:hover .policy-card{box-shadow:0 24px 50px -18px rgba(15,30,25,0.32);}
+
+.pc1{transform:rotate(-9deg) translate(-92px,-58px); z-index:1;}
+.pc2{transform:rotate(-2deg) translate(-24px,-6px); z-index:2;}
+.pc3{transform:rotate(6deg) translate(56px, 48px); z-index:3;}
+.stack:hover .pc1{transform:rotate(-13deg) translate(-118px,-78px);}
+.stack:hover .pc2{transform:rotate(-2deg) translate(-24px,-16px);}
+.stack:hover .pc3{transform:rotate(10deg) translate(80px, 64px);}
+
+@media (max-width:960px){
+  .stack{height:320px;}
+  .policy-card{width:210px; height:140px; padding:16px 18px;}
+  .pc1{transform:rotate(-8deg) translate(-58px,-46px);}
+  .pc2{transform:rotate(-1deg) translate(-10px,0px);}
+  .pc3{transform:rotate(7deg) translate(48px, 40px);}
+}
+
+/* ---------- audience split ---------- */
+.audience-split{padding:72px 0 64px; background:var(--navy-2); border-bottom:1px solid rgba(192,151,62,0.15);}
+.audience-split .section-head h2{color:var(--white);}
+.audience-split .section-head p{color:rgba(252,252,249,0.65);}
+.audience-split .eyebrow-line{color:var(--teal);}
+.audience-cards{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+@media(max-width:720px){.audience-cards{grid-template-columns:1fr;}}
+.audience-card{
+  display:flex; align-items:flex-start; gap:20px;
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px; padding:28px 24px; text-decoration:none; color:var(--white);
+  transition:background .2s, border-color .2s, transform .2s;
+  position:relative;
+}
+.audience-card:hover{background:rgba(255,255,255,0.09); border-color:rgba(255,255,255,0.22); transform:translateY(-2px);}
+.ac-icon{
+  width:52px; height:52px; flex:0 0 52px; border-radius:10px;
+  background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center;
+}
+.ac-body h3{font-family:"Spectral",serif; font-size:19px; margin-bottom:8px; color:var(--white);}
+.ac-body p{font-size:14px; color:rgba(252,252,249,0.65); line-height:1.6; margin-bottom:14px;}
+.ac-tags{display:flex; flex-wrap:wrap; gap:6px;}
+.ac-tags span{font-size:11.5px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); padding:3px 9px; border-radius:20px; color:rgba(252,252,249,0.65);}
+.ac-arrow{position:absolute; top:28px; right:24px; font-size:18px; color:rgba(255,255,255,0.3); transition:color .2s, transform .2s;}
+.audience-card:hover .ac-arrow{color:var(--white); transform:translateX(3px);}
+.audience-card:first-child:hover .ac-tags span{border-color:rgba(78,203,164,0.4); color:var(--teal);}
+.audience-card:last-child:hover .ac-tags span{border-color:rgba(192,151,62,0.4); color:var(--brass-light);}
+
+/* ---------- section shell ---------- */
+section{padding:96px 0;}
+.section-head{max-width:640px; margin-bottom:56px;}
+.section-head .eyebrow-line{
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--brass); margin-bottom:14px; display:block;
+}
+.section-head h2{font-size:clamp(28px,3.4vw,38px); margin-bottom:14px;}
+.section-head p{color:var(--ink-soft); font-size:16.5px;}
+
+/* ---------- services (§ paragraphs) ---------- */
+.services{background:var(--paper-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.svc-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line);}
+.svc-card{background:var(--paper-alt); padding:34px 30px; transition:background .25s; cursor:pointer;}
+.svc-card:hover{background:var(--card);}
+.svc-card:focus-visible{outline:2px solid var(--brass); outline-offset:-2px;}
+.svc-num{font-family:'IBM Plex Mono', monospace; color:var(--brass); font-size:15px; margin-bottom:16px; display:block;}
+.svc-card-actions{display:flex; align-items:center; gap:14px; margin-top:16px;}
+.svc-more{font-size:13px; color:var(--brass); font-weight:600; display:inline-flex; align-items:center; gap:5px;}
+.svc-anfrage{
+  font-size:12.5px; color:var(--ink-soft); font-weight:600;
+  border:1px solid var(--line); border-radius:2px; padding:5px 11px;
+  background:var(--card); cursor:pointer; transition:border-color .2s, color .2s, background .2s;
+  font-family:'IBM Plex Sans',sans-serif;
+}
+.svc-anfrage:hover{border-color:var(--brass); color:var(--brass); background:var(--paper);}
+.svc-card:hover .svc-anfrage{border-color:var(--brass); color:var(--brass);}
+.svc-card h3{font-size:21px; margin-bottom:10px;}
+.svc-card p{color:var(--ink-soft); font-size:14.8px;}
+
+/* ---------- process ---------- */
+.process-list{display:flex; flex-direction:column;}
+.process-item{
+  display:grid; grid-template-columns:64px 1fr; gap:24px;
+  padding:30px 0; border-top:1px solid var(--line);
+}
+.process-item:last-child{border-bottom:1px solid var(--line);}
+.process-step{font-family:'IBM Plex Mono', monospace; font-size:26px; color:var(--ink-soft); opacity:.5;}
+.process-item h3{font-size:20px; margin-bottom:6px;}
+.process-item p{color:var(--ink-soft); font-size:15px; max-width:56ch;}
+
+/* ---------- AI agent section ---------- */
+.agent{
+  background:var(--navy); color:var(--white);
+  position:relative; overflow:hidden;
+}
+.agent .section-head p{color:rgba(252,252,249,0.72);}
+.agent .section-head h2{color:var(--white);}
+.agent .eyebrow-line{color:var(--brass-light);}
+.agent-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:start;}
+@media (max-width:900px){.agent-grid{grid-template-columns:1fr;}}
+.agent-copy p{color:rgba(252,252,249,0.78); margin-bottom:18px; font-size:15.5px;}
+.agent-points{margin-top:26px; display:flex; flex-direction:column; gap:16px;}
+.agent-point{display:flex; gap:14px; align-items:flex-start;}
+.agent-point .ap-icon{
+  width:28px; height:28px; flex:0 0 28px; border-radius:50%;
+  border:1px solid var(--brass-light); color:var(--brass-light);
+  display:flex; align-items:center; justify-content:center; font-size:13px; margin-top:2px;
+}
+.agent-point div{font-size:14.5px; color:rgba(252,252,249,0.85);}
+.agent-point strong{color:var(--white); display:block; font-size:15.5px; margin-bottom:2px; font-family:'Spectral',serif; font-weight:600;}
+
+/* chat widget */
+.chatcard{
+  background:var(--paper); color:var(--ink);
+  border-radius:8px; overflow:hidden;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,0.5);
+  display:flex; flex-direction:column; height:600px;
+  max-width:560px; margin-left:auto;
+  border:1px solid var(--line-light);
+}
+@media (max-width:900px){
+  .chatcard{max-width:100%; height:540px;}
+}
+.chat-header{
+  background:var(--navy-2); color:var(--white);
+  padding:16px 20px; display:flex; align-items:center; gap:12px;
+  border-bottom:1px solid var(--line-light);
+}
+.chat-header .bot-dot{width:9px; height:9px; border-radius:50%; background:#4CAF7D;}
+.chat-header .ch-title{font-size:14px; font-weight:600;}
+.chat-header .ch-sub{font-size:11.5px; color:rgba(252,252,249,0.6); font-family:'IBM Plex Mono',monospace;}
+.chat-body{flex:1; padding:18px 18px 8px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;}
+.msg{max-width:80%; padding:11px 15px; border-radius:12px; font-size:14px; line-height:1.5;}
+.msg.bot{background:var(--card); border:1px solid var(--line); align-self:flex-start; border-bottom-left-radius:2px;}
+.msg.user{background:var(--navy); color:var(--white); align-self:flex-end; border-bottom-right-radius:2px;}
+.msg.typing{display:flex; gap:4px; align-items:center; padding:14px 16px;}
+.msg.typing span{width:6px; height:6px; background:var(--ink-soft); border-radius:50%; opacity:.4; animation:blink 1.2s infinite;}
+.msg.typing span:nth-child(2){animation-delay:.2s;}
+.msg.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+.chat-quick{display:flex; flex-wrap:wrap; gap:8px; padding:12px 18px 18px; border-top:1px solid var(--line);}
+.qbtn{
+  font-size:13px; padding:8px 13px; border:1px solid var(--line);
+  border-radius:20px; background:var(--card); cursor:pointer;
+  transition:border-color .2s, color .2s;
+}
+.qbtn:hover{border-color:var(--brass); color:var(--brass);}
+.qbtn:disabled{opacity:.35; cursor:default;}
+.qbtn.book{background:var(--brass); color:var(--navy-2); border-color:var(--brass); font-weight:600;}
+.qbtn.book:hover{color:var(--navy-2); border-color:var(--brass-light);}
+
+.chat-input-row{
+  display:flex; gap:8px; padding:14px 16px; border-top:1px solid var(--line); background:var(--paper);
+}
+.chat-input-row input{
+  flex:1; border:1px solid var(--line); border-radius:20px; padding:11px 16px;
+  font-family:'IBM Plex Sans', sans-serif; font-size:14px; background:var(--white); color:var(--ink);
+}
+.chat-input-row input:focus{outline:none; border-color:var(--brass);}
+.chat-send{
+  width:40px; height:40px; border-radius:50%; border:none; background:var(--navy); color:var(--white);
+  cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; flex:0 0 40px;
+  transition:background .2s;
+}
+.chat-send:hover{background:var(--navy-2);}
+.chat-send:disabled{opacity:.4; cursor:default;}
+.msg.error{background:#F6E3DF; border:1px solid var(--brick); color:var(--brick);}
+
+/* ---------- service detail modal ---------- */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(14,33,28,0.55);
+  display:none; align-items:center; justify-content:center; z-index:500;
+  padding:24px; backdrop-filter:blur(2px);
+}
+.modal-overlay.open{display:flex;}
+.modal-panel{
+  background:var(--paper); max-width:560px; width:100%; max-height:86vh; overflow-y:auto;
+  border-radius:8px; box-shadow:0 40px 90px -30px rgba(0,0,0,0.5);
+  padding:40px 40px 34px; position:relative;
+  animation:modalIn .35s var(--ease);
+}
+@keyframes modalIn{from{opacity:0; transform:translateY(14px) scale(.98);} to{opacity:1; transform:translateY(0) scale(1);}}
+.modal-close{
+  position:absolute; top:20px; right:20px; width:34px; height:34px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); cursor:pointer; font-size:16px;
+  display:flex; align-items:center; justify-content:center; transition:border-color .2s, color .2s;
+}
+.modal-close:hover{border-color:var(--brass); color:var(--brass);}
+.modal-tag{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--brass); letter-spacing:.05em; text-transform:uppercase; margin-bottom:10px; display:block;}
+.modal-panel h3{font-size:26px; margin-bottom:16px; padding-right:30px;}
+.modal-intro{color:var(--ink-soft); font-size:15.5px; margin-bottom:22px;}
+.modal-points{display:flex; flex-direction:column; gap:12px; margin-bottom:22px;}
+.modal-point{display:flex; gap:12px; align-items:flex-start; font-size:14.5px;}
+.modal-point .mp-check{
+  width:20px; height:20px; flex:0 0 20px; border-radius:50%; background:var(--navy); color:var(--white);
+  display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:2px;
+}
+.modal-note{
+  font-size:13.5px; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:18px; margin-bottom:24px;
+  font-style:italic;
+}
+.modal-cta{display:flex; gap:12px; flex-wrap:wrap;}
+.btn-brass{
+  background:var(--brass); color:var(--navy-2); font-weight:700;
+  border:1px solid var(--brass); border-radius:var(--radius); padding:13px 20px;
+  font-size:14px; cursor:pointer; transition:background .2s, transform .2s;
+  font-family:'IBM Plex Sans',sans-serif;
+}
+.btn-brass:hover{background:var(--brass-light); transform:translateY(-1px);}
+
+/* ---------- Anfrageformular Modal ---------- */
+.form-overlay{
+  position:fixed; inset:0; background:rgba(14,33,28,0.65);
+  display:none; align-items:center; justify-content:center; z-index:600;
+  padding:20px; backdrop-filter:blur(3px);
+}
+.form-overlay.open{display:flex;}
+.form-panel{
+  background:var(--paper); width:100%; max-width:640px; max-height:92vh; overflow-y:auto;
+  border-radius:8px; box-shadow:0 40px 90px -20px rgba(0,0,0,0.6);
+  padding:0; position:relative;
+  animation:modalIn .35s var(--ease);
+}
+.form-header{
+  background:var(--navy-2); color:var(--white); padding:28px 36px 24px;
+  border-bottom:2px solid var(--brass); position:sticky; top:0; z-index:2;
+}
+.form-header .fh-tag{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--brass-light);
+  letter-spacing:.07em; text-transform:uppercase; margin-bottom:8px; display:block;
+}
+.form-header h3{font-size:22px; color:var(--white); margin:0;}
+.form-close{
+  position:absolute; top:18px; right:18px; width:32px; height:32px; border-radius:50%;
+  border:1px solid rgba(252,252,249,0.2); background:rgba(255,255,255,0.07); cursor:pointer;
+  font-size:14px; color:var(--white); display:flex; align-items:center; justify-content:center;
+  transition:border-color .2s, background .2s;
+}
+.form-close:hover{border-color:var(--brass); background:rgba(192,151,62,0.2);}
+.form-body{padding:32px 36px 28px;}
+.form-section{margin-bottom:28px;}
+.form-section-title{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--brass); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  display:block;
+}
+.form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+.form-row.full{grid-template-columns:1fr;}
+@media(max-width:540px){.form-row{grid-template-columns:1fr;} .form-body{padding:24px 20px 20px;} .form-header{padding:22px 20px 18px;}}
+.form-group{display:flex; flex-direction:column; gap:5px;}
+.form-group label{font-size:12.5px; font-weight:600; color:var(--ink); letter-spacing:.01em;}
+.form-group label .req{color:var(--brass); margin-left:2px;}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  border:1px solid var(--line); border-radius:3px; padding:10px 13px;
+  font-family:'IBM Plex Sans',sans-serif; font-size:14px; color:var(--ink);
+  background:var(--white); transition:border-color .2s, box-shadow .2s;
+  width:100%;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  outline:none; border-color:var(--brass); box-shadow:0 0 0 3px rgba(192,151,62,0.12);
+}
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error{ border-color:var(--brick); }
+.form-group textarea{resize:vertical; min-height:80px;}
+.form-group select{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A564E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 13px center; padding-right:36px;}
+.form-checks{display:flex; flex-direction:column; gap:9px; margin-top:2px;}
+.form-check{display:flex; align-items:center; gap:10px; cursor:pointer; font-size:14px; color:var(--ink);}
+.form-check input[type=checkbox]{
+  width:17px; height:17px; border:1.5px solid var(--line); border-radius:3px; appearance:none;
+  background:var(--white); cursor:pointer; flex:0 0 17px; transition:background .15s, border-color .15s;
+  position:relative;
+}
+.form-check input[type=checkbox]:checked{background:var(--navy); border-color:var(--navy);}
+.form-check input[type=checkbox]:checked::after{content:'✓'; position:absolute; top:-1px; left:2px; color:white; font-size:12px; font-weight:700;}
+.form-check input[type=radio]{
+  width:17px; height:17px; border:1.5px solid var(--line); border-radius:50%; appearance:none;
+  background:var(--white); cursor:pointer; flex:0 0 17px; position:relative;
+}
+.form-check input[type=radio]:checked{border-color:var(--navy);}
+.form-check input[type=radio]:checked::after{content:''; position:absolute; top:3px; left:3px; width:7px; height:7px; border-radius:50%; background:var(--navy);}
+.form-note{font-size:12.5px; color:var(--ink-soft); font-style:italic; margin-top:4px;}
+.form-footer{
+  padding:20px 36px 28px; border-top:1px solid var(--line);
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:var(--paper);
+  position:sticky; bottom:0;
+}
+@media(max-width:540px){.form-footer{padding:16px 20px 20px;}}
+.form-submit{
+  background:var(--navy); color:var(--white); border:none; border-radius:3px;
+  padding:13px 28px; font-size:14.5px; font-weight:700; cursor:pointer;
+  font-family:'IBM Plex Sans',sans-serif; transition:background .2s, transform .2s;
+  display:flex; align-items:center; gap:8px;
+}
+.form-submit:hover{background:var(--navy-2); transform:translateY(-1px);}
+.form-submit:disabled{opacity:.5; cursor:not-allowed; transform:none;}
+.form-privacy{font-size:11.5px; color:var(--ink-soft); max-width:340px; line-height:1.5;}
+.form-success{
+  text-align:center; padding:56px 36px;
+}
+.form-success .fs-icon{font-size:48px; margin-bottom:16px;}
+.form-success h4{font-family:'Spectral',serif; font-size:24px; margin-bottom:10px; color:var(--navy);}
+.form-success p{color:var(--ink-soft); font-size:15px; max-width:38ch; margin:0 auto 24px;}
+.form-progress{height:3px; background:var(--line); margin:0 36px 24px;}
+.form-progress-bar{height:100%; background:var(--brass); border-radius:2px; transition:width .4s var(--ease);}
+.field-hint{font-size:12px; color:var(--ink-soft); margin-top:3px;}
+@media (max-width:600px){
+  .modal-panel{padding:30px 24px 26px;}
+}
+
+/* ---------- floating chat launcher ---------- */
+.chat-fab{
+  position:fixed; right:26px; bottom:26px; z-index:400;
+  display:flex; align-items:center; gap:10px;
+  background:var(--navy); color:var(--white);
+  border:none; border-radius:32px; padding:14px 20px 14px 16px;
+  box-shadow:0 16px 36px -14px rgba(15,30,25,0.5);
+  cursor:pointer; font-family:'IBM Plex Sans', sans-serif; font-size:14.5px; font-weight:600;
+  transition:transform .2s, background .2s;
+}
+.chat-fab:hover{transform:translateY(-2px); background:var(--navy-2);}
+.chat-fab .fab-dot{width:8px; height:8px; border-radius:50%; background:#4CAF7D; flex:0 0 8px;}
+.chat-fab .fab-icon{font-size:17px;}
+@media (max-width:600px){
+  .chat-fab span.fab-label{display:none;}
+  .chat-fab{padding:14px; border-radius:50%;}
+}
+
+/* ---------- trust / stats ---------- */
+.trust{border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+@media (max-width:760px){.trust-grid{grid-template-columns:repeat(2,1fr);}}
+.trust-cell{background:var(--paper); padding:34px 26px;}
+.trust-cell .tv{font-family:'Spectral',serif; font-size:34px; font-weight:600; color:var(--navy); margin-bottom:6px;}
+.trust-cell .tl{font-size:13px; color:var(--ink-soft);}
+
+/* ---------- final CTA ---------- */
+.final-cta{text-align:center; padding:110px 0;}
+.final-cta h2{font-size:clamp(30px,4vw,46px); margin-bottom:18px; max-width:18ch; margin-left:auto; margin-right:auto;}
+.final-cta p{color:var(--ink-soft); max-width:48ch; margin:0 auto 36px;}
+.final-cta .btn{margin:0 auto;}
+.final-ctas-row{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+
+/* ---------- footer ---------- */
+footer{background:var(--navy-2); color:rgba(252,252,249,0.7); padding:56px 0 30px;}
+.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:44px;}
+@media (max-width:760px){.footer-grid{grid-template-columns:1fr; gap:32px;}}
+footer .logo{color:var(--white);}
+.footer-brand p{font-size:14px; margin-top:14px; max-width:36ch; color:rgba(252,252,249,0.55);}
+footer h4{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:rgba(252,252,249,0.5); margin-bottom:16px; font-weight:500;}
+footer ul li{margin-bottom:11px; font-size:14.5px;}
+footer ul li a:hover{color:var(--brass-light);}
+.footer-bottom{border-top:1px solid var(--line-light); padding-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12.5px; color:rgba(252,252,249,0.45);}
+
+/* skip link / focus */
+a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <svg class="logo-mark" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <circle cx="18" cy="18" r="15.5" stroke="var(--teal)" stroke-width="2" stroke-dasharray="72 24" stroke-linecap="round"/>
+        <circle cx="18" cy="18" r="8" fill="var(--teal)" opacity=".12"/>
+        <circle cx="18" cy="18" r="4" fill="var(--teal)"/>
+      </svg>
+      <div>
+        <div class="logo-wordmark">cover<span class="tl">ly</span></div>
+        <span class="logo-kg">Versicherungsmakler · KG</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="#privat">Privat</a>
+      <a href="#betriebe">Betriebe</a>
+      <a href="#ablauf">Ablauf</a>
+      <a href="#agent">KI-Agent</a>
+      <div class="nav-divider"></div>
+      <span class="nav-badge"><span class="nb-dot"></span>§34d GewO</span>
+      <a href="#" class="nav-cta calendly-trigger">Termin sichern</a>
+    </nav>
+    <button class="burger" id="burgerBtn" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#privat">Für Privatpersonen</a>
+    <a href="#betriebe">Für Betriebe</a>
+    <a href="#ablauf">Ablauf</a>
+    <a href="#agent">KI-Agent</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#" class="calendly-trigger" id="mobileCta">Termin sichern →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Digitale Versicherungsberatung</span>
+      <h1 class="hero-title">Absicherung für <em>Privatpersonen</em> und <em>Betriebe</em>.</h1>
+      <p class="hero-sub">Coverly berät Privatpersonen und Unternehmen digital, unabhängig und auf Augenhöhe — von der ersten BU bis zum kompletten betrieblichen Absicherungskonzept.</p>
+      <div class="hero-ctas">
+        <a href="#privat" class="btn btn-primary">Ich bin Privatperson →</a>
+        <a href="#betriebe" class="btn btn-ghost">Ich bin Unternehmer:in →</a>
+      </div>
+      <div class="hero-trust">
+        <span><span class="dot"></span>Lizenziert nach §34d GewO</span>
+        <span><span class="dot"></span>Anbieterunabhängig</span>
+        <span><span class="dot"></span>Sitz Fürstenfeldbruck / München</span>
+      </div>
+    </div>
+    <div class="stack" aria-hidden="true">
+      <div class="policy-card pc1">
+        <div class="pc-top"><span class="pc-tag">BU Privat</span><span class="pc-check">✓</span></div>
+        <div class="pc-title">Berufsunfähigkeit</div>
+      </div>
+      <div class="policy-card pc2">
+        <div class="pc-top"><span class="pc-tag">bAV Betrieb</span><span class="pc-check">✓</span></div>
+        <div class="pc-title">Altersvorsorge</div>
+      </div>
+      <div class="policy-card pc3">
+        <div class="pc-top"><span class="pc-tag">PKV & Zusatz</span><span class="pc-check">✓</span></div>
+        <div class="pc-title">Krankenversicherung</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Audience Split -->
+<section class="audience-split" id="leistungen">
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:100%; margin-bottom:40px;">
+      <span class="eyebrow-line">Für wen beraten wir?</span>
+      <h2>Privat oder Betrieb — wir kennen beide Welten.</h2>
+      <p>Ob Sie Ihre eigene Arbeitskraft absichern wollen oder als Unternehmer Ihren Betrieb und Ihre Mitarbeitenden schützen möchten — Coverly begleitet Sie in beiden Bereichen.</p>
+    </div>
+    <div class="audience-cards reveal">
+      <a href="#privat" class="audience-card">
+        <div class="ac-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="10" r="5" stroke="var(--teal)" stroke-width="2"/><path d="M6 28c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ac-body">
+          <h3>Für Privatpersonen</h3>
+          <p>BU, PKV, Altersvorsorge, Risikoleben, Haftpflicht & Hausrat — Ihre persönliche Absicherung, unabhängig beraten.</p>
+          <div class="ac-tags"><span>BU</span><span>PKV</span><span>Altersvorsorge</span><span>Risikoleben</span><span>Hausrat</span></div>
+        </div>
+        <span class="ac-arrow">→</span>
+      </a>
+      <a href="#betriebe" class="audience-card">
+        <div class="ac-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="12" width="24" height="16" rx="2" stroke="var(--brass)" stroke-width="2"/><path d="M10 12V9a6 6 0 0112 0v3" stroke="var(--brass)" stroke-width="2" stroke-linecap="round"/><path d="M13 20h6M16 18v4" stroke="var(--brass)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ac-body">
+          <h3>Für Betriebe & Unternehmer</h3>
+          <p>bAV, bKV, GFV, Sachversicherungen — komplette betriebliche Absicherung aus einer Hand.</p>
+          <div class="ac-tags"><span>bAV</span><span>bKV</span><span>GFV</span><span>Sachversicherung</span><span>Cyber</span></div>
+        </div>
+        <span class="ac-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVAT SECTION -->
+<section class="services" id="privat">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow-line">Privatpersonen</span>
+      <h2>Ihre persönliche Absicherung.</h2>
+      <p>Von der Absicherung Ihrer Arbeitskraft bis zur privaten Altersvorsorge — wir vergleichen den Markt und empfehlen, was wirklich passt.</p>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-card" data-key="bu_privat" role="button" tabindex="0">
+        <span class="svc-num">P·1</span>
+        <h3>Berufsunfähigkeit (BU)</h3>
+        <p>Ihr wichtigstes Absicherungsinstrument — sichert Ihr Einkommen, wenn Sie krankheits- oder unfallbedingt nicht mehr arbeiten können.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="bu" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="pkv_privat" role="button" tabindex="0">
+        <span class="svc-num">P·2</span>
+        <h3>Private Krankenversicherung & Zusatz</h3>
+        <p>Vollständige PKV für Selbstständige und Beamte, oder gezielte Zusatztarife (Zahn, Krankenhaus) für gesetzlich Versicherte.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="pkv" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="altersvorsorge" role="button" tabindex="0">
+        <span class="svc-num">P·3</span>
+        <h3>Private Altersvorsorge</h3>
+        <p>Basisrente, Riester-Rente oder fondsgebundene ETF-Rente — wir finden die passende Lösung für Ihre Lebenssituation.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="altersvorsorge_privat" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="risikoleben" role="button" tabindex="0">
+        <span class="svc-num">P·4</span>
+        <h3>Risikolebensversicherung</h3>
+        <p>Günstige Absicherung für Ihre Familie oder Kreditpartner — zahlt im Todesfall eine festgelegte Summe aus.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="risikoleben" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="privat_sach" role="button" tabindex="0">
+        <span class="svc-num">P·5</span>
+        <h3>Haftpflicht, Hausrat & Kfz</h3>
+        <p>Private Haftpflicht, Hausratversicherung und Kfz-Schutz — die Basisabsicherung für jeden Privathaushalt.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="privat_sach" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="privat_individuell" role="button" tabindex="0">
+        <span class="svc-num">P·6</span>
+        <h3>Individuelle Beratung Privat</h3>
+        <p>Berufseinsteiger, junge Familien, Immobilienkäufer — wir analysieren Ihren persönlichen Bedarf und strukturieren ihn.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="individuell" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BETRIEBE SECTION -->
+<section class="services" id="betriebe">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow-line">Betriebe & Unternehmer</span>
+      <h2>Betriebliche Absicherung aus einer Hand.</h2>
+      <p>Von der Absicherung der Arbeitskraft bis zum Schutz des Betriebsvermögens — wir strukturieren jeden Bereich einzeln, denken ihn aber gemeinsam.</p>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-card" data-key="bu" role="button" tabindex="0">
+        <span class="svc-num">§1</span>
+        <h3>Berufsunfähigkeit (BU)</h3>
+        <p>Schutz des Einkommens von Inhaber:in und Schlüsselkräften, wenn die Arbeitskraft ausfällt.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="bu" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="pkv" role="button" tabindex="0">
+        <span class="svc-num">§2</span>
+        <h3>Private Krankenversicherung (PKV)</h3>
+        <p>Gesundheitsschutz für Selbstständige und Mitarbeitende, individuell zugeschnitten.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="pkv" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="gfv" role="button" tabindex="0">
+        <span class="svc-num">§3</span>
+        <h3>Geschäftsführer-Versicherung (GFV)</h3>
+        <p>Absicherung für Geschäftsführung und Führungskräfte im Unternehmen.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="gfv" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="basisrente" role="button" tabindex="0">
+        <span class="svc-num">§4</span>
+        <h3>Basisrente</h3>
+        <p>Steueroptimierte Altersvorsorge, besonders für Selbstständige und Freiberufler:innen.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="basisrente" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="bav" role="button" tabindex="0">
+        <span class="svc-num">§5</span>
+        <h3>Betriebliche Altersvorsorge</h3>
+        <p>Vorsorge als attraktiver Benefit, um Mitarbeitende zu gewinnen und zu halten.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="bav" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="bkv" role="button" tabindex="0">
+        <span class="svc-num">§6</span>
+        <h3>Betriebliche Krankenversicherung (bKV)</h3>
+        <p>Zusätzliche Gesundheitsleistungen für alle Mitarbeitenden, arbeitgeberfinanziert.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="bkv" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="sach" role="button" tabindex="0">
+        <span class="svc-num">§7</span>
+        <h3>Betriebliche Sachversicherungen</h3>
+        <p>Betriebshaftpflicht, Kfz-Flotte und Inhaltsversicherung — gebündelt in einem Paket.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="sach" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+      <div class="svc-card" data-key="individuell" role="button" tabindex="0">
+        <span class="svc-num">§8</span>
+        <h3>Individuelle Beratung</h3>
+        <p>Passt keiner der Bereiche genau? Wir stellen Ihre Absicherung nach Bedarf zusammen.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="individuell" type="button">Angebot anfordern</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Schließen">✕</button>
+    <span class="modal-tag" id="modalTag"></span>
+    <h3 id="modalTitle"></h3>
+    <p class="modal-intro" id="modalIntro"></p>
+    <div class="modal-points" id="modalPoints"></div>
+    <p class="modal-note" id="modalNote"></p>
+    <div class="modal-cta">
+      <a href="#" class="btn btn-primary calendly-trigger">Beratungstermin sichern →</a>
+      <button class="btn btn-brass" id="modalFormBtn" type="button">Angebot anfordern</button>
+      <button class="btn btn-ghost" id="modalAgentLink" type="button">Frage an den KI-Agenten</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ANFRAGEFORMULARE ═══ -->
+<div class="form-overlay" id="formOverlay" aria-hidden="true">
+  <div class="form-panel" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+    <div class="form-header">
+      <span class="fh-tag" id="formTag"></span>
+      <h3 id="formTitle"></h3>
+      <button class="form-close" id="formClose" aria-label="Schließen">✕</button>
+    </div>
+    <div class="form-progress"><div class="form-progress-bar" id="formProgress" style="width:0%"></div></div>
+    <div class="form-body" id="formBody"></div>
+    <div class="form-footer" id="formFooter">
+      <button class="form-submit" id="formSubmit" type="button">Anfrage absenden →</button>
+      <p class="form-privacy">Ihre Daten werden vertraulich behandelt und ausschließlich für die Angebotserstellung genutzt.</p>
+    </div>
+  </div>
+</div>
+
+<section id="ablauf">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow-line">Ablauf</span>
+      <h2>Vier Schritte bis zum Vertrag.</h2>
+      <p>Digital heißt bei uns nicht anonym — nur ohne unnötige Wege.</p>
+    </div>
+    <div class="process-list reveal">
+      <div class="process-item">
+        <span class="process-step mono">01</span>
+        <div><h3>Bedarfsanalyse online</h3><p>Kurzer Fragebogen oder 15-minütiger Video-Call — wir verschaffen uns einen Überblick über Ihren Betrieb.</p></div>
+      </div>
+      <div class="process-item">
+        <span class="process-step mono">02</span>
+        <div><h3>Vergleich & Empfehlung</h3><p>Wir prüfen den Markt statt nur einen Anbieter — Sie erhalten eine nachvollziehbare Empfehlung.</p></div>
+      </div>
+      <div class="process-item">
+        <span class="process-step mono">03</span>
+        <div><h3>Digitaler Abschluss</h3><p>Unterlagen, Prüfung und Unterschrift laufen vollständig online — ohne Papierstapel.</p></div>
+      </div>
+      <div class="process-item">
+        <span class="process-step mono">04</span>
+        <div><h3>Laufende Betreuung</h3><p>Ihr Vertrag wird regelmäßig geprüft und wächst mit Ihrem Unternehmen mit.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="agent" id="agent">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow-line">KI-Agent</span>
+      <h2>Für Privat & Betrieb — Fragen werden beantwortet, auch um 23 Uhr.</h2>
+      <p>Unser KI-Agent übernimmt die ersten Fragen und bucht direkt einen qualifizierten Termin — Sie sprechen nur noch mit Interessent:innen, die wirklich bereit sind.</p>
+    </div>
+    <div class="agent-grid">
+      <div class="agent-copy reveal">
+        <p>Der Assistent kennt alle Leistungsbereiche für Privatpersonen und Betriebe im Detail und beantwortet direkt Fragen dazu — bei allem, was darüber hinausgeht, verbindet er Sie lieber mit einem echten Beratungstermin, statt zu raten.</p>
+        <div class="agent-points">
+          <div class="agent-point">
+            <div class="ap-icon">24</div>
+            <div><strong>Immer erreichbar</strong>Auch außerhalb der Bürozeiten werden erste Fragen sofort beantwortet.</div>
+          </div>
+          <div class="agent-point">
+            <div class="ap-icon">→</div>
+            <div><strong>Direkt zum Termin</strong>Statt Kontaktformular: der Agent bucht den Beratungstermin gleich mit.</div>
+          </div>
+          <div class="agent-point">
+            <div class="ap-icon">✓</div>
+            <div><strong>Qualifizierte Anfragen</strong>Nur wer wirklich Bedarf hat, landet im Kalender — das spart Ihnen Zeit.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="chatcard">
+          <div class="chat-header">
+            <span class="bot-dot"></span>
+            <div>
+              <div class="ch-title">Coverly Assistent</div>
+              <div class="ch-sub">Themenspezialist · Versicherung & Vorsorge</div>
+            </div>
+          </div>
+          <div class="chat-body" id="chatBody">
+            <div class="msg bot">Hallo! Ich bin der Coverly-Assistent — für Privatpersonen und Betriebe. Stellen Sie mir Ihre Frage zu Versicherungen, Altersvorsorge oder unserem Beratungsablauf.</div>
+          </div>
+          <div class="chat-quick" id="chatQuick">
+            <button class="qbtn" data-q="Was ist eine Berufsunfähigkeitsversicherung?">BU erklären</button>
+            <button class="qbtn" data-q="Welche Versicherungen brauche ich als Privatperson?">Privat absichern</button>
+            <button class="qbtn" data-q="Was ist die betriebliche Altersvorsorge?">bAV für Betriebe</button>
+            <button class="qbtn book" data-q="Ich möchte einen Beratungstermin vereinbaren.">Termin sichern</button>
+          </div>
+          <div class="chat-input-row" id="chatForm">
+            <input type="text" id="chatInput" placeholder="Ihre Frage eingeben…" autocomplete="off" aria-label="Nachricht an den Coverly Assistenten">
+            <button type="button" class="chat-send" id="chatSend" aria-label="Senden">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-grid reveal">
+      <div class="trust-cell"><div class="tv">§34d</div><div class="tl">Lizenzierter Versicherungsmakler nach GewO</div></div>
+      <div class="trust-cell"><div class="tv">2-in-1</div><div class="tl">Beratung für Privatpersonen & Betriebe</div></div>
+      <div class="trust-cell"><div class="tv">14+</div><div class="tl">Abgedeckte Versicherungsbereiche</div></div>
+      <div class="trust-cell"><div class="tv">0€</div><div class="tl">Kosten für die Erstberatung</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="kontakt">
+  <div class="wrap reveal">
+    <h2>Privat oder Betrieb — starten Sie jetzt.</h2>
+    <p>Buchen Sie ein kostenloses Erstgespräch, ganz gleich ob Sie sich privat absichern oder Ihren Betrieb schützen möchten.</p>
+    <div class="final-ctas-row">
+      <a href="#" class="btn btn-primary calendly-trigger">Kostenlosen Termin sichern →</a>
+      <a href="#agent" class="btn btn-ghost">Zum KI-Agenten</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="margin-bottom:14px; display:inline-flex;">
+          <svg class="logo-mark" width="32" height="32" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <circle cx="18" cy="18" r="15.5" stroke="var(--teal)" stroke-width="2" stroke-dasharray="72 24" stroke-linecap="round"/>
+            <circle cx="18" cy="18" r="8" fill="var(--teal)" opacity=".12"/>
+            <circle cx="18" cy="18" r="4" fill="var(--teal)"/>
+          </svg>
+          <div>
+            <div class="logo-wordmark" style="font-size:20px;">cover<span class="tl">ly</span></div>
+            <span class="logo-kg">Versicherungsmakler · KG</span>
+          </div>
+        </a>
+        <p>Digitale Versicherungsberatung für kleine und mittelständische Betriebe. Unabhängig, persönlich, papierlos.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#privat">Für Privatpersonen</a></li>
+          <li><a href="#betriebe">Für Betriebe</a></li>
+          <li><a href="#ablauf">Ablauf</a></li>
+          <li><a href="#agent">KI-Agent</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li>Coverly KG</li>
+          <li>Fürstenfeldbruck bei München</li>
+          <li><a href="#" class="calendly-trigger">Termin online buchen</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Coverly KG</span>
+      <span>Impressum · Datenschutz</span>
+    </div>
+  </div>
+</footer>
+
+<button class="chat-fab" id="chatFab">
+  <span class="fab-dot"></span>
+  <span class="fab-icon">💬</span>
+  <span class="fab-label">Frage an den Assistenten</span>
+</button>
+
+<script>
+// mobile menu
+const burger = document.getElementById('burgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  burger.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  burger.classList.remove('open');
+}));
+
+// scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+}, {threshold:0.15});
+revealEls.forEach(el => io.observe(el));
+
+// Calendly placeholder — replace CALENDLY_URL with the real scheduling link
+const CALENDLY_URL = "https://calendly.com/mail-coverly-kg/30min";
+document.querySelectorAll('.calendly-trigger').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (CALENDLY_URL === "#") {
+      alert("Platzhalter: Hier wird später der Calendly-Link verlinkt.");
+    } else {
+      window.open(CALENDLY_URL, '_blank');
+    }
+  });
+});
+
+// scroll-spy: aktiver Nav-Link
+const sections = ['privat','betriebe','ablauf','agent','kontakt'].map(id => document.getElementById(id)).filter(Boolean);
+const navAs = document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY + 100;
+  let current = '';
+  sections.forEach(s => { if(s.offsetTop <= y) current = s.id; });
+  navAs.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, {passive:true});
+const serviceDetails = {
+  bu_privat: {
+    tag: 'P·1 · Berufsunfähigkeit (Privat)',
+    title: 'Berufsunfähigkeitsversicherung',
+    intro: 'Die BU ist die wichtigste Privatversicherung überhaupt — sie sichert Ihr Einkommen ab, wenn Sie aus gesundheitlichen Gründen Ihren Beruf nicht mehr ausüben können.',
+    points: [
+      'Leistet ab 50 % Berufsunfähigkeit — unabhängig ob Krankheit, Unfall oder psychische Erkrankung',
+      'Besonders wichtig für Berufseinsteiger: je früher abgeschlossen, desto günstiger der Beitrag',
+      'Achten Sie auf Verzicht abstrakte Verweisung und Nachversicherungsgarantie',
+      'Selbstständige ohne gesetzliche Absicherung brauchen sie dringend',
+      'Kombination mit Basisrente oder Risikoleben spart Kosten'
+    ],
+    note: 'Rund 30 % aller BU-Fälle gehen auf psychische Erkrankungen zurück — der Schutz ist wichtiger denn je.'
+  },
+  pkv_privat: {
+    tag: 'P·2 · Krankenversicherung & Zusatz',
+    title: 'PKV & Kranken-Zusatzversicherungen',
+    intro: 'Ob vollständige PKV oder gezielte Zusatztarife — wir finden die passende Lösung für Ihre Situation, egal ob Sie gesetzlich oder privat versichert sind.',
+    points: [
+      'PKV: für Selbstständige, Beamte und gut verdienende Angestellte (ab ~66.000 € Jahresgehalt)',
+      'Zahnzusatz: Implantate und Zahnersatz bis 100 % Erstattung',
+      'Krankenhauszusatz: Chefarzt und Einzelzimmer für GKV-Versicherte',
+      'Heilpraktiker-Zusatz: ergänzende Leistungen ohne PKV-Wechsel',
+      'Auslandsreise-Krankenversicherung: weltweit abgesichert'
+    ],
+    note: 'Auch als GKV-Mitglied können Sie gezielt einzelne Leistungslücken mit günstigen Zusatztarifen schließen.'
+  },
+  altersvorsorge: {
+    tag: 'P·3 · Private Altersvorsorge',
+    title: 'Private Altersvorsorge',
+    intro: 'Die gesetzliche Rente allein reicht für die meisten nicht aus. Wir helfen Ihnen, die passende private Altersvorsorge zu finden — steuerlich optimiert und renditeorientiert.',
+    points: [
+      'Basisrente (Rürup): ideal für Selbstständige, hohe Steuerersparnis, lebenslange Rente',
+      'Riester-Rente: staatliche Förderung besonders attraktiv für Familien und niedrige Einkommen',
+      'Fondsgebundene ETF-Rente: höhere Renditechancen, flexibler als klassische Rentenversicherung',
+      'Direktanlage ETF-Depot: maximale Flexibilität und Transparenz ohne Versicherungsmantel',
+      'Kombination mehrerer Schichten ist oft die klügste Lösung'
+    ],
+    note: 'Die Rentenlücke wächst — je früher Sie vorsorgen, desto mehr Kapital bauen Sie durch den Zinseszinseffekt auf.'
+  },
+  risikoleben: {
+    tag: 'P·4 · Risikolebensversicherung',
+    title: 'Risikolebensversicherung',
+    intro: 'Eine Risikolebensversicherung schützt Ihre Familie oder Kreditpartner finanziell, wenn Sie unerwartet sterben. Sie ist günstig, klar und unverzichtbar für Menschen mit Angehörigen oder Verbindlichkeiten.',
+    points: [
+      'Zahlt eine vereinbarte Summe im Todesfall — keine Sparkomponente, daher günstig',
+      'Ideal zur Absicherung eines Immobilienkredits (annuitätisch fallende Summe)',
+      'Schützt Familien mit Kindern vor dem Wegfall des Hauptverdieners',
+      'Auch als gegenseitige Absicherung für Geschäftspartner nutzbar',
+      'Laufzeit frei wählbar — meist 10 bis 30 Jahre'
+    ],
+    note: 'Junge, gesunde Personen zahlen sehr geringe Beiträge — der beste Zeitpunkt ist jetzt.'
+  },
+  privat_sach: {
+    tag: 'P·5 · Haftpflicht, Hausrat & Kfz',
+    title: 'Private Sachversicherungen',
+    intro: 'Haftpflicht, Hausrat und Kfz sind die drei Grundpfeiler der privaten Absicherung. Ohne Haftpflichtversicherung riskieren Sie im Schadensfall Ihr gesamtes Vermögen.',
+    points: [
+      'Privathaftpflicht: schützt vor Ansprüchen Dritter — z. B. wenn Sie jemanden verletzen oder Sachschäden verursachen',
+      'Hausratversicherung: schützt Ihr Inventar bei Einbruch, Feuer, Leitungswasser und Sturm',
+      'Kfz-Versicherung: Haftpflicht, Teilkasko und Vollkasko — wir vergleichen Anbieter und finden den besten Tarif',
+      'Zusatzbaustein: Glasbruch, Fahrraddiebstahl, Elementarschäden (Überschwemmung)',
+      'Bündelrabatt: Haftpflicht und Hausrat beim gleichen Anbieter oft günstiger'
+    ],
+    note: 'Die Privathaftpflicht ist mit wenigen Euro im Monat eine der günstigsten und wichtigsten Versicherungen überhaupt.'
+  },
+  privat_individuell: {
+    tag: 'P·6 · Individuelle Beratung',
+    title: 'Persönliche Beratung für Privatpersonen',
+    intro: 'Egal ob Berufseinsteiger, Familiengründung, Immobilienkauf oder Vorruhestand — wir analysieren Ihre Situation und bringen Ordnung in Ihre Absicherung.',
+    points: [
+      'Berufseinsteiger: Welche Versicherungen sind wirklich wichtig, welche kann ich weglassen?',
+      'Junge Familien: BU, Risikoleben und Altersvorsorge clever kombinieren',
+      'Immobilienkauf: Risikoleben für den Kredit, Gebäude- und Hausratschutz',
+      'Analyse bestehender Verträge: Lücken und Doppelversicherungen aufdecken',
+      'Überblick ohne Fachchinesisch — auf Augenhöhe erklärt'
+    ],
+    note: 'Das Erstgespräch ist kostenlos und unverbindlich — egal wie komplex Ihre Situation ist.'
+  },
+
+  bu: {
+    tag: '§1 · Berufsunfähigkeit (BU)',
+    title: 'Berufsunfähigkeitsversicherung',
+    intro: 'Die BU sichert Ihr Einkommen ab, wenn Sie Ihren zuletzt ausgeübten Beruf krankheits- oder unfallbedingt dauerhaft nicht mehr ausüben können.',
+    points: [
+      'Leistung meist ab 50 % Berufsunfähigkeit, unabhängig von der Ursache',
+      'Für Selbstständige und Geschäftsführer besonders wichtig — die gesetzliche Rente greift hier kaum',
+      'Auf Verzicht der abstrakten Verweisung achten, damit kein anderer Beruf zugemutet wird',
+      'Nachversicherungsgarantie erlaubt spätere Erhöhung ohne neue Gesundheitsprüfung',
+      'Beitrag hängt von Beruf, Gesundheitszustand und Eintrittsalter ab'
+    ],
+    note: 'Je früher abgeschlossen, desto günstiger der Beitrag und desto unkomplizierter meist die Gesundheitsprüfung.'
+  },
+  pkv: {
+    tag: '§2 · Private Krankenversicherung (PKV)',
+    title: 'Private Krankenversicherung',
+    intro: 'Die PKV bietet individuell zusammengestellte Gesundheitsleistungen — relevant für Selbstständige, Geschäftsführer:innen und gut verdienende Angestellte.',
+    points: [
+      'Leistungen frei wählbar: Chefarztbehandlung, Einzelzimmer, Zahnersatz und mehr',
+      'Beitrag richtet sich nach Alter und Gesundheit bei Eintritt, nicht nach Einkommen',
+      'Bildung von Alterungsrückstellungen dämpft Beitragsanstieg im Alter',
+      'Rückkehr in die gesetzliche Krankenversicherung ist später meist nur eingeschränkt möglich',
+      'Für Angestellte erst ab einer Einkommensgrenze bzw. bei Selbstständigkeit zugänglich'
+    ],
+    note: 'Die Entscheidung für die PKV sollte gut durchdacht sein — wir prüfen mit Ihnen, ob sie zu Ihrer Lebensplanung passt.'
+  },
+  gfv: {
+    tag: '§3 · Geschäftsführer-Versicherung (GFV)',
+    title: 'Geschäftsführer-Versicherung',
+    intro: 'Geschäftsführer:innen tragen persönliche Haftungs- und Vorsorgerisiken, die durch die Firma allein nicht automatisch abgedeckt sind.',
+    points: [
+      'D&O-Versicherung schützt das persönliche Vermögen bei Haftungsansprüchen gegen die Geschäftsführung',
+      'Rückdeckungsversicherung finanziert betriebliche Pensionszusagen an die Geschäftsführung ab',
+      'Absicherung von Berufsunfähigkeit und Alter oft nicht über die gesetzliche Rente möglich',
+      'Besonders relevant für GmbH-Geschäftsführer:innen ohne eigene Sozialversicherungspflicht',
+      'Lässt sich mit betrieblicher Altersvorsorge und BU kombinieren'
+    ],
+    note: 'Wir prüfen, welche Kombination aus Haftungs- und Vorsorgeschutz zu Ihrer Position im Unternehmen passt.'
+  },
+  basisrente: {
+    tag: '§4 · Basisrente (Rürup-Rente)',
+    title: 'Basisrente',
+    intro: 'Die Basisrente ist eine steuerlich geförderte Altersvorsorge, besonders für Selbstständige und Freiberufler:innen ohne gesetzliche Rentenversicherung.',
+    points: [
+      'Beiträge sind steuerlich absetzbar, aktuell nahezu vollständig als Sonderausgabe',
+      'Auszahlung ausschließlich als lebenslange monatliche Rente, kein Kapitalwahlrecht',
+      'Vertrag ist nicht vererbbar, nicht übertragbar und nicht beleihbar',
+      'Frühestens ab 62 Jahren auszahlbar',
+      'Sinnvolle Ergänzung, wenn keine gesetzliche Rente eingezahlt wird'
+    ],
+    note: 'Besonders für Selbstständige mit hoher Steuerlast eine der effizientesten Formen der Altersvorsorge.'
+  },
+  bav: {
+    tag: '§5 · Betriebliche Altersvorsorge (bAV)',
+    title: 'Betriebliche Altersvorsorge',
+    intro: 'Die bAV ermöglicht Mitarbeitenden, über den Arbeitgeber fürs Alter vorzusorgen — steuer- und sozialversicherungsbegünstigt.',
+    points: [
+      'Entgeltumwandlung: ein Teil des Bruttogehalts fließt direkt in die Vorsorge',
+      'Arbeitgeberzuschuss von mindestens 15 % ist gesetzlich vorgeschrieben',
+      'Fünf Durchführungswege, u. a. Direktversicherung, Pensionskasse und Pensionsfonds',
+      'Beiträge bis zu einer Grenze steuer- und sozialversicherungsfrei',
+      'Starkes Argument im Wettbewerb um Mitarbeitende'
+    ],
+    note: 'Wir übernehmen für Betriebe die komplette Einrichtung — von der Auswahl des Durchführungswegs bis zur Kommunikation an die Belegschaft.'
+  },
+  bkv: {
+    tag: '§6 · Betriebliche Krankenversicherung (bKV)',
+    title: 'Betriebliche Krankenversicherung',
+    intro: 'Die bKV ist eine arbeitgeberfinanzierte Zusatzversicherung, die allen Mitarbeitenden zusätzliche Gesundheitsleistungen bietet — unabhängig davon, ob sie gesetzlich oder privat krankenversichert sind.',
+    points: [
+      'Ergänzt die gesetzliche Krankenversicherung um Leistungen wie Zahnersatz, Vorsorge oder Sehhilfen',
+      'Meist ohne individuelle Gesundheitsprüfung, da der Arbeitgeber die ganze Belegschaft versichert',
+      'Beiträge bis zu einem monatlichen Freibetrag pro Mitarbeitendem steuer- und sozialversicherungsfrei',
+      'Kostengünstiges Instrument zur Mitarbeitergewinnung und -bindung',
+      'Auch gesetzlich Versicherte profitieren spürbar von privaten Zusatzleistungen'
+    ],
+    note: 'Ein oft unterschätzter Baustein, um sich als Arbeitgeber im Wettbewerb um Fachkräfte abzuheben.'
+  },
+  sach: {
+    tag: '§7 · Betriebliche Sachversicherungen',
+    title: 'Betriebliche Sachversicherungen',
+    intro: 'Neben der Absicherung von Personen braucht jeder Betrieb Schutz für Haftung, Fuhrpark und Vermögenswerte — wir bündeln das in einem Vertragspaket.',
+    points: [
+      'Betriebshaftpflicht: schützt vor Schadenersatzansprüchen Dritter aus der Geschäftstätigkeit',
+      'Kfz-Versicherung für Firmenwagen und Fuhrpark, auch als Flottenlösung',
+      'Inhaltsversicherung: schützt Geschäftsausstattung, Waren und technische Geräte',
+      'Erweiterbar um Betriebsunterbrechung, Gebäude- und Cyberversicherung',
+      'Ein Ansprechpartner für alle Sachversicherungen statt mehrerer Einzelverträge bei verschiedenen Anbietern'
+    ],
+    note: 'Wir prüfen bestehende Policen zuerst auf Lücken und Doppelversicherung, bevor wir etwas Neues empfehlen.'
+  },
+  altersvorsorge_privat: {
+    tag: 'P·3 · Private Altersvorsorge',
+    title: 'Angebot Altersvorsorge anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
+        { id:'status', label:'Berufsstand', type:'select', req:true, half:true, options:['Angestellt','Selbstständig / Freiberufler:in','Beamter / Beamtin','Geschäftsführer:in','In Ausbildung / Studium'] },
+      ]},
+      { title: 'Einkommen & Steuern', fields: [
+        { id:'einkommen', label:'Jahres-Nettoeinkommen', type:'select', req:true, half:true, options:['unter 20.000 €','20.000 – 35.000 €','35.000 – 55.000 €','55.000 – 80.000 €','über 80.000 €'] },
+        { id:'steuerklasse', label:'Steuerklasse', type:'select', req:false, half:true, options:['I','II','III','IV','V','Selbstständig (keine)'] },
+        { id:'gesetzliche_rente', label:'Zahlen Sie in die gesetzliche Rente ein?', type:'select', req:true, half:true, options:['Ja','Nein (Selbstständig)','Teilweise'] },
+      ]},
+      { title: 'Vorsorgewunsch', fields: [
+        { id:'produkt', label:'Interessante Vorsorgeformen', type:'checks', req:false, options:['Basisrente / Rürup (steueroptimiert)','Riester-Rente (staatlich gefördert)','Fondsgebundene Rentenversicherung (ETF)','Klassische Rentenversicherung (Garantie)','Alles prüfen lassen'] },
+        { id:'beitrag', label:'Gewünschter Monatsbeitrag', type:'select', req:false, half:true, options:['50 – 100 €','100 – 200 €','200 – 400 €','400 – 700 €','über 700 €','Noch unklar'] },
+        { id:'renteneintritt', label:'Gewünschtes Renteneintrittsalter', type:'select', req:false, half:true, options:['60 Jahre','62 Jahre','65 Jahre','67 Jahre','Flexibel'] },
+        { id:'bu_zusatz', label:'BU-Zusatzschutz interessant?', type:'select', req:false, half:true, options:['Ja','Nein','Bitte empfehlen'] },
+      ]},
+      { title: 'Bestehende Vorsorge', fields: [
+        { id:'bestand', label:'Bereits Altersvorsorge vorhanden?', type:'select', req:false, half:true, options:['Nein','Ja – soll ergänzt werden','Ja – soll analysiert werden'] },
+        { id:'anmerkung', label:'Sonstige Angaben', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
+  risikoleben: {
+    tag: 'P·4 · Risikolebensversicherung',
+    title: 'Angebot Risikoleben anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
+        { id:'raucher', label:'Raucherstatus', type:'select', req:true, half:true, options:['Nichtraucher:in','Ex-Raucher:in (mind. 12 Monate)','Raucher:in'] },
+      ]},
+      { title: 'Gewünschter Schutz', fields: [
+        { id:'versicherungssumme', label:'Gewünschte Versicherungssumme', type:'select', req:true, half:true, options:['bis 100.000 €','100.000 – 200.000 €','200.000 – 350.000 €','350.000 – 500.000 €','über 500.000 €'] },
+        { id:'laufzeit', label:'Gewünschte Laufzeit', type:'select', req:true, half:true, options:['10 Jahre','15 Jahre','20 Jahre','25 Jahre','30 Jahre','bis Renteneintritt'] },
+        { id:'anlass', label:'Anlass der Absicherung', type:'select', req:false, half:true, options:['Familie / Kinder absichern','Immobilienkredit absichern','Geschäftspartner absichern','Allgemeine Vorsorge'] },
+        { id:'verlauf', label:'Versicherungssumme', type:'select', req:false, half:true, options:['Konstant (gleichbleibend)','Fallend (für Kredit)','Annuitätisch fallend','Ansteigende Summe'] },
+        { id:'vorerkrankung', label:'Relevante Vorerkrankungen?', type:'select', req:true, half:false, options:['Nein','Leichte (z. B. Rücken, Allergie)','Ja, schwerwiegendere'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Angaben', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
+  privat_sach: {
+    tag: 'P·5 · Haftpflicht, Hausrat & Kfz',
+    title: 'Angebot private Sachversicherungen',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'plz', label:'Postleitzahl', type:'text', req:false, half:true },
+        { id:'familienstand', label:'Haushalt', type:'select', req:true, half:true, options:['Einpersonenhaushalt','Paar ohne Kinder','Familie mit Kindern','Wohngemeinschaft'] },
+      ]},
+      { title: 'Gewünschte Versicherungen', fields: [
+        { id:'versicherungen', label:'Was soll abgesichert werden?', type:'checks', req:true, options:['Privathaftpflicht','Hausratversicherung','Kfz-Versicherung','Gebäudeversicherung (Eigentümer)','Fahrraddiebstahl','Glasbruchversicherung','Reisegepäck & Reiseabbruch'] },
+      ]},
+      { title: 'Details', fields: [
+        { id:'wohnflaeche', label:'Wohnfläche (für Hausrat)', type:'select', req:false, half:true, options:['unter 50 m²','50 – 80 m²','80 – 120 m²','120 – 180 m²','über 180 m²'] },
+        { id:'kfz_anzahl', label:'Anzahl Kfz', type:'select', req:false, half:true, options:['0','1','2','3 oder mehr'] },
+        { id:'bestand', label:'Bestehende Verträge vorhanden?', type:'select', req:false, half:true, options:['Nein','Ja – sollen geprüft werden','Ja – sollen gewechselt werden'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Angaben', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
+  individuell: {
+    tag: '§8 · Individuelle Beratung',
+    title: 'Individuelle Beratung',
+    intro: 'Nicht jeder Bedarf lässt sich in eine feste Kategorie einordnen — deshalb hören wir uns Ihre Situation zuerst genau an.',
+    points: [
+      'Analyse der bestehenden Verträge und Versorgungslücken im Betrieb',
+      'Kombination mehrerer Bausteine, wenn ein einzelner Bereich nicht ausreicht',
+      'Unabhängiger Marktvergleich statt Empfehlung eines einzelnen Anbieters',
+      'Geeignet auch für Sonderfälle wie Nachfolgeregelungen oder mehrere Gesellschafter:innen'
+    ],
+    note: 'Am schnellsten klären wir das in einem kurzen, kostenlosen Gespräch.'
+  }
+};
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalTag = document.getElementById('modalTag');
+const modalTitle = document.getElementById('modalTitle');
+const modalIntro = document.getElementById('modalIntro');
+const modalPoints = document.getElementById('modalPoints');
+const modalNote = document.getElementById('modalNote');
+const modalClose = document.getElementById('modalClose');
+let lastFocusedCard = null;
+
+function openModal(key){
+  currentDetailKey = key;
+  const d = serviceDetails[key];
+  if(!d) return;
+  modalTag.textContent = d.tag;
+  modalTitle.textContent = d.title;
+  modalIntro.textContent = d.intro;
+  modalNote.textContent = d.note;
+  modalPoints.innerHTML = '';
+  d.points.forEach(p => {
+    const row = document.createElement('div');
+    row.className = 'modal-point';
+    row.innerHTML = '<span class="mp-check">✓</span><span></span>';
+    row.querySelector('span:last-child').textContent = p;
+    modalPoints.appendChild(row);
+  });
+  modalOverlay.classList.add('open');
+  modalOverlay.setAttribute('aria-hidden', 'false');
+  modalClose.focus();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  modalOverlay.classList.remove('open');
+  modalOverlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if(lastFocusedCard) lastFocusedCard.focus();
+}
+
+document.querySelectorAll('.svc-card').forEach(card => {
+  card.addEventListener('click', () => { lastFocusedCard = card; openModal(card.dataset.key); });
+  card.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      lastFocusedCard = card;
+      openModal(card.dataset.key);
+    }
+  });
+});
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal(); });
+
+// ═══════════════════════════════════════════════
+//  ANFRAGEFORMULARE — 8 Themenbereiche
+// ═══════════════════════════════════════════════
+const FORMS = {
+  bu: {
+    tag: '§1 · Berufsunfähigkeit',
+    title: 'Angebot BU-Versicherung anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
+        { id:'status', label:'Beschäftigungsstatus', type:'select', req:true, half:true, options:['Angestellt','Selbstständig','Freiberufler:in','Beamter / Beamtin','Geschäftsführer:in'] },
+      ]},
+      { title: 'Beruf & Einkommen', fields: [
+        { id:'beruf', label:'Berufsbezeichnung', type:'text', req:true, half:false, hint:'z. B. Softwareentwickler, Elektroinstallateur, Arzt' },
+        { id:'tätigkeit', label:'Art der Tätigkeit', type:'select', req:true, half:true, options:['Rein kaufmännisch / büro','Überwiegend büro, gelegentlich körperlich','Körperlich / handwerklich','Lehrend / beratend','Medizinisch / pflegend'] },
+        { id:'einkommen', label:'Jahres-Nettoeinkommen (ca.)', type:'select', req:true, half:true, options:['unter 25.000 €','25.000 – 40.000 €','40.000 – 60.000 €','60.000 – 80.000 €','80.000 – 100.000 €','über 100.000 €'] },
+      ]},
+      { title: 'Gewünschter Schutz', fields: [
+        { id:'rente', label:'Gewünschte monatliche BU-Rente', type:'select', req:true, half:true, options:['500 – 1.000 €','1.000 – 1.500 €','1.500 – 2.000 €','2.000 – 2.500 €','2.500 – 3.000 €','über 3.000 €'] },
+        { id:'laufzeit', label:'Laufzeit bis Alter', type:'select', req:true, half:true, options:['60 Jahre','62 Jahre','63 Jahre','65 Jahre','67 Jahre'] },
+        { id:'raucher', label:'Raucherstatus', type:'select', req:true, half:true, options:['Nichtraucher:in','Ex-Raucher:in (mind. 12 Monate)','Raucher:in'] },
+        { id:'vorerkrankung', label:'Relevante Vorerkrankungen vorhanden?', type:'select', req:true, half:true, options:['Nein','Ja, leichte (z. B. Rücken)','Ja, schwerwiegendere'] },
+        { id:'extras', label:'Zusatzwünsche', type:'checks', req:false, options:['Nachversicherungsgarantie','BU-Rentendynamik im Leistungsfall','Kombination mit Basisrente / Rürup','Beitragsrückgewähr'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Informationen / Fragen', type:'textarea', req:false, half:false, hint:'Besondere Berufsrisiken, geplante Veränderungen etc.' },
+      ]},
+    ]
+  },
+
+  pkv: {
+    tag: '§2 · Private Krankenversicherung',
+    title: 'Angebot PKV anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
+        { id:'status', label:'Beschäftigungsstatus', type:'select', req:true, half:true, options:['Angestellt','Selbstständig / Freiberufler:in','Beamter / Beamtin','Geschäftsführer:in (GmbH)'] },
+      ]},
+      { title: 'Einkommen & aktuelle Versicherung', fields: [
+        { id:'bruttogehalt', label:'Jahresbruttogehalt / -einkommen', type:'select', req:true, half:true, options:['unter 50.000 €','50.000 – 66.000 €','66.000 – 80.000 €','80.000 – 100.000 €','100.000 – 150.000 €','über 150.000 €'] },
+        { id:'aktuelle_kv', label:'Aktuelle Krankenversicherung', type:'select', req:true, half:true, options:['Gesetzlich (GKV)','Bereits privat (PKV)','Freiwillig gesetzlich'] },
+        { id:'gkv_beitrag', label:'Aktueller GKV-Monatsbeitrag (falls GKV)', type:'text', req:false, half:true, hint:'z. B. 420 €' },
+        { id:'beihilfe', label:'Beihilfeberechtigt (Beamte)?', type:'select', req:false, half:true, options:['Nein','Ja – 50 %','Ja – 70 %','Ja – 80 %'] },
+      ]},
+      { title: 'Familie', fields: [
+        { id:'familienstand', label:'Familienstand', type:'select', req:true, half:true, options:['Ledig','Verheiratet / Partnerschaft','Getrennt / Geschieden'] },
+        { id:'partner_kv', label:'Partner:in mitversichern?', type:'select', req:false, half:true, options:['Nein','Ja, eigenem Beitrag','Ja, bitte prüfen'] },
+        { id:'kinder', label:'Anzahl Kinder (ggf. mitzuversichern)', type:'select', req:false, half:true, options:['0','1','2','3','4 oder mehr'] },
+      ]},
+      { title: 'Gewünschte Leistungen', fields: [
+        { id:'leistungen', label:'Wichtige Leistungsbausteine', type:'checks', req:false, options:['Chefarztbehandlung','Einbettzimmer im Krankenhaus','Erweiterter Zahnersatz (> 80 %)','Implantate','Kieferorthopädie','Auslandsreiseschutz','Krankentagegeld','Heilpraktiker / alternative Medizin'] },
+        { id:'vorerkrankung', label:'Vorerkrankungen bekannt?', type:'select', req:true, half:true, options:['Nein','Leichte (z. B. Allergie, Rücken)','Ja, schwerwiegendere','Lieber anonym vorab anfragen'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Informationen / Fragen', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
+  gfv: {
+    tag: '§3 · Geschäftsführer-Versicherung',
+    title: 'Angebot GFV anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
+        { id:'position', label:'Position / Funktion', type:'text', req:true, half:true, hint:'z. B. Geschäftsführer, Alleininhaber' },
+      ]},
+      { title: 'Unternehmen', fields: [
+        { id:'firma', label:'Firmenname', type:'text', req:true, half:true },
+        { id:'rechtsform', label:'Rechtsform', type:'select', req:true, half:true, options:['GmbH','UG','AG','GmbH & Co. KG','OHG / KG','Einzelunternehmen','Freiberufler:in'] },
+        { id:'mitarbeiter', label:'Mitarbeiterzahl', type:'select', req:false, half:true, options:['1 (Alleininhaber)','2 – 5','6 – 20','21 – 50','über 50'] },
+        { id:'umsatz', label:'Jahresumsatz (ca.)', type:'select', req:false, half:true, options:['unter 250.000 €','250.000 – 1 Mio. €','1 – 5 Mio. €','über 5 Mio. €'] },
+      ]},
+      { title: 'Gesellschaftsstruktur & Vergütung', fields: [
+        { id:'anteil', label:'Gesellschaftsanteil (%)', type:'select', req:true, half:true, options:['0 % (Fremdgeschäftsführer)','< 25 %','25 – 50 %','> 50 %','100 % (Alleingesellschafter)'] },
+        { id:'vergütung', label:'Jahresvergütung gesamt (Gehalt + Tantiemen)', type:'select', req:false, half:true, options:['unter 60.000 €','60.000 – 100.000 €','100.000 – 150.000 €','150.000 – 250.000 €','über 250.000 €'] },
+        { id:'sozialversicherung', label:'Sozialversicherungspflichtig beschäftigt?', type:'select', req:true, half:false, options:['Ja','Nein','Unsicher / unklar'] },
+      ]},
+      { title: 'Gewünschter Schutz', fields: [
+        { id:'schutz', label:'Welche Bereiche interessieren Sie?', type:'checks', req:true, options:['D&O-Versicherung (Managerhaftung)','Berufsunfähigkeitsabsicherung','Altersvorsorge / Pensionszusage','Rückdeckungsversicherung','Private Krankenversicherung','Schlüsselpersonenversicherung'] },
+        { id:'bestand', label:'Bestehende Absicherung vorhanden?', type:'select', req:false, half:true, options:['Nein','Teilweise','Ja, vollständig'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Besondere Situation / Fragen', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
+  basisrente: {
+    tag: '§4 · Basisrente',
+    title: 'Angebot Basisrente anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
+        { id:'status', label:'Berufsstand', type:'select', req:true, half:true, options:['Selbstständig','Freiberufler:in','Angestellt (hoch besteuert)','Geschäftsführer:in','Gewerbetreibend'] },
+      ]},
+      { title: 'Steuer & Einkommen', fields: [
+        { id:'einkommen', label:'Jährlicher Nettogewinn / Nettoeinkommen', type:'select', req:true, half:true, options:['unter 40.000 €','40.000 – 60.000 €','60.000 – 80.000 €','80.000 – 120.000 €','120.000 – 200.000 €','über 200.000 €'] },
+        { id:'steuerklasse', label:'Steuerklasse', type:'select', req:false, half:true, options:['I','II','III','IV','V','VI','Keine (Selbstständig)'] },
+        { id:'steuerberater', label:'Steuerberater vorhanden?', type:'select', req:false, half:true, options:['Ja','Nein'] },
+      ]},
+      { title: 'Gewünschter Beitrag & Optionen', fields: [
+        { id:'beitrag', label:'Gewünschter Monatsbeitrag (ca.)', type:'select', req:false, half:true, options:['100 – 200 €','200 – 400 €','400 – 700 €','700 – 1.000 €','über 1.000 €','Lieber Einmalbeitrag / Jahresbeitrag'] },
+        { id:'renteneintritt', label:'Gewünschtes Renteneintrittsalter', type:'select', req:true, half:true, options:['62 Jahre','63 Jahre','65 Jahre','67 Jahre'] },
+        { id:'anlageform', label:'Anlageform', type:'select', req:false, half:true, options:['Klassisch (Garantiezins)','Fondsgebunden (ETF / aktiv)','Beides prüfen'] },
+        { id:'bu_zusatz', label:'BU-Zusatzschutz gewünscht?', type:'select', req:false, half:true, options:['Ja','Nein','Bitte empfehlen'] },
+        { id:'hinterbliebene', label:'Hinterbliebenenabsicherung gewünscht?', type:'select', req:false, half:true, options:['Ja','Nein','Beides prüfen'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Informationen / Fragen', type:'textarea', req:false, half:false, hint:'z. B. bestehende Altersvorsorge, Sonderzahlungen geplant' },
+      ]},
+    ]
+  },
+
+  bav: {
+    tag: '§5 · Betriebliche Altersvorsorge',
+    title: 'Angebot bAV anfordern',
+    sections: [
+      { title: 'Unternehmen & Ansprechpartner', fields: [
+        { id:'firma', label:'Firmenname', type:'text', req:true, half:true },
+        { id:'branche', label:'Branche', type:'text', req:false, half:true },
+        { id:'vorname', label:'Ansprechpartner Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Ansprechpartner Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+      ]},
+      { title: 'Belegschaft', fields: [
+        { id:'mitarbeiter_ges', label:'Mitarbeiterzahl gesamt', type:'select', req:true, half:true, options:['1 – 5','6 – 15','16 – 30','31 – 50','51 – 100','über 100'] },
+        { id:'mitarbeiter_bav', label:'Anzahl zu versichernde Mitarbeiter', type:'select', req:false, half:true, options:['Alle','Ausgewählte Gruppe','Nur Führungskräfte','Noch unklar'] },
+        { id:'gehaltsstruktur', label:'Durchschnittliches Bruttogehalt der Zielgruppe', type:'select', req:false, half:true, options:['unter 2.500 €/Monat','2.500 – 4.000 €','4.000 – 6.000 €','über 6.000 €'] },
+      ]},
+      { title: 'Konzept & Budget', fields: [
+        { id:'ag_zuschuss', label:'Gewünschter Arbeitgeberzuschuss pro MA/Monat', type:'select', req:false, half:true, options:['nur gesetzliche Pflicht (15 %)','20 – 30 €','30 – 50 €','50 – 100 €','über 100 €','Noch unklar'] },
+        { id:'durchfuehrungsweg', label:'Bevorzugter Durchführungsweg', type:'select', req:false, half:true, options:['Direktversicherung','Pensionskasse','Pensionsfonds','Unterstützungskasse','Direktzusage','Egal / Empfehlung erwünscht'] },
+        { id:'bestand', label:'Bestehendes bAV-Konzept vorhanden?', type:'select', req:true, half:true, options:['Nein, Neueinführung','Ja, soll geprüft werden','Ja, soll erweitert werden'] },
+        { id:'einführung', label:'Gewünschte Einführung bis', type:'select', req:false, half:true, options:['so schnell wie möglich','innerhalb 3 Monate','innerhalb 6 Monate','kein festes Datum'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Besonderheiten / Fragen', type:'textarea', req:false, half:false, hint:'z. B. Tarifbindung, besondere Mitarbeitergruppen, bisherige Erfahrungen' },
+      ]},
+    ]
+  },
+
+  bkv: {
+    tag: '§6 · Betriebliche Krankenversicherung',
+    title: 'Angebot bKV anfordern',
+    sections: [
+      { title: 'Unternehmen & Ansprechpartner', fields: [
+        { id:'firma', label:'Firmenname', type:'text', req:true, half:true },
+        { id:'branche', label:'Branche', type:'text', req:false, half:true },
+        { id:'vorname', label:'Ansprechpartner Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Ansprechpartner Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+      ]},
+      { title: 'Belegschaft', fields: [
+        { id:'mitarbeiter', label:'Mitarbeiterzahl gesamt', type:'select', req:true, half:true, options:['1 – 5','6 – 15','16 – 30','31 – 50','51 – 100','über 100'] },
+        { id:'zielgruppe', label:'Für wen soll die bKV gelten?', type:'select', req:true, half:true, options:['Alle Mitarbeitenden','Nur Vollzeit','Führungskräfte / Schlüsselpersonen','Auszubildende','Bestimmte Gruppe (bitte unten beschreiben)'] },
+        { id:'altersstruktur', label:'Durchschnittsalter der Belegschaft', type:'select', req:false, half:true, options:['unter 30 Jahre','30 – 45 Jahre','45 – 55 Jahre','über 55 Jahre','Gemischt'] },
+      ]},
+      { title: 'Leistungen & Budget', fields: [
+        { id:'leistungen', label:'Gewünschte Leistungsbausteine', type:'checks', req:true, options:['Zahnersatz / Zahnprophylaxe','Sehhilfen (Brille / Kontaktlinsen)','Vorsorgeuntersuchungen','Krankenhaus (Chefarzt / Einbettzimmer)','Gesundheitsbudget (flexibel)','Heilpraktiker / alternative Medizin','Psychologische Beratung','Auslandsreiseschutz'] },
+        { id:'budget', label:'Budget pro Mitarbeiter / Monat', type:'select', req:false, half:true, options:['bis 20 €','20 – 40 €','40 – 60 €','60 – 100 €','über 100 €','Noch offen — Empfehlung erwünscht'] },
+        { id:'bestand', label:'Bestehende bKV vorhanden?', type:'select', req:true, half:true, options:['Nein','Ja, soll abgelöst werden','Ja, soll ergänzt werden'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Besonderheiten / Fragen', type:'textarea', req:false, half:false, hint:'z. B. besondere Berufsrisiken, Wunsch nach Gesundheitstagen, etc.' },
+      ]},
+    ]
+  },
+
+  sach: {
+    tag: '§7 · Betriebliche Sachversicherungen',
+    title: 'Angebot Sachversicherungen anfordern',
+    sections: [
+      { title: 'Unternehmen & Ansprechpartner', fields: [
+        { id:'firma', label:'Firmenname', type:'text', req:true, half:true },
+        { id:'branche', label:'Branche / Tätigkeit', type:'text', req:true, half:true },
+        { id:'vorname', label:'Ansprechpartner Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Ansprechpartner Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+      ]},
+      { title: 'Unternehmensdaten', fields: [
+        { id:'rechtsform', label:'Rechtsform', type:'select', req:true, half:true, options:['GmbH','UG','AG','GmbH & Co. KG','OHG / KG','Einzelunternehmen','Freiberufler:in'] },
+        { id:'mitarbeiter', label:'Mitarbeiterzahl', type:'select', req:true, half:true, options:['1 – 5','6 – 20','21 – 50','51 – 100','über 100'] },
+        { id:'umsatz', label:'Jahresumsatz (ca.)', type:'select', req:true, half:true, options:['unter 250.000 €','250.000 – 500.000 €','500.000 – 1 Mio. €','1 – 5 Mio. €','über 5 Mio. €'] },
+        { id:'standorte', label:'Anzahl Standorte / Niederlassungen', type:'select', req:false, half:true, options:['1','2 – 3','4 – 10','über 10'] },
+      ]},
+      { title: 'Gewünschte Versicherungen', fields: [
+        { id:'versicherungen', label:'Welche Bereiche sollen abgesichert werden?', type:'checks', req:true, options:['Betriebshaftpflicht','Vermögensschaden-Haftpflicht (Berufshaftpflicht)','Produkthaftpflicht','Inhaltsversicherung (Betriebseinrichtung, Waren)','Gebäudeversicherung','Kfz / Fuhrpark','Betriebsunterbrechung','Cyberversicherung','Rechtsschutzversicherung','Maschinenversicherung','Transportversicherung','Umwelthaftpflicht'] },
+      ]},
+      { title: 'Sachwerte & Fuhrpark', fields: [
+        { id:'inhalt_wert', label:'Wert Betriebsinventar / Waren (ca.)', type:'select', req:false, half:true, options:['unter 50.000 €','50.000 – 150.000 €','150.000 – 500.000 €','500.000 – 1 Mio. €','über 1 Mio. €'] },
+        { id:'firmenwagen', label:'Anzahl Firmenwagen', type:'select', req:false, half:true, options:['0','1 – 3','4 – 10','11 – 20','über 20'] },
+        { id:'gebaeude', label:'Eigenes Betriebsgebäude?', type:'select', req:false, half:true, options:['Nein (Mieter)','Ja, ein Gebäude','Ja, mehrere Gebäude'] },
+      ]},
+      { title: 'Bestehende Verträge', fields: [
+        { id:'bestand', label:'Bestehende Sachversicherungen vorhanden?', type:'select', req:true, half:true, options:['Nein','Ja – sollen geprüft werden','Ja – sollen ersetzt werden','Ja – sollen ergänzt werden'] },
+        { id:'bestand_anbieter', label:'Falls ja: aktueller Versicherer', type:'text', req:false, half:true, hint:'Optional' },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Besondere Risiken / Fragen', type:'textarea', req:false, half:false, hint:'z. B. Gefahrstoffe, Sondermaschinen, geplante Investitionen, besondere Lagerrisiken' },
+      ]},
+    ]
+  },
+
+  altersvorsorge_privat: {
+    tag: 'P·3 · Private Altersvorsorge',
+    title: 'Angebot Altersvorsorge anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
+        { id:'status', label:'Berufsstand', type:'select', req:true, half:true, options:['Angestellt','Selbstständig / Freiberufler:in','Beamter / Beamtin','Geschäftsführer:in','In Ausbildung / Studium'] },
+      ]},
+      { title: 'Einkommen & Steuern', fields: [
+        { id:'einkommen', label:'Jahres-Nettoeinkommen', type:'select', req:true, half:true, options:['unter 20.000 €','20.000 – 35.000 €','35.000 – 55.000 €','55.000 – 80.000 €','über 80.000 €'] },
+        { id:'steuerklasse', label:'Steuerklasse', type:'select', req:false, half:true, options:['I','II','III','IV','V','Selbstständig (keine)'] },
+        { id:'gesetzliche_rente', label:'Zahlen Sie in die gesetzliche Rente ein?', type:'select', req:true, half:true, options:['Ja','Nein (Selbstständig)','Teilweise'] },
+      ]},
+      { title: 'Vorsorgewunsch', fields: [
+        { id:'produkt', label:'Interessante Vorsorgeformen', type:'checks', req:false, options:['Basisrente / Rürup (steueroptimiert)','Riester-Rente (staatlich gefördert)','Fondsgebundene Rentenversicherung (ETF)','Klassische Rentenversicherung (Garantie)','Alles prüfen lassen'] },
+        { id:'beitrag', label:'Gewünschter Monatsbeitrag', type:'select', req:false, half:true, options:['50 – 100 €','100 – 200 €','200 – 400 €','400 – 700 €','über 700 €','Noch unklar'] },
+        { id:'renteneintritt', label:'Gewünschtes Renteneintrittsalter', type:'select', req:false, half:true, options:['60 Jahre','62 Jahre','65 Jahre','67 Jahre','Flexibel'] },
+        { id:'bu_zusatz', label:'BU-Zusatzschutz interessant?', type:'select', req:false, half:true, options:['Ja','Nein','Bitte empfehlen'] },
+      ]},
+      { title: 'Bestehende Vorsorge', fields: [
+        { id:'bestand', label:'Bereits Altersvorsorge vorhanden?', type:'select', req:false, half:true, options:['Nein','Ja – soll ergänzt werden','Ja – soll analysiert werden'] },
+        { id:'anmerkung', label:'Sonstige Angaben', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
+  risikoleben: {
+    tag: 'P·4 · Risikolebensversicherung',
+    title: 'Angebot Risikoleben anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
+        { id:'raucher', label:'Raucherstatus', type:'select', req:true, half:true, options:['Nichtraucher:in','Ex-Raucher:in (mind. 12 Monate)','Raucher:in'] },
+      ]},
+      { title: 'Gewünschter Schutz', fields: [
+        { id:'versicherungssumme', label:'Gewünschte Versicherungssumme', type:'select', req:true, half:true, options:['bis 100.000 €','100.000 – 200.000 €','200.000 – 350.000 €','350.000 – 500.000 €','über 500.000 €'] },
+        { id:'laufzeit', label:'Gewünschte Laufzeit', type:'select', req:true, half:true, options:['10 Jahre','15 Jahre','20 Jahre','25 Jahre','30 Jahre','bis Renteneintritt'] },
+        { id:'anlass', label:'Anlass der Absicherung', type:'select', req:false, half:true, options:['Familie / Kinder absichern','Immobilienkredit absichern','Geschäftspartner absichern','Allgemeine Vorsorge'] },
+        { id:'verlauf', label:'Versicherungssumme', type:'select', req:false, half:true, options:['Konstant (gleichbleibend)','Fallend (für Kredit)','Annuitätisch fallend','Ansteigende Summe'] },
+        { id:'vorerkrankung', label:'Relevante Vorerkrankungen?', type:'select', req:true, half:false, options:['Nein','Leichte (z. B. Rücken, Allergie)','Ja, schwerwiegendere'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Angaben', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
+  privat_sach: {
+    tag: 'P·5 · Haftpflicht, Hausrat & Kfz',
+    title: 'Angebot private Sachversicherungen',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'plz', label:'Postleitzahl', type:'text', req:false, half:true },
+        { id:'familienstand', label:'Haushalt', type:'select', req:true, half:true, options:['Einpersonenhaushalt','Paar ohne Kinder','Familie mit Kindern','Wohngemeinschaft'] },
+      ]},
+      { title: 'Gewünschte Versicherungen', fields: [
+        { id:'versicherungen', label:'Was soll abgesichert werden?', type:'checks', req:true, options:['Privathaftpflicht','Hausratversicherung','Kfz-Versicherung','Gebäudeversicherung (Eigentümer)','Fahrraddiebstahl','Glasbruchversicherung','Reisegepäck & Reiseabbruch'] },
+      ]},
+      { title: 'Details', fields: [
+        { id:'wohnflaeche', label:'Wohnfläche (für Hausrat)', type:'select', req:false, half:true, options:['unter 50 m²','50 – 80 m²','80 – 120 m²','120 – 180 m²','über 180 m²'] },
+        { id:'kfz_anzahl', label:'Anzahl Kfz', type:'select', req:false, half:true, options:['0','1','2','3 oder mehr'] },
+        { id:'bestand', label:'Bestehende Verträge vorhanden?', type:'select', req:false, half:true, options:['Nein','Ja – sollen geprüft werden','Ja – sollen gewechselt werden'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Angaben', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
+  individuell: {
+    tag: '§8 · Individuelle Beratung',
+    title: 'Individuelle Anfrage stellen',
+    sections: [
+      { title: 'Kontaktdaten', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'firma', label:'Firmenname (optional)', type:'text', req:false, half:true },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'erreichbar', label:'Beste Erreichbarkeit', type:'select', req:false, half:true, options:['Morgens (8–12 Uhr)','Mittags (12–14 Uhr)','Nachmittags (14–17 Uhr)','Abends (17–19 Uhr)','Jederzeit'] },
+      ]},
+      { title: 'Ihr Bedarf', fields: [
+        { id:'themen', label:'Welche Themen interessieren Sie?', type:'checks', req:true, options:['Berufsunfähigkeit (BU)','Private Krankenversicherung (PKV)','Geschäftsführer-Versicherung (GFV)','Basisrente / Rürup','Betriebliche Altersvorsorge (bAV)','Betriebliche Krankenversicherung (bKV)','Betriebliche Sachversicherungen','Alles prüfen lassen'] },
+        { id:'dringlichkeit', label:'Dringlichkeit', type:'select', req:false, half:true, options:['Sofort (dringend)','Innerhalb 4 Wochen','In den nächsten 3 Monaten','Kein festes Datum'] },
+        { id:'anlass', label:'Anlass der Anfrage', type:'select', req:false, half:true, options:['Neugründung','Betriebsübernahme','Wachstum / neue Mitarbeiter','Bestehende Verträge prüfen lassen','Ereignis (Heirat, Kind etc.)','Allgemeiner Überblick'] },
+      ]},
+      { title: 'Ihre Situation', fields: [
+        { id:'anmerkung', label:'Beschreiben Sie kurz Ihren Bedarf oder Ihre Situation', type:'textarea', req:true, half:false, hint:'Je mehr wir wissen, desto besser können wir uns auf das Gespräch vorbereiten.' },
+      ]},
+    ]
+  },
+};
+
+// ─── Form Modal Engine ────────────────────────────────────────────
+const formOverlay = document.getElementById('formOverlay');
+const formBody = document.getElementById('formBody');
+const formTitle = document.getElementById('formTitle');
+const formTag = document.getElementById('formTag');
+const formClose = document.getElementById('formClose');
+const formSubmit = document.getElementById('formSubmit');
+const formProgress = document.getElementById('formProgress');
+let currentFormKey = null;
+
+function renderForm(key){
+  const cfg = FORMS[key];
+  if(!cfg) return;
+  currentFormKey = key;
+  formTag.textContent = cfg.tag;
+  formTitle.textContent = cfg.title;
+  formBody.innerHTML = '';
+  formProgress.style.width = '0%';
+
+  cfg.sections.forEach(sec => {
+    const secEl = document.createElement('div');
+    secEl.className = 'form-section';
+    secEl.innerHTML = `<span class="form-section-title">${sec.title}</span>`;
+    let rowHtml = '';
+    let inRow = false;
+
+    sec.fields.forEach((f, i) => {
+      if(f.half && !inRow){
+        rowHtml += '<div class="form-row">';
+        inRow = true;
+      } else if(!f.half && inRow){
+        rowHtml += '</div>';
+        inRow = false;
+      } else if(f.half && inRow && i > 0 && sec.fields[i-1].half){
+        // continue row
+      } else if(f.half && !inRow){
+        rowHtml += '<div class="form-row">';
+        inRow = true;
+      }
+
+      let fieldHtml = `<div class="form-group">
+        <label for="f_${f.id}">${f.label}${f.req ? '<span class="req">*</span>' : ''}</label>`;
+
+      if(f.type === 'text' || f.type === 'email' || f.type === 'tel' || f.type === 'date'){
+        fieldHtml += `<input type="${f.type}" id="f_${f.id}" name="${f.id}" ${f.req?'required':''} autocomplete="off">`;
+      } else if(f.type === 'select'){
+        fieldHtml += `<select id="f_${f.id}" name="${f.id}" ${f.req?'required':''}><option value="">Bitte wählen …</option>`;
+        (f.options||[]).forEach(o => { fieldHtml += `<option value="${o}">${o}</option>`; });
+        fieldHtml += '</select>';
+      } else if(f.type === 'textarea'){
+        fieldHtml += `<textarea id="f_${f.id}" name="${f.id}" rows="4" ${f.req?'required':''}></textarea>`;
+      } else if(f.type === 'checks'){
+        fieldHtml += '<div class="form-checks">';
+        (f.options||[]).forEach((o,ci) => {
+          fieldHtml += `<label class="form-check"><input type="checkbox" name="${f.id}" value="${o}"> ${o}</label>`;
+        });
+        fieldHtml += '</div>';
+      }
+
+      if(f.hint) fieldHtml += `<span class="field-hint">${f.hint}</span>`;
+      fieldHtml += '</div>';
+
+      if(!f.half && inRow){ rowHtml += '</div>'; inRow = false; }
+      if(f.half && i === sec.fields.length-1 && inRow){ rowHtml += fieldHtml + '</div>'; inRow = false; }
+      else rowHtml += fieldHtml;
+    });
+
+    if(inRow) rowHtml += '</div>';
+    secEl.innerHTML += rowHtml;
+    formBody.appendChild(secEl);
+  });
+
+  // Live progress
+  const allRequired = formBody.querySelectorAll('[required]');
+  function updateProgress(){
+    const filled = [...allRequired].filter(el => el.value && el.value !== '').length;
+    formProgress.style.width = (allRequired.length ? Math.round(filled/allRequired.length*100) : 0)+'%';
+  }
+  formBody.querySelectorAll('input,select,textarea').forEach(el => el.addEventListener('change', updateProgress));
+  formBody.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea')
+    .forEach(el => el.addEventListener('input', updateProgress));
+}
+
+function openFormModal(key){
+  renderForm(key);
+  formOverlay.classList.add('open');
+  formOverlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  formBody.closest('.form-panel').scrollTop = 0;
+}
+
+function closeFormModal(){
+  formOverlay.classList.remove('open');
+  formOverlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  formBody.innerHTML = '';
+  document.getElementById('formFooter').style.display = '';
+}
+
+formClose.addEventListener('click', closeFormModal);
+formOverlay.addEventListener('click', e => { if(e.target===formOverlay) closeFormModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape' && formOverlay.classList.contains('open')) closeFormModal(); });
+
+formSubmit.addEventListener('click', () => {
+  const cfg = FORMS[currentFormKey];
+  if(!cfg) return;
+  let valid = true;
+  formBody.querySelectorAll('[required]').forEach(el => {
+    el.classList.remove('error');
+    if(!el.value || el.value===''){
+      el.classList.add('error');
+      valid = false;
+    }
+  });
+  // Check at least one checkbox group marked required
+  cfg.sections.forEach(sec => sec.fields.forEach(f => {
+    if(f.type==='checks' && f.req){
+      const checked = formBody.querySelectorAll(`[name="${f.id}"]:checked`);
+      if(!checked.length){ valid = false; }
+    }
+  }));
+  if(!valid){ formBody.querySelector('.error, .form-checks')?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
+  // Compose email
+  let body = `Neue Anfrage: ${cfg.title}\n${'─'.repeat(40)}\n`;
+  cfg.sections.forEach(sec => {
+    body += `\n${sec.title.toUpperCase()}\n`;
+    sec.fields.forEach(f => {
+      if(f.type==='checks'){
+        const vals = [...formBody.querySelectorAll(`[name="${f.id}"]:checked`)].map(c=>c.value);
+        if(vals.length) body += `${f.label}: ${vals.join(', ')}\n`;
+      } else {
+        const el = formBody.querySelector(`[name="${f.id}"]`);
+        if(el && el.value) body += `${f.label}: ${el.value}\n`;
+      }
+    });
+  });
+
+  const mailTo = `mailto:mail@coverly-kg.de?subject=${encodeURIComponent('Angebotsanfrage: '+cfg.tag)}&body=${encodeURIComponent(body)}`;
+  window.open(mailTo, '_blank');
+
+  // Success state
+  document.getElementById('formFooter').style.display = 'none';
+  formBody.innerHTML = `
+    <div class="form-success">
+      <div class="fs-icon">✓</div>
+      <h4>Anfrage wird vorbereitet</h4>
+      <p>Ihr E-Mail-Programm öffnet sich mit Ihren Angaben. Bitte senden Sie die E-Mail ab — wir melden uns innerhalb von 24 Stunden.</p>
+      <button class="btn btn-primary" onclick="closeFormModal()" style="margin:0 auto">Schließen</button>
+    </div>`;
+  formProgress.style.width = '100%';
+});
+
+// Open form from service card (right-click / shift-click) or from modal CTA
+document.getElementById('modalFormBtn').addEventListener('click', () => {
+  const key = document.getElementById('modalTitle').closest('[data-formkey]')?.dataset.formkey
+    || document.getElementById('formTag').dataset.key
+    || currentDetailKey;
+  closeModal();
+  setTimeout(() => openFormModal(key), 200);
+});
+
+// Store current detail key
+let currentDetailKey = null;
+
+// Direct "Angebot anfordern" on service cards
+document.querySelectorAll('.svc-anfrage').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openFormModal(btn.dataset.form);
+  });
+  btn.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); e.stopPropagation(); openFormModal(btn.dataset.form); }
+  });
+});
+
+document.getElementById('chatFab').addEventListener('click', () => {
+  document.getElementById('agent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => document.getElementById('chatInput').focus(), 500);
+});
+
+// ═══════════════════════════════════════════════════
+//  COVERLY CHATBOT — Lokale Wissensbasis, keine API
+// ═══════════════════════════════════════════════════
+const chatBody = document.getElementById('chatBody');
+const chatQuick = document.getElementById('chatQuick');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+
+// Deutsche Stoppwörter, die beim Matching ignoriert werden
+const STOP = new Set(['ich','sie','er','wir','ihr','ein','eine','einer','einem','einen','ist','sind','war','hat','haben','wird','werden','der','die','das','des','dem','den','und','oder','aber','nicht','auch','noch','schon','als','wie','was','wer','wo','wann','ob','auf','an','in','bei','von','zu','im','am','für','mit','aus','nach','über','unter','um','durch','bis','ohne','gegen','ab','seit','es','kein','keine','keinen','welche','welcher','welches','mein','meine','ihr','ihre','sein','seine','mehr','sehr','nur','noch','dann','wenn','dass','so','hier','dort','jetzt','heute','immer','oft','mal','bitte','danke','gerne','doch','eher','denn','kurz','lang','hoch','neu','gut','viel','alle','beide','man','kann','muss','soll','will','darf']);
+
+// Phrasen (höhere Gewichtung als Einzelwörter)
+const PHRASES = [
+  ['abstrakte','verweisung'],['gesetzliche','krankenversicherung'],['betriebliche','altersvorsorge'],
+  ['betriebliche','krankenversicherung'],['private','krankenversicherung'],['betriebliche','sachversicherung'],
+  ['persönliche','haftung'],['steuerlich','absetzbar'],['wie','hoch'],['wann','bekomme'],
+  ['wie','lange'],['was','kostet'],['wie','viel'],['welche','voraussetzung'],['zurück','gkv'],
+  ['wechseln','pkv'],['arbeitgeber','zuschuss'],['kündigen','vertrag'],['mehrere','fahrzeuge'],
+  ['nach','renteneintritt'],['vor','renteneintritt'],['bei','krankheit'],['bei','unfall'],
+];
+
+function tokenize(text){
+  return text.toLowerCase()
+    .replace(/[.,!?;:()"\-]/g, ' ')
+    .split(/\s+/)
+    .filter(t => t.length > 1 && !STOP.has(t));
+}
+
+function scoreEntry(tokens, rawText, entry){
+  let score = 0;
+  const raw = rawText.toLowerCase();
+  // Phrasen-Matches (gewicht 3) — kurze Wörter per Token geprüft, nicht Substring
+  entry.phrases && entry.phrases.forEach(ph => {
+    const hit = ph.every(w => w.length <= 4 ? tokens.includes(w) : raw.includes(w));
+    if(hit) score += 3;
+  });
+  // Keyword-Matches
+  entry.keywords.forEach(kw => {
+    const kwLow = kw.toLowerCase();
+    if(kwLow.length >= 5){
+      if(raw.includes(kwLow)) score += 2;
+    } else {
+      if(tokens.includes(kwLow)) score += 1;
+    }
+  });
+  return score;
+}
+
+// ─────────────────────────────────────────────────
+//  WISSENSDATENBANK — 120+ spezifische Einträge
+// ─────────────────────────────────────────────────
+const FAQ = [
+
+  // ══ §1 BERUFSUNFÄHIGKEIT ══
+
+  { id:'bu-def', keywords:['berufsunfähigkeit','berufsunfähig','bu-versicherung','bu'],
+    reply:"Eine Berufsunfähigkeitsversicherung (BU) zahlt eine monatliche Rente, wenn Sie Ihren zuletzt ausgeübten Beruf aus gesundheitlichen Gründen dauerhaft nicht mehr ausüben können — egal ob durch Krankheit, Unfall oder psychische Erkrankung." },
+
+  { id:'bu-wer', keywords:['braucht','brauche','sinnvoll','wichtig','lohnt'],
+    phrases:[['wer','bu'],['lohnt','bu'],['braucht','bu']],
+    reply:"Eine BU ist besonders wichtig für Selbstständige, Freiberufler und Geschäftsführer:innen — denn hier greift die gesetzliche Erwerbsminderungsrente kaum. Aber auch Angestellte erhalten im Ernstfall nur einen Bruchteil ihres Nettoeinkommens aus der gesetzlichen Rente." },
+
+  { id:'bu-leistung', keywords:['ab','wann','leistung','auszahlung','rentenzahlung','prozent'],
+    phrases:[['ab','wann'],['wann','zahlt']],
+    reply:"Die BU zahlt in der Regel, wenn Sie Ihren Beruf zu mindestens 50 % nicht mehr ausüben können. Die Rente wird dann monatlich ausgezahlt — so lange die Berufsunfähigkeit anhält, längstens bis zum vereinbarten Endalter (meist 67)." },
+
+  { id:'bu-hoehe', keywords:['höhe','wie','hoch','bu-rente','monatlich','betrag','empfehlung'],
+    phrases:[['wie','hoch'],['höhe','bu']],
+    reply:"Als Faustregel gilt: Die BU-Rente sollte 70–80 % Ihres Nettoeinkommens absichern. Für Selbstständige empfiehlt sich oft eine höhere Absicherung, da keine gesetzliche Absicherung als Puffer vorhanden ist." },
+
+  { id:'bu-kosten', keywords:['beitrag','preis','teuer','günstig','bu-kosten','zahlen'],
+    phrases:[['bu','kostet'],['bu','kosten'],['bu','preis'],['bu','beitrag']],
+    reply:"Der BU-Beitrag hängt von vier Faktoren ab: Ihrer Berufsgruppe (körperliche Berufe zahlen mehr), Ihrem Eintrittsalter (je früher, desto günstiger), Ihrem Gesundheitszustand und der gewünschten Rentenhöhe. Einen konkreten Vergleich erstellen wir kostenlos für Sie." },
+
+  { id:'bu-gesundheit', keywords:['gesundheitsfragen','gesundheitsprüfung','attest','arzt'],
+    phrases:[['bu','gesundheit'],['bu','gesundheitsfragen']],
+    reply:"Beim Abschluss einer BU sind Gesundheitsfragen zu beantworten — meist für die letzten fünf bis zehn Jahre. Vorerkrankungen können zu Ausschlüssen oder Beitragszuschlägen führen. Wichtig: Angaben müssen vollständig und wahrheitsgemäß sein." },
+
+  { id:'bu-verweisung', keywords:['verweisung','abstrakte','anderen','beruf','verwiesen'],
+    reply:"Die abstrakte Verweisung ist eine Klausel, die dem Versicherer erlaubt, Sie auf einen anderen Beruf zu verweisen — selbst wenn Sie diesen faktisch nicht ausüben. Achten Sie unbedingt auf den vertraglichen Verzicht auf abstrakte Verweisung, das ist heute der Marktstandard bei guten Tarifen." },
+
+  { id:'bu-nachversicherung', keywords:['erhöhen','nachversicherung','aufstocken','erhöhung','anpassen'],
+    reply:"Viele BU-Verträge enthalten eine Nachversicherungsgarantie: Sie können die Rentenhöhe zu bestimmten Lebensereignissen (Heirat, Gehaltserhöhung, Immobilienkauf) erhöhen — ohne erneute Gesundheitsprüfung." },
+
+  { id:'bu-steuer', keywords:['steuer','absetzbar','steuerlich','absetzen'],
+    phrases:[['bu','steuer'],['bu','absetzen']],
+    reply:"BU-Beiträge können als Vorsorgeaufwendungen steuerlich geltend gemacht werden — allerdings nur im Rahmen der Höchstbeträge, die oft bereits durch andere Beiträge (Kranken-, Pflegeversicherung) ausgeschöpft sind. Die Rentenleistung selbst wird nachgelagert versteuert." },
+
+  { id:'bu-kündigen', keywords:['kündigen','kündigung','wechseln','auflösen'],
+    phrases:[['bu','kündigen'],['bu','wechseln']],
+    reply:"Eine BU kann grundsätzlich gekündigt oder beitragsfrei gestellt werden. Ein Wechsel in einen anderen Tarif erfordert jedoch meist eine neue Gesundheitsprüfung — weshalb früh abgeschlossene Verträge ihren Wert haben." },
+
+  // ══ §2 PRIVATE KRANKENVERSICHERUNG ══
+
+  { id:'pkv-def', keywords:['private','krankenversicherung','pkv'],
+    reply:"Die private Krankenversicherung (PKV) ist eine Alternative zur gesetzlichen Krankenkasse mit individuell wählbaren Leistungen: Chefarztbehandlung, Einbettzimmer, schnellere Termine beim Facharzt und umfangreiche Zahnleistungen." },
+
+  { id:'pkv-voraussetzung', keywords:['wechseln','zugang','wer','voraussetzung','darf','zugelassen'],
+    phrases:[['wer','pkv'],['wechseln','pkv']],
+    reply:"In die PKV können wechseln: Selbstständige und Freiberufler (sofort), Beamte (bevorzugt wegen Beihilfe) sowie Angestellte ab einem Jahresbruttogehalt von 73.800 € (2025). Arbeitnehmer müssen diese Grenze mindestens ein Jahr überschritten haben." },
+
+  { id:'pkv-beitrag', keywords:['beitrag','preis','zahlen','teuer','günstig','pkv-beitrag'],
+    phrases:[['pkv','kostet'],['pkv','kosten'],['pkv','beitrag'],['was','kostet'],['pkv','preis']],
+    reply:"Der PKV-Beitrag richtet sich nach Eintrittsalter, Gesundheitszustand und gewählten Tarifleistungen — nicht nach dem Einkommen wie in der GKV. Jung und gesund einsteigen bedeutet dauerhaft niedrigere Beiträge. Für Familien kann die PKV teurer werden, da jedes Familienmitglied einzeln versichert werden muss." },
+
+  { id:'pkv-rueckkehr', keywords:['zurück','rückkehr','gkv','gesetzliche','wechsel','umkehr'],
+    phrases:[['zurück','gkv'],['pkv','verlassen']],
+    reply:"Die Rückkehr in die GKV ist für die meisten PKV-Versicherten schwierig. Als Angestellter gelingt es meist nur, wenn das Einkommen dauerhaft unter die Versicherungspflichtgrenze sinkt oder Sie arbeitslos werden. Ab 55 Jahren ist ein Rückwechsel in der Praxis kaum möglich." },
+
+  { id:'pkv-alter', keywords:['rentner','beitragsanstieg','pkv-rente','später'],
+    phrases:[['pkv','alter'],['pkv','rente'],['beitrag','alter']],
+    phrases:[['pkv','alter'],['pkv','rente'],['beitrag','alter']],
+    reply:"Die PKV bildet Alterungsrückstellungen, die den Beitragsanstieg im Alter dämpfen sollen. Trotzdem können PKV-Beiträge im Rentenalter steigen — besonders wenn keine ausreichenden Rückstellungen gebildet wurden. Ein guter Tarif baut frühzeitig vor." },
+
+  { id:'pkv-familie', keywords:['familie','kind','kinder','partner','ehepartner','mitversicherung'],
+    reply:"Anders als in der GKV gibt es in der PKV keine beitragsfreie Familienversicherung. Jedes Familienmitglied braucht eine eigene Police. Für Familien mit mehreren Kindern kann die GKV dadurch günstiger sein — das prüfen wir gerne im Vergleich." },
+
+  { id:'pkv-zahn', keywords:['zahn','zahnersatz','zahnbehandlung','zahnarzt','implant'],
+    reply:"In der PKV sind Zahnleistungen je nach Tarif deutlich umfangreicher als in der GKV: Bis zu 100 % Erstattung für Zahnersatz, Implantate und kieferorthopädische Behandlungen sind möglich — auch für Privatpatienten ohne Wartezeiten." },
+
+  { id:'pkv-chefarzt', keywords:['chefarzt','einzelzimmer','krankenhaus','klinik','stationär'],
+    reply:"Mit einer PKV mit Krankenhausleistungen haben Sie Anspruch auf Chefarztbehandlung und Einbettzimmer im Krankenhaus — ohne Aufpreis, als reguläre Versicherungsleistung." },
+
+  // ══ §3 GESCHÄFTSFÜHRER-VERSICHERUNG ══
+
+  { id:'gfv-def', keywords:['geschäftsführer','gfv','führungskraft','management'],
+    phrases:[['was','gfv'],['was','geschäftsführer','versicherung']],
+    reply:"Die Geschäftsführer-Versicherung (GFV) bündelt Absicherungen, die speziell für Geschäftsführer:innen relevant sind: Haftungsschutz (D&O), Altersvorsorge über Pensionszusagen und Berufsunfähigkeitsabsicherung — oft in einem abgestimmten Paket." },
+
+  { id:'gfv-do', keywords:['d&o','haftung','persönlich','vermögen','ansprüche','manager'],
+    phrases:[['d&o','versicherung'],['persönliche','haftung']],
+    reply:"Die D&O-Versicherung (Directors & Officers) schützt Geschäftsführer:innen vor persönlichen Haftungsansprüchen Dritter — etwa Gesellschafter, Gläubiger oder Behörden — die aus Fehlentscheidungen im Unternehmen entstehen. Das private Vermögen bleibt geschützt." },
+
+  { id:'gfv-sozialversicherung', keywords:['sozialversicherung','sozialversicherungspflichtig','rentenversicherung','krank','pflege'],
+    reply:"Ob ein:e Geschäftsführer:in sozialversicherungspflichtig ist, hängt vom GmbH-Anteil ab: Bei mehr als 50 % Beteiligung gilt man als nicht abhängig Beschäftigter und ist nicht pflichtversichert — das macht private Absicherung besonders wichtig." },
+
+  { id:'gfv-rente', keywords:['pension','ruhestand','versorgung','gfv-rente'],
+    phrases:[['geschäftsführer','rente'],['gfv','altersvorsorge'],['gfv','rente']],
+    phrases:[['geschäftsführer','rente'],['gfv','altersvorsorge']],
+    reply:"Für Geschäftsführer:innen ohne Sozialversicherungspflicht gibt es keine gesetzliche Rentenanwartschaft. Typische Lösungen sind Pensionszusagen des Unternehmens (mit Rückdeckungsversicherung) oder private Altersvorsorge über Basisrente oder Kapitalanlage." },
+
+  { id:'gfv-rueckdeckung', keywords:['rückdeckung','rückdeckungsversicherung','pensionszusage','bilanz'],
+    reply:"Eine Pensionszusage ohne Rückdeckungsversicherung belastet die Unternehmensbilanz und ist im Insolvenzfall nicht gesichert. Die Rückdeckungsversicherung stellt sicher, dass die zugesagten Leistungen im Ernstfall tatsächlich finanziert werden können." },
+
+  // ══ §4 BASISRENTE ══
+
+  { id:'basis-def', keywords:['basisrente','rürup','rüruprente'],
+    reply:"Die Basisrente (auch Rürup-Rente) ist eine staatlich geförderte Altersvorsorge. Sie richtet sich vor allem an Selbstständige und Freiberufler:innen, die nicht in die gesetzliche Rentenversicherung einzahlen." },
+
+  { id:'basis-steuer', keywords:['steuer','absetzbar','sonderausgabe','steuervorteil','steuerlich'],
+    phrases:[['basisrente','steuer'],['steuerlich','absetzbar']],
+    reply:"Beiträge zur Basisrente können als Sonderausgaben steuerlich abgesetzt werden — 2025 bis zu 29.344 € (bei Zusammenveranlagung das Doppelte). Gerade für Selbstständige mit hoher Steuerlast ist das ein erheblicher Vorteil gegenüber anderen Vorsorgeformen." },
+
+  { id:'basis-auszahlung', keywords:['auszahlung','rente','ausgezahlt','renteneintritt','wann'],
+    phrases:[['basisrente','ausgezahlt'],['wann','auszahlung']],
+    reply:"Die Basisrente wird frühestens ab dem 62. Lebensjahr als lebenslange monatliche Rente ausgezahlt. Eine Einmalauszahlung (Kapitalwahlrecht) gibt es nicht — das unterscheidet sie von klassischen Lebensversicherungen." },
+
+  { id:'basis-vererben', keywords:['vererben','vererbbar','erbe','erben','tod','hinterbliebene'],
+    reply:"Die Basisrente ist grundsätzlich nicht vererbbar, übertragbar oder beleihbar. Eine Ausnahme besteht, wenn eine Hinterbliebenenrente für Ehepartner:in oder kindergeldberechtigte Kinder mitversichert ist." },
+
+  { id:'basis-kündigen', keywords:['kündigen','auflösen','stoppen','beitragsfrei'],
+    reply:"Eine Basisrente kann nicht gekündigt und ausgezahlt werden. Sie kann jedoch beitragsfrei gestellt werden — die bereits eingezahlten Beiträge bleiben erhalten und werden im Rentenalter ausgezahlt." },
+
+  { id:'basis-investieren', keywords:['anlage','investieren','fondsgebunden','rendite','etf'],
+    reply:"Viele Basisrentenverträge bieten fondsgebundene Varianten an, bei denen die Beiträge in ETFs oder gemanagte Fonds investiert werden. Das bietet höhere Renditechancen bei entsprechendem Risiko." },
+
+  // ══ §5 BETRIEBLICHE ALTERSVORSORGE ══
+
+  { id:'bav-def', keywords:['betriebliche','altersvorsorge','bav'],
+    reply:"Die betriebliche Altersvorsorge (bAV) ist eine Möglichkeit, über den Arbeitgeber fürs Alter vorzusorgen. Beiträge werden aus dem Bruttogehalt entnommen und sind damit steuer- und sozialversicherungsfrei bis zu bestimmten Grenzen." },
+
+  { id:'bav-entgelt', keywords:['entgeltumwandlung','bruttogehalt','netto','gehalt','umwandlung'],
+    reply:"Bei der Entgeltumwandlung verzichtet der Arbeitnehmer auf einen Teil seines Bruttogehalts, das direkt in die Altersvorsorge fließt. Dadurch sinken Lohnsteuer und Sozialabgaben — der tatsächliche Nettoverzicht ist geringer als der umgewandelte Betrag." },
+
+  { id:'bav-zuschuss', keywords:['arbeitgeber','zuschuss','zuschüsse','pflicht','beitrag','zahlt'],
+    phrases:[['arbeitgeber','zuschuss'],['wie','viel','zuschuss']],
+    reply:"Arbeitgeber sind bei Entgeltumwandlung gesetzlich verpflichtet, mindestens 15 % des umgewandelten Betrags als Zuschuss hinzuzugeben — wenn sie durch die Entgeltumwandlung Sozialabgaben sparen. Viele Betriebe zahlen freiwillig mehr." },
+
+  { id:'bav-grenze', keywords:['freibetrag','grenze','steuerfrei','sozialversicherungsfrei','maximum','höchstbetrag'],
+    reply:"2025 können jährlich bis zu 3.696 € steuer- und sozialversicherungsfrei in eine Direktversicherung, Pensionskasse oder Pensionsfonds eingezahlt werden. Darüber hinaus sind weitere 3.696 € nur steuerfrei (aber sozialversicherungspflichtig)." },
+
+  { id:'bav-durchfuehrung', keywords:['direktversicherung','pensionskasse','pensionsfonds','unterstützungskasse','direktzusage','durchführungsweg'],
+    reply:"Es gibt fünf Durchführungswege: Direktversicherung (am häufigsten, einfach administrierbar), Pensionskasse, Pensionsfonds, Unterstützungskasse (für höhere Beiträge) und Direktzusage. Welcher passt, hängt von Betriebsgröße, Zielbeitrag und Verwaltungsaufwand ab." },
+
+  { id:'bav-arbeitgeber', keywords:['arbeitgeber','einführen','anbieten','verpflichtung','pflicht','muss'],
+    phrases:[['bav','einführen'],['muss','bav','anbieten']],
+    reply:"Arbeitgeber sind verpflichtet, Mitarbeitenden auf Wunsch eine Entgeltumwandlung zu ermöglichen — mindestens über eine Direktversicherung. Die Wahl des Anbieters liegt beim Arbeitgeber, sofern kein Tarifvertrag etwas anderes regelt." },
+
+  { id:'bav-wechsel', keywords:['jobwechsel','neuer','arbeitgeber','wechsel','mitnehmen','portabilität'],
+    reply:"Bei einem Arbeitgeberwechsel können bAV-Ansprüche mitgenommen werden (Portabilität). Direktversicherungen und Pensionskassen lassen sich oft zum neuen Arbeitgeber übertragen — das regelt §4 des Betriebsrentengesetzes." },
+
+  { id:'bav-insolvenz', keywords:['insolvenz','pleite','bankrott','geschützt','psvag'],
+    reply:"bAV-Ansprüche sind bei Insolvenz des Arbeitgebers durch den Pensions-Sicherungs-Verein (PSVaG) geschützt — zumindest bei Direktzusagen, Unterstützungskassen und Pensionsfonds. Direktversicherungen sind gesetzlich nicht PSVaG-pflichtig, aber durch das Versicherungsunternehmen abgesichert." },
+
+  // ══ §6 BETRIEBLICHE KRANKENVERSICHERUNG ══
+
+  { id:'bkv-def', keywords:['betriebliche','krankenversicherung','bkv'],
+    phrases:[['was','bkv'],['bkv','definition']],
+    reply:"Die betriebliche Krankenversicherung (bKV) ist eine Zusatzversicherung, die der Arbeitgeber für alle oder bestimmte Gruppen von Mitarbeitenden abschließt. Sie ergänzt die gesetzliche oder private Krankenversicherung um zusätzliche Gesundheitsleistungen." },
+
+  { id:'bkv-leistungen', keywords:['leistungen','was','zahlt','abgedeckt','inkludiert','enthält'],
+    phrases:[['bkv','leistungen'],['was','bkv']],
+    reply:"Typische bKV-Leistungen: Zahnersatz und Prophylaxe, Sehhilfen (Brille/Kontaktlinsen), Vorsorgeuntersuchungen über den GKV-Standard hinaus, Heilpraktiker-Behandlungen, psychologische Beratung und ein flexibles Gesundheitsbudget." },
+
+  { id:'bkv-gesundheit', keywords:['gesundheitsprüfung','vorerkrankung','aufnahme','zugang'],
+    reply:"Ein großer Vorteil der bKV: Es gibt in der Regel keine individuelle Gesundheitsprüfung. Da der Arbeitgeber die gesamte Belegschaft versichert, entfällt das Risiko der Ablehnung oder von Ausschlüssen wegen Vorerkrankungen." },
+
+  { id:'bkv-steuer', keywords:['bkv','steuerfrei','sozialversicherungsfrei','freibetrag','sachbezug','steuer'],
+    phrases:[['bkv','steuer'],['bkv','steuerfrei']],
+    reply:"Beiträge zur bKV sind bis zu 50 € monatlich je Mitarbeitendem steuer- und sozialversicherungsfrei (Sachbezugsfreigrenze). Darüber hinaus sind sie steuerpflichtiger Arbeitslohn. Einige Tarife nutzen auch den Paragraphen 3 Nr. 34 EStG für weitere Steuerfreiheit." },
+
+  { id:'bkv-kosten', keywords:['kosten','preis','beitrag','zahlt','wer','aufwand'],
+    phrases:[['bkv','kosten'],['was','bkv','kostet']],
+    reply:"bKV-Beiträge trägt in der Regel vollständig der Arbeitgeber. Je nach Leistungsumfang beginnen Tarife bei ca. 15–20 € pro Monat und Mitarbeitendem. Das macht die bKV zu einem günstigen Benefit mit großem Wirkungsgrad auf die Mitarbeiterzufriedenheit." },
+
+  { id:'bkv-gkv', keywords:['gesetzlich','gkv','unterschied','ergänzung','zusatz'],
+    reply:"Die bKV ergänzt die GKV gezielt dort, wo die gesetzliche Versicherung aufhört. GKV-Versicherte profitieren dadurch von privaten Zusatzleistungen — ohne in die PKV wechseln zu müssen. Die beiden Systeme schließen sich nicht aus." },
+
+  // ══ §7 BETRIEBLICHE SACHVERSICHERUNGEN ══
+
+  { id:'sach-def', keywords:['sachversicherung','betriebliche','sachversicherungen','überblick','alle'],
+    reply:"Betriebliche Sachversicherungen schützen das Unternehmen vor finanziellen Schäden durch Haftungsansprüche, Sachschäden und Betriebsunterbrechungen. Wir bündeln Betriebshaftpflicht, Kfz/Fuhrpark, Inhaltsversicherung, Cyber, Gebäude und Betriebsunterbrechung." },
+
+  { id:'sach-haftpflicht', keywords:['haftpflicht','betriebshaftpflicht','schaden','dritte','schadensersatz','haftung'],
+    reply:"Die Betriebshaftpflicht ist die wichtigste Grundabsicherung eines Unternehmens. Sie schützt vor Schadensersatzforderungen Dritter (Personen-, Sach- und Vermögensschäden), die aus der Geschäftstätigkeit entstehen. Ohne sie haften Sie persönlich und unbegrenzt." },
+
+  { id:'sach-kfz', keywords:['kfz','firmenwagen','fuhrpark','fahrzeug','auto','flotte','fleet'],
+    reply:"Für Firmenwagen und Fuhrparks bieten wir maßgeschneiderte Kfz-Versicherungen: Haftpflicht, Teilkasko oder Vollkasko, Fahrerschutz und auf Wunsch als Flottenlösung — ein Vertrag für mehrere Fahrzeuge, oft mit Preisvorteil gegenüber Einzelabschlüssen." },
+
+  { id:'sach-inhalt', keywords:['inhaltsversicherung','inventar','einrichtung','geräte','ware','einbruch','feuer'],
+    reply:"Die Inhaltsversicherung schützt das Betriebsinventar: Maschinen, Büroausstattung, Waren und technische Geräte — gegen Feuer, Einbruchdiebstahl, Leitungswasser, Sturm und weitere Gefahren. Ohne sie tragen Sie Beschaffungskosten selbst." },
+
+  { id:'sach-unterbrechung', keywords:['betriebsunterbrechung','betriebsunterbrechungsversicherung','ausfall','umsatz','stillstand','produktion','lieferausfall'],
+    reply:"Eine Betriebsunterbrechungsversicherung ersetzt den entgangenen Gewinn und laufende Kosten (Löhne, Miete), wenn der Betrieb durch einen Schadenfall zum Stillstand kommt. Sie ist besonders für Produktions- und Handwerksbetriebe unverzichtbar." },
+
+  { id:'sach-cyber', keywords:['cyber','cybersicherheit','cyberversicherung','hackerangriff','ransomware','datenschutz','datenleck','phishing'],
+    reply:"Cyberangriffe sind das Schadenrisiko Nr. 1 für KMU. Eine Cyberversicherung übernimmt Kosten für IT-Forensik, Datenwiederherstsellung, Betriebsunterbrechung durch Hackerangriff, Lösegeldforderungen (Ransomware) und Haftungsansprüche betroffener Kunden." },
+
+  { id:'sach-gebaeude', keywords:['gebäude','eigentum','immobilie','bürogebäude','produktionshalle','mietgebäude'],
+    reply:"Für eigene Betriebsgebäude bieten wir Gebäudeversicherungen gegen Feuer, Leitungswasser, Sturm/Hagel und weitere Elementarschäden. Auch Glasbruch, Einbruchschäden am Gebäude und Mietausfallentschädigungen können eingeschlossen werden." },
+
+  { id:'sach-buendel', keywords:['bündeln','paket','zusammen','kombination','mehrere','alles'],
+    reply:"Wir bündeln Ihre betrieblichen Sachversicherungen in einem Deckungskonzept — das spart Verwaltungsaufwand, verhindert Deckungslücken und ist oft günstiger als Einzelabschlüsse bei verschiedenen Versicherern." },
+
+  // ══ ABLAUF & BERATUNG ══
+
+  { id:'ablauf-def', keywords:['ablauf','prozess','schritte','vorgehen','funktioniert','läuft'],
+    phrases:[['wie','funktioniert'],['wie','läuft'],['läuft','beratung']],
+    reply:"Unsere Beratung läuft digital in vier Schritten: (1) Kostenlose Bedarfsanalyse per Video-Call oder Fragebogen. (2) Unabhängiger Marktvergleich. (3) Digitaler Vertragsabschluss mit eSignatur. (4) Laufende Betreuung — Ihr Schutz wächst mit Ihrem Unternehmen mit." },
+
+  { id:'ablauf-dauer', keywords:['lange','dauer','zeitaufwand','stunden','minuten','schnell'],
+    phrases:[['wie','lange'],['wie','schnell']],
+    reply:"Das Erstgespräch dauert meist 15–30 Minuten. Für einen vollständigen Vergleich und eine fundierte Empfehlung planen wir 3–5 Werktage ein. Den Vertragsabschluss können Sie digital in wenigen Minuten abschließen." },
+
+  { id:'ablauf-digital', keywords:['online','digital','video','papier','unterlagen','unterschrift'],
+    reply:"Der gesamte Prozess läuft papierlos: Bedarfserfassung per Video-Call oder Online-Formular, Vertragsunterlagen als PDF, Unterschrift per eSignatur. Kein Filialbesuch, keine Papierstapel — alles von Ihrem Büro oder Homeoffice aus." },
+
+  { id:'ablauf-betreuung', keywords:['betreuung','nachher','danach','anpassung','folge','laufend','service'],
+    reply:"Nach dem Abschluss betreuen wir Sie laufend: jährliche Überprüfung Ihrer Verträge, Anpassung bei Veränderungen im Unternehmen, Unterstützung im Schadenfall und Verhandlung mit den Versicherern — das ist unser Job als Makler." },
+
+  { id:'ablauf-vergleich', keywords:['vergleich','anbieter','unabhängig','neutral','mehrere','welche'],
+    reply:"Als unabhängige Versicherungsmakler (§34d GewO) sind wir an keinen Anbieter gebunden. Wir vergleichen für jeden Bedarf den Markt und empfehlen den Tarif, der am besten zu Ihnen passt — nicht den, der die höchste Provision zahlt." },
+
+  // ══ KOSTEN & FINANZIERUNG ══
+
+  { id:'kosten-erstberatung', keywords:['kostenlos','gratis','umsonst','erstberatung','erste','kosten','gebühr'],
+    reply:"Die Erstberatung ist für Sie vollständig kostenlos und unverbindlich. Wir erstellen einen Marktvergleich und sprechen eine Empfehlung aus — ohne dass Sie sich zu irgendetwas verpflichten müssen." },
+
+  { id:'kosten-verdienst', keywords:['verdient','finanziert','courtage','provision','verdienen','geld'],
+    reply:"Wir finanzieren uns ausschließlich über die Courtage (Provision), die die Versicherungsgesellschaft zahlt — nicht Sie. Das ist gesetzlich so geregelt und für Sie ohne zusätzliche Kosten. Unsere Empfehlung ist daher unabhängig vom Beitragsniveau." },
+
+  { id:'kosten-unverbindlich', keywords:['verpflichtung','verpflichten','muss','zwang','abschließen','kaufen'],
+    reply:"Nach unserem Gespräch und dem Vergleich entscheiden allein Sie, ob und was Sie abschließen. Es gibt keine Verpflichtung, kein Abo und keinen Automatismus. Wir beraten — Sie entscheiden." },
+
+  // ══ ALLGEMEINES ZU COVERLY ══
+
+  { id:'coverly-lizenz', keywords:['lizenz','zugelassen','reguliert','makler','berechtigt','gewerbe','34d'],
+    reply:"Coverly KG ist als Versicherungsmakler nach §34d Gewerbeordnung (GewO) lizenziert und im Vermittlerregister eingetragen. Wir arbeiten anbieterunabhängig und unterliegen der IHK-Aufsicht." },
+
+  { id:'coverly-sitz', keywords:['sitz','standort','adresse','ort','münchen','fürstenfeldbruck','wo','firmensitz','location'],
+    reply:"Coverly KG hat seinen Sitz in Fürstenfeldbruck bei München. Die Beratung findet digital statt — Kunden aus ganz Deutschland können wir betreuen, ohne dass ein persönliches Treffen nötig ist." },
+
+  { id:'coverly-termin', keywords:['termin','vereinbaren','buchen','gespräch','anruf','kontakt','sprechen'],
+    reply:"Gerne! Klicken Sie auf 'Termin sichern', um direkt einen freien Beratungstermin in unserem Kalender zu wählen. Das Erstgespräch ist kostenlos, per Video-Call und unverbindlich.",
+    cta: true },
+
+  { id:'coverly-zielgruppe', keywords:['kmu','mittelstand','kleinbetrieb','betrieb','unternehmen','firma','wer','zielgruppe'],
+    reply:"Coverly berät vor allem kleine und mittelständische Betriebe — vom Einzelunternehmer über den Handwerksbetrieb bis zum GmbH-Geschäftsführer. Wir kennen die spezifischen Absicherungsbedarfe dieser Zielgruppe aus der Praxis." },
+
+  // ══ PRIVAT — RISIKOLEBEN ══
+  { id:'risikoleben-def', keywords:['risikolebensversicherung','risikoleben','lebensversicherung'],
+    reply:"Eine Risikolebensversicherung zahlt eine vereinbarte Summe, wenn die versicherte Person stirbt. Sie hat keine Sparkomponente und ist daher sehr günstig — ideal zur Absicherung von Familie und Kredit." },
+  { id:'risikoleben-kredit', keywords:['kredit','immobilie','darlehen','hypothek','baufinanzierung'],
+    phrases:[['risikoleben','kredit'],['lebensversicherung','immobilie']],
+    reply:"Beim Immobilienkauf empfehlen viele Banken eine Risikolebensversicherung zur Kreditsicherung. Eine annuitätisch fallende Police passt dabei ideal zur sinkenden Restschuld — und ist günstiger als eine konstante Summe." },
+  { id:'risikoleben-familie', keywords:['familie absichern','kinder absichern','partner absichern','hauptverdiener'],
+    reply:"Mit einer Risikolebensversicherung schützen Sie Ihre Familie vor dem finanziellen Einbruch, wenn der Hauptverdiener stirbt. Die ausgezahlte Summe sichert Miete, Unterhalt und Lebensstandard für die Hinterbliebenen." },
+
+  // ══ PRIVAT — ALTERSVORSORGE ══
+  { id:'riester-def', keywords:['riester','riester-rente'],
+    reply:"Die Riester-Rente wird staatlich gefördert: Jährliche Zulagen (175 € Grundzulage + 185-300 € pro Kind) und Steuervorteile. Sie lohnt sich besonders für Familien mit Kindern und Angestellte mit niedrigen bis mittleren Einkommen." },
+  { id:'altersvorsorge-privat', keywords:['altersvorsorge','rentenlücke','rente','vorsorge','sparplan'],
+    phrases:[['private','altersvorsorge'],['eigene','vorsorge']],
+    reply:"Private Altersvorsorge ergänzt die gesetzliche Rente, die für die meisten nicht reicht. Die drei Schichten: Basisrente (steuerlich gefördert), Riester (staatliche Zulagen) und private Rentenversicherung oder ETF-Depot (flexibel)." },
+  { id:'etf-rente', keywords:['etf-rente','fondsgebunden','fondssparplan','etf-depot','investieren','rendite'],
+    reply:"Eine fondsgebundene Rentenversicherung (ETF-Rente) kombiniert die Steuervorteile einer Rentenversicherung mit den Renditechancen von ETFs. Im Gegensatz zum privaten ETF-Depot wird die Kapitalertragsteuer erst bei Auszahlung fällig." },
+
+  // ══ PRIVAT — HAFTPFLICHT & HAUSRAT ══
+  { id:'privat-ueberblick', keywords:['privatperson','privat','ich als privatperson','welche versicherungen'],
+    phrases:[['versicherungen','privatperson'],['privat','brauche']],
+    reply:"Als Privatperson sind die wichtigsten Versicherungen: Privathaftpflicht (unverzichtbar), BU (Einkommensschutz), Krankenversicherung (PKV oder Zusatz), Hausrat und Risikoleben (für Familien/Kredit). Altersvorsorge so früh wie möglich beginnen." },
+
+  { id:'privathaftpflicht', keywords:['privathaftpflicht','haftpflicht privat','persönliche haftung'],
+    reply:"Die Privathaftpflicht ist die wichtigste Versicherung für Privatpersonen — für wenige Euro im Monat schützt sie vor Schadensersatzforderungen Dritter, die bis zur persönlichen Zahlungsunfähigkeit führen können." },
+  { id:'hausrat-def', keywords:['hausrat','hausratversicherung','einbruch','einrichtung','möbel'],
+    reply:"Die Hausratversicherung schützt Ihre Wohnungseinrichtung bei Einbruch, Feuer, Leitungswasser, Sturm und Hagel. Die Versicherungssumme sollte dem Neuwert aller Möbel und Gegenstände entsprechen — Unterversicherung ist häufig." },
+  { id:'kfz-privat', keywords:['kfz privat','auto','fahrzeug','pkw','kfz-versicherung','haftpflicht kfz'],
+    reply:"Die Kfz-Haftpflicht ist gesetzlich vorgeschrieben. Darüber hinaus empfiehlt sich Teilkasko (Naturereignisse, Diebstahl) oder Vollkasko (auch eigenverschuldete Unfälle) — je nach Fahrzeugwert und persönlicher Risikobereitschaft." },
+
+  // ══ PRIVAT — BERUFSEINSTEIGER & FAMILIEN ══
+  { id:'berufseinsteiger', keywords:['berufseinsteiger','berufsstart','ausbildung','studium','ersten job','jung'],
+    reply:"Als Berufseinsteiger sind die wichtigsten Versicherungen: 1) BU (jetzt am günstigsten!), 2) Privathaftpflicht (unverzichtbar), 3) Krankenversicherung (PKV prüfen). Altersvorsorge so früh wie möglich beginnen — Zeit ist das wertvollste Kapital." },
+  { id:'junge-familie', keywords:['junge familie','kind bekommen','baby','nachwuchs','heirat'],
+    reply:"Mit Familiengründung ändern sich die Absicherungsbedarfe: Risikoleben (Hauptverdiener absichern), BU updaten (Rentenhöhe prüfen), Hausrat anpassen, Kindergeld und Riester prüfen. Wir helfen Ihnen, den Überblick zu behalten." },
+  { id:'immobilienkauf-privat', keywords:['immobilienkauf','eigenheim','haus kaufen','wohnung kaufen','eigentuemer'],
+    reply:"Beim Immobilienkauf brauchen Sie: Risikoleben zur Kreditsicherung, Gebäudeversicherung (oft Pflicht der Bank), Wohngebäudeversicherung, Hausratversicherung. Wir koordinieren das für Sie — alle Policen aufeinander abgestimmt." },
+
+  { id:'coverly-unterschied', keywords:['unterschied','besser','vorteil','warum','coverly','wählen'],
+    reply:"Der Unterschied zu Bankberatern oder Ausschließlichkeitsvermittlern: Wir sind an keinen Anbieter gebunden, vergleichen den Markt vollständig und betreuen Sie nach dem Abschluss aktiv weiter. Außerdem denken wir betriebliche Absicherung ganzheitlich — Personen und Sachwerte zusammen." },
+
+  // ══ §1 BU — VERTIEFUNG ══
+
+  { id:'bu-berufe', keywords:['handwerker','arzt','rechtsanwalt','ingenieur','kaufmann','büro','körperlich','berufsgruppe'],
+    phrases:[['bu','handwerker'],['bu','berufsgruppe'],['bu','beruf']],
+    reply:"Bei der BU spielt die Berufsgruppe eine zentrale Rolle: Körperlich arbeitende Berufe (Handwerk, Pflege) zahlen deutlich höhere Beiträge als reine Büroberufe (IT, Kaufleute). Ärzte und Akademiker erhalten oft günstige Konditionen mit speziellen Arzt- oder Akademikertarifen." },
+
+  { id:'bu-psyche', keywords:['psychisch','burnout','depression','stress','psyche','mental'],
+    reply:"Psychische Erkrankungen sind heute die häufigste Ursache für Berufsunfähigkeit — rund 30 % aller BU-Fälle gehen darauf zurück. Nicht alle Tarife leisten bei psychischen Erkrankungen gleich gut — auf Ausschlussklauseln und Wartezeiten achten." },
+
+  { id:'bu-karenzzeit', keywords:['karenzzeit','wartezeit','rückwirkend','sofort'],
+    reply:"Eine Karenzzeit ist der Zeitraum zwischen dem Eintritt der Berufsunfähigkeit und dem Beginn der Rentenzahlung. Viele Tarife bieten 0 Monate Karenz (sofortige Zahlung), andere 3–6 Monate — mit geringeren Beiträgen aber verzögerter Leistung." },
+
+  { id:'bu-dynamik', keywords:['dynamik','erhöhung','inflation','anpassung','rentendynamik'],
+    reply:"Eine Rentendynamik sorgt dafür, dass Ihre BU-Rente im Leistungsfall jährlich steigt — zum Schutz gegen Inflation. Üblich sind 1–3 % Steigerung pro Jahr. Auch Beitragsdynamik vor dem Leistungsfall hält die Rentenhöhe aktuell." },
+
+  { id:'bu-beamte', keywords:['beamte','beamtin','beihilfe','dienstunfähigkeit','dienstunfähig'],
+    reply:"Beamte sind bei Dienstunfähigkeit durch die Beamtenversorgung abgesichert, allerdings oft unzureichend in den ersten Dienstjahren. Eine Dienstunfähigkeitsversicherung schließt diese Lücke und sollte auf Dienstunfähigkeit — nicht nur auf allgemeine Berufsunfähigkeit — abstellen." },
+
+  { id:'bu-kombination', keywords:['kombination','kombinieren','rürup','basisrente','bu-rente kombinieren'],
+    phrases:[['bu','kombinieren'],['bu','zusammen']],
+    reply:"BU und Basisrente lassen sich kombinieren: Ein BU-Zusatz zur Basisrente sichert bei Berufsunfähigkeit den Beitrag ab (Beitragsbefreiung) und zahlt eine monatliche Rente. Vorteil: Beitragsersparnisse durch Steuervorteil der Basisrente." },
+
+  { id:'bu-jung', keywords:['jung','berufseinsteiger','azubi','studium','student','berufsanfänger','früh'],
+    reply:"Je früher eine BU abgeschlossen wird, desto günstiger ist der Beitrag — und desto einfacher die Gesundheitsprüfung. Berufseinsteiger und Auszubildende können oft sehr günstige Einstiegstarife mit Nachversicherungsoptionen nutzen." },
+
+  { id:'bu-selbststaendig', keywords:['selbstständig','freiberufler','freelancer','einzelunternehmer'],
+    phrases:[['bu','selbstständig'],['bu','freiberufler']],
+    reply:"Für Selbstständige und Freiberufler ist die BU besonders kritisch: Es gibt keine gesetzliche Absicherung, und der Einkommensverlust bei Berufsunfähigkeit trifft unmittelbar. Die BU-Rente sollte laufende Fixkosten (Miete, Mitarbeiter, Versicherungen) mindestens abdecken." },
+
+  { id:'bu-schadenfall', keywords:['schadenfall','melden','antrag','leistungsfall','krank','rente beantragen'],
+    phrases:[['bu','melden'],['bu','antrag'],['bu','leistungsfall']],
+    reply:"Im BU-Leistungsfall: Arztatteste und Nachweise einreichen, Versicherer informiert Ihren Arzt. Prüfung dauert oft 2–6 Monate. Wichtig: Keinen Vertrag voreilig kündigen oder ändern während der Prüfung. Wir unterstützen Sie dabei als Makler." },
+
+  // ══ §2 PKV — VERTIEFUNG ══
+
+  { id:'pkv-tarifwechsel', keywords:['tarifwechsel','tarifoptimierung','tarifoptimieren','§204'],
+    phrases:[['tarifwechsel','pkv'],['pkv','§204']],
+    reply:"Nach §204 VVG haben PKV-Versicherte das Recht, innerhalb ihrer Versicherungsgesellschaft den Tarif zu wechseln — unter Mitnahme der Alterungsrückstellungen. So lässt sich der Beitrag oft deutlich senken, ohne die aufgebauten Rückstellungen zu verlieren." },
+
+  { id:'pkv-beihilfe', keywords:['beihilfe','beihilfetarif','ergänzungstarif','beamtenversorgung'],
+    reply:"Beamte erhalten von ihrem Dienstherrn eine Beihilfe (50–80 % der Krankheitskosten). Eine PKV deckt den Restanteil ab — oft als Beihilfeergänzungstarif. Diese Kombination ist für Beamte in der Regel sehr kosteneffizient." },
+
+  { id:'pkv-zusatz', keywords:['zusatzversicherung','zusatztarif','gesetzlich und privat','stationär zusatz'],
+    reply:"Wer in der GKV bleiben möchte, kann gezielt private Zusatzversicherungen nutzen: Krankenhaus-Tagegeld, Chefarztbehandlung, Zahnzusatz oder ambulante Zusatzleistungen. Diese sind günstiger als eine vollständige PKV und lassen sich flexibel kombinieren." },
+
+  { id:'pkv-gesundheit', keywords:['vorerkrankung'],
+    phrases:[['pkv','gesundheitsprüfung'],['pkv','gesundheitsfragen'],['pkv','vorerkrankung'],['pkv','gesundheitspruefung'],['pkv','abgelehnt']],
+    reply:"Bei der PKV ist eine Gesundheitsprüfung Pflicht. Vorerkrankungen können zu Risikozuschlägen, Leistungsausschlüssen oder sogar zur Ablehnung führen. Deshalb lohnt sich eine anonyme Risikovoranfrage vor dem offiziellen Antrag — das vermeidet negative Einträge beim Versicherer." },
+
+  { id:'pkv-krankentagegeld', keywords:['krankentagegeld','krankenhaus','lohnfortzahlung','ausfallschutz','krank einnahmen'],
+    reply:"Krankentagegeld sichert Selbstständigen und Freiberuflern die Einnahmen ab, wenn sie krankheitsbedingt nicht arbeiten können. Die gesetzliche Lohnfortzahlung gilt für sie nicht — ein PKV-Tarif mit Krankentagegeld schließt diese Lücke." },
+
+  { id:'pkv-kinder', keywords:['kinder pkv','kind privat versichern','familienversicherung pkv'],
+    phrases:[['pkv','kinder'],['kinder','privat versichert']],
+    reply:"In der GKV können Kinder beitragsfrei mitversichert werden. In der PKV zahlt jedes Kind einen eigenen Beitrag. Bei Eltern in unterschiedlichen Systemen (ein Teil GKV, ein Teil PKV) können Kinder dem GKV-Elternteil kostenlos zugeordnet werden, wenn bestimmte Voraussetzungen erfüllt sind." },
+
+  // ══ §3 GFV — VERTIEFUNG ══
+
+  { id:'gfv-keyperson', keywords:['schlüsselperson','schlüsselkraft','schluesselkraft','keyperson','key person','ausfall führungskraft','unternehmensschutz'],
+    reply:"Eine Schlüsselpersonenversicherung (Key Person Insurance) sichert den finanziellen Schaden ab, den der Ausfall einer unverzichtbaren Führungskraft oder Fachkraft verursacht — z. B. durch Tod oder Berufsunfähigkeit. Die Versicherung wird vom Unternehmen abgeschlossen und ist Betriebsausgabe." },
+
+  { id:'gfv-gesellschafter', keywords:['gesellschafter','teilhaber','gesellschafterausfall','gesellschaftsvertrag','nachfolge'],
+    reply:"Beim Ausfall eines Gesellschafters durch Tod oder BU kann ein Betrieb in ernste Schwierigkeiten geraten. Eine Gesellschafterausfall- oder Übergangsversicherung stellt Mittel bereit, um Abfindungen zu zahlen, Anteile zu kaufen oder die Lücke zu überbrücken." },
+
+  { id:'gfv-holding', keywords:['holding','konzern','muttergesellschaft','tochtergesellschaft','gruppenvertrag'],
+    reply:"Für Unternehmensgruppen mit Holding-Strukturen empfehlen wir Rahmenverträge oder Gruppenversicherungen, die alle Gesellschaften und Führungskräfte unter einem Dach abdecken — effizienter in der Verwaltung und oft kostengünstiger." },
+
+  { id:'gfv-wettbewerb', keywords:['wettbewerbsverbot','karenzentschädigung','abwerbung','konkurrenzklausel'],
+    reply:"Koppeln Sie Versorgungszusagen an Wettbewerbsverbote — dann dienen sie auch der Mitarbeiterbindung von Führungskräften. Eine Rückdeckungsversicherung stellt sicher, dass die Zusagen finanziert sind, ohne die Liquidität des Unternehmens zu belasten." },
+
+  // ══ §4 BASISRENTE — VERTIEFUNG ══
+
+  { id:'basis-vs-etf', keywords:['etf','depot','unterschied','aktien','vergleich','besser'],
+    phrases:[['basisrente','etf'],['basisrente','vergleich'],['rürup','etf']],
+    reply:"Basisrente vs. ETF-Depot: Die Basisrente punktet mit dem Steuerabzug heute — bei hohem Grenzsteuersatz kann der Steuervorteil 40–45 % des Beitrags betragen. Das ETF-Depot ist flexibler und vererbbar. Für Selbstständige mit hoher Steuerlast ist die Basisrente oft die erste Wahl." },
+
+  { id:'basis-einzahlung', keywords:['beitrag','einzahlen','flexibel','erhöhen','pausieren','sonderzahlung'],
+    phrases:[['basisrente','beitrag'],['basisrente','einzahlen']],
+    reply:"Viele Basisrentenverträge erlauben flexible Beiträge: Mindestbeiträge können niedrig sein, zusätzliche Sonderzahlungen am Jahresende erhöhen den Steuerabzug. Das macht die Basisrente ideal, um schwankende Einnahmen als Selbstständiger steuerlich zu optimieren." },
+
+  { id:'basis-bu-zusatz', keywords:['bu-zusatz','berufsunfähigkeit basisrente','bu rürup','kombination rürup bu'],
+    reply:"Ein BU-Baustein in der Basisrente befreit bei Berufsunfähigkeit vom Beitrag und zahlt zusätzlich eine monatliche Rente. Vorteil: Beitragsbefreiung und BU-Rente sind steuerlich begünstigt — allerdings gilt wie für die Rente: kein Kapitalwahlrecht, lebenslang." },
+
+  // ══ §5 bAV — VERTIEFUNG ══
+
+  { id:'bav-steuern-rente', keywords:['nachgelagert','rente besteuert','steuer im rentenalter','rentner steuer bav'],
+    reply:"bAV-Leistungen werden im Rentenalter nachgelagert besteuert — als Einkommen des Rentnerhaushalts. Da Rentnerhaushalte meist einen niedrigeren Steuersatz haben als im Arbeitsleben, ist die Steuerlast im Alter in der Regel geringer als die Ersparnis während der Einzahlungsphase." },
+
+  { id:'bav-unverfallbar', keywords:['unverfallbarkeit','unverfallbar','kündigung bav','ausscheiden bav','was passiert bei kündigung'],
+    reply:"Arbeitgeberfinanzierte bAV-Ansprüche werden nach 3 Jahren Betriebszugehörigkeit und einem Mindestalter von 21 Jahren unverfallbar — der Mitarbeiter behält sie auch nach dem Ausscheiden. Eigene Entgeltumwandlungen sind sofort unverfallbar." },
+
+  { id:'bav-minijob', keywords:['minijob','450 euro','geringfügig','teilzeit','aushilfe'],
+    reply:"Auch Minijobber können an einer bAV teilnehmen. Da sie keine Lohnsteuer zahlen, greift hier der Steuerfreiheitsrahmen nicht — sie profitieren aber trotzdem von der Sozialversicherungsfreiheit der Beiträge (bis zur Freigrenze). Eine gesonderte Beratung ist sinnvoll." },
+
+  { id:'bav-opting-out', keywords:['opt-out','opt out','automatisch','opting','standardmäßig'],
+    phrases:[['opt','out'],['automatisch','mitarbeiter'],['alle','bav']],
+    reply:"Das sogenannte Opt-out-Modell schaltet alle Mitarbeitenden automatisch in die bAV ein — wer nicht will, muss aktiv widersprechen. Das erhöht die Beteiligungsquote erheblich und gilt als Best Practice für KMU, die ihren Mitarbeitenden Altersvorsorge anbieten wollen." },
+
+  { id:'bav-pensionszusage', keywords:['pensionszusage','direktzusage','bilanz','rückstellung','haftung arbeitgeber'],
+    reply:"Bei einer Direktzusage (Pensionszusage) verpflichtet sich der Arbeitgeber direkt zur Zahlung der Betriebsrente — das ist bilanzwirksam (Rückstellungen). Ohne Rückdeckungsversicherung trägt der Arbeitgeber das Finanzierungsrisiko selbst. Wir empfehlen immer eine Rückdeckung." },
+
+  // ══ §6 bKV — VERTIEFUNG ══
+
+  { id:'bkv-modelle', keywords:['modell','budget','vollversorgung','kassentarif','baukastenprinzip'],
+    reply:"bKV-Tarife kommen in zwei Modellen: Budget-Tarife (fixer jährlicher Betrag für beliebige Gesundheitsleistungen) und Vollversorgungstarife (definierte Leistungen wie Zahn, Brille, Klinik). Budget-Tarife sind flexibler; Vollversorgungstarife decken Hochkosten besser ab." },
+
+  { id:'bkv-krankenhaus', keywords:['krankenhaus','stationär','chefarzt bkv','privatpatient krankenhaus','einbettzimmer'],
+    reply:"Eine bKV kann auch stationäre Zusatzleistungen umfassen: Chefarztbehandlung und Einbettzimmer im Krankenhaus für alle Mitarbeitenden — ohne dass diese in die PKV wechseln müssen. Das ist besonders als Benefit für Führungskräfte attraktiv." },
+
+  { id:'bkv-azubi', keywords:['azubi','auszubildende','ausbildung','nachwuchs','fachkräftemangel'],
+    reply:"Die bKV als Benefit für Auszubildende stärkt die Arbeitgebermarke und hilft im Wettbewerb um Nachwuchs. Viele Tarife beginnen bei 15–20 € pro Monat und Azubi — eine günstige Investition in Mitarbeiterbindung bereits vom ersten Ausbildungstag an." },
+
+  { id:'bkv-verwaltung', keywords:['verwaltung bkv','aufwand','administration','abrechnung','bürokratie'],
+    reply:"Die bKV ist für Arbeitgeber administrativ vergleichsweise einfach: Kein Einzelnachweis der Mitarbeitergesundheit, Beitrag wird pauschal abgeführt. Viele Anbieter übernehmen die gesamte Abwicklung digital — der Verwaltungsaufwand ist minimal." },
+
+  // ══ §7 SACHVERSICHERUNGEN — VERTIEFUNG ══
+
+  { id:'sach-berufshaftpflicht', keywords:['berufshaftpflicht','vermögensschaden','beratungsfehler','planungsfehler'],
+    phrases:[['berufshaftpflicht','was'],['beruf','haftpflicht']],
+    reply:"Die Berufshaftpflicht (auch Vermögensschadenhaftpflicht) schützt vor Ansprüchen aus Fehlern bei der Berufsausübung — z. B. falsche Beratung, Planungsfehler oder versäumte Fristen. Sie ist Pflicht für viele Berufe (Rechtsanwälte, Steuerberater, Architekten) und für alle Dienstleister sinnvoll." },
+
+  { id:'sach-produkthaftpflicht', keywords:['produkthaftpflicht','produkt','hersteller','produktschaden','gewährleistung'],
+    reply:"Hersteller und Händler haften für Schäden, die ihre Produkte verursachen — auch ohne Verschulden (Produkthaftungsgesetz). Eine Produkthaftpflichtversicherung schützt vor Schadensersatzforderungen, Rückrufkosten und rechtlichen Auseinandersetzungen." },
+
+  { id:'sach-transport', keywords:['transportversicherung','transport','lieferung','warentransport','logistik','spedition'],
+    reply:"Eine Transportversicherung schützt Waren während des Transports — egal ob per Lkw, Bahn, Schiff oder Flugzeug. Sie umfasst Schäden durch Unfall, Diebstahl, Feuer oder Beschädigung und ist besonders für Händler und produzierende Betriebe relevant." },
+
+  { id:'sach-maschine', keywords:['maschinenversicherung','maschine','anlage','produktionsanlage','maschinenschaden'],
+    reply:"Eine Maschinenversicherung schützt Betriebs- und Produktionsanlagen vor Schäden durch Bedienungsfehler, Materialfehler, Kurzschluss oder Überspannung — Risiken, die in keiner Gebäude- oder Inhaltsversicherung enthalten sind." },
+
+  { id:'sach-elektronik', keywords:['elektronikversicherung','it-ausstattung','server','laptop','hardware','edv'],
+    reply:"Eine Elektronikversicherung schützt IT-Ausstattung, Server, Kommunikationstechnik und Büroelektronik gegen Schäden durch Bedienungsfehler, Überspannung, Diebstahl und Vandalismus — typischerweise nicht durch die Inhaltsversicherung abgedeckt." },
+
+  { id:'sach-rechtsschutz', keywords:['rechtsschutz','rechtsschutzversicherung','anwalt','gericht','klage','streit','rechtlich'],
+    reply:"Eine betriebliche Rechtsschutzversicherung übernimmt Anwalts- und Gerichtskosten bei Rechtsstreitigkeiten — z. B. Arbeitsrecht, Vertragsstreitigkeiten, Steuerrecht oder Forderungseinzug. Ohne sie können selbst gewonnene Prozesse teuer werden." },
+
+  { id:'sach-forderungsausfall', keywords:['forderungsausfall','zahlungsausfall','insolvenz kunde','forderung','debitor','kreditversicherung'],
+    reply:"Eine Forderungsausfallversicherung (Warenkreditversicherung) schützt, wenn Kunden nicht zahlen — wegen Insolvenz oder dauerhafter Zahlungsunfähigkeit. Sie ist besonders für Betriebe mit größeren B2B-Forderungen oder Auslandsgeschäft relevant." },
+
+  { id:'sach-umwelt', keywords:['umwelthaftpflicht','umweltschaden','kontamination','boden','gewässer','umwelt'],
+    reply:"Eine Umwelthaftpflichtversicherung schützt vor Schadensersatzansprüchen bei unbeabsichtigter Umweltverschmutzung — z. B. auslaufende Chemikalien, Öllecks oder Kontamination des Bodens. Seit dem Umwelthaftungsgesetz ist das ein unterschätztes Risiko für viele Betriebe." },
+
+  { id:'sach-glasversicherung', keywords:['glasversicherung','scheibe','schaufenster','glas','glassbruch'],
+    reply:"Eine Glasversicherung deckt Glasbruchschäden an Schaufenstern, Türen, Vitrinen oder Arbeitsplatten. Sie ist oft günstig als Zusatzbaustein zur Inhaltsversicherung erhältlich und besonders für Ladengeschäfte, Restaurants und Büros mit großen Glasflächen sinnvoll." },
+
+  // ══ ALLGEMEINE VERSICHERUNGSFRAGEN ══
+
+  { id:'allg-selbstbehalt', keywords:['selbstbehalt','franchise','eigenbeteiligung','zuzahlung'],
+    reply:"Ein Selbstbehalt (Franchise) bedeutet, dass Sie im Schadenfall einen Teil selbst tragen. Der Vorteil: Der Versicherungsbeitrag sinkt deutlich. Für Betriebe lohnt sich ein Selbstbehalt bei häufigen Kleinschäden, wenn man diese problemlos selbst tragen kann." },
+
+  { id:'allg-versicherungssumme', keywords:['versicherungssumme','unterversichert','wieviel','wie','hoch versichern','deckungssumme'],
+    reply:"Die Versicherungssumme sollte den tatsächlichen Wert des zu versichernden Gegenstands oder Risikos realistisch abbilden. Unterversicherung ist ein häufiges Problem — im Schadenfall zahlt die Versicherung dann nur anteilig. Wir prüfen bestehende Verträge auf Unterversicherung." },
+
+  { id:'allg-schadenfall', keywords:['schadenfall','was tun','schaden melden','wie melde','schaden gemeldet'],
+    phrases:[['schaden','melden'],['was','tun schadenfall']],
+    reply:"Im Schadenfall gilt: Schaden sofort dokumentieren (Fotos, Zeugen), den Versicherer unverzüglich informieren, keine eigenständigen Reparaturen ohne Rücksprache. Als Ihr Makler übernehmen wir die Kommunikation mit dem Versicherer und vertreten Ihre Interessen bei der Schadensregulierung." },
+
+  { id:'allg-bestandsanalyse', keywords:['bestandsanalyse','bestehende verträge','analyse','überprüfen','lücken','portfolio'],
+    reply:"Eine Bestandsanalyse prüft alle bestehenden Versicherungsverträge auf Vollständigkeit, Deckungslücken, Doppelversicherungen und veraltete Bedingungen. Das ist unser erster Schritt bei jedem neuen Mandat — kostenlos und unverbindlich." },
+
+  { id:'allg-doppelversicherung', keywords:['doppelversicherung','doppelt versichert','gleiche leistung zweimal'],
+    reply:"Doppelversicherungen entstehen häufig, wenn Verträge über die Jahre bei verschiedenen Anbietern abgeschlossen wurden. Sie zahlen dann doppelt für die gleiche Leistung. Wir decken solche Überschneidungen in der Bestandsanalyse auf und konsolidieren sinnvoll." },
+
+  { id:'allg-kuendigung', keywords:['kündigen vertrag','bestehenden vertrag','frist','kündigung versicherung'],
+    phrases:[['kündigen','versicherung'],['vertrag','kündigen']],
+    reply:"Versicherungsverträge können meist zum Ablaufdatum (meist Jahresende) mit 3 Monaten Frist gekündigt werden. Bei Beitragserhöhungen oder Schadenfall gibt es oft ein Sonderkündigungsrecht. Wir prüfen Ihre bestehenden Verträge auf Kündigungsfristen und Alternativen." },
+
+  { id:'allg-gewerbe-pflicht', keywords:['pflichtversicherung','vorgeschrieben','pflichtversicherungen'],
+    phrases:[['pflicht','versicherung'],['gesetzlich','vorgeschrieben'],['vorgeschrieben','betrieb']],
+    reply:"Gesetzlich vorgeschriebene Betriebsversicherungen hängen von der Branche ab: Für Handwerker (Haftpflicht), Kfz-Betriebe (Haftpflicht für Kundenautos), Rechtsanwälte und Steuerberater (Berufshaftpflicht) gibt es Pflichtversicherungen. Wir prüfen für Ihre Branche, was vorgeschrieben ist." },
+
+  { id:'allg-mehrere-anbieter', keywords:['mehrere anbieter','verschiedene versicherer','bündeln','konsolidieren','alles bei einem'],
+    reply:"Mehrere Verträge bei verschiedenen Anbietern sind oft teurer und schwerer zu überblicken. Eine Bündelung bei wenigen spezialisierten Anbietern kann Beiträge senken und vereinfacht die Verwaltung. Wir prüfen, ob Bündelung für Ihren Betrieb Sinn ergibt — oder ob spezialisierte Anbieter je Sparte besser sind." },
+
+  { id:'allg-jahresende', keywords:['jahresende','jahreswechsel','neues jahr','steuern jahresende','jahresabschluss'],
+    reply:"Der Jahreswechsel ist der ideale Zeitpunkt, Ihren Versicherungsschutz zu überprüfen: Haben sich Umsatz, Mitarbeiterzahl oder Fuhrpark verändert? Stimmen Versicherungssummen noch? Wurden neue Risiken hinzugefügt? Wir bieten einen kostenlosen Jahrescheck an." },
+
+  { id:'allg-startup', keywords:['startup','gründung','neu gegründet','gründer','gründerin','gmbh gründen'],
+    reply:"Frisch gegründete Unternehmen brauchen von Anfang an die richtigen Versicherungen: Betriebshaftpflicht ist Pflicht, BU für die Gründer ist existenziell, und je nach Branche kommen Berufshaftpflicht, IT-Haftpflicht oder Inhaltsversicherung hinzu. Wir kennen die Startphase und beraten entsprechend." },
+
+  { id:'allg-wachstum', keywords:['wachstum','expansion','mehr mitarbeiter','internationalisierung','filiale','neuer standort'],
+    reply:"Mit dem Wachstum eines Betriebs ändern sich Risiken und Versicherungsbedarf: Mehr Mitarbeiter erfordern Anpassungen bei bAV und bKV, neue Standorte brauchen Sachversicherungen, höhere Umsätze verlangen höhere Haftpflichtsummen. Wir begleiten Sie als Makler durch diese Entwicklung." },
+
+];
+
+// Fallback je nach Frage-Intent
+function buildFallback(text){
+  const t = text.toLowerCase();
+  if(/wie viel|kostet|preis|beitrag/i.test(t))
+    return "Für konkrete Beitragsangaben ist eine individuelle Einschätzung nötig, da Preise von Alter, Beruf und Gesundheit abhängen. Buchen Sie gerne ein kostenloses Beratungsgespräch — dann erstellen wir einen Vergleich speziell für Ihren Betrieb.";
+  if(/unterschied|vergleich|versus|vs\.|oder/i.test(t))
+    return "Einen direkten Vergleich erstellen wir am besten im persönlichen Gespräch, da die richtige Wahl von Ihrer individuellen Situation abhängt. Nutzen Sie gerne unser kostenloses Erstgespräch.";
+  return "Dazu habe ich aktuell keine passende Information in meiner Datenbank. Ich beantworte Fragen rund um BU, PKV, GFV, Basisrente, bAV, bKV und betriebliche Sachversicherungen. Oder buchen Sie direkt ein kostenloses Erstgespräch mit unseren Beratern.";
+}
+
+function findAnswer(userText){
+  const tokens = tokenize(userText);
+  let best = null, bestScore = 0;
+  FAQ.forEach(entry => {
+    const score = scoreEntry(tokens, userText, entry);
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  // Mindest-Score 1 erforderlich
+  return bestScore >= 1 ? best : null;
+}
+
+function addMessage(text, cls){
+  const div = document.createElement('div');
+  div.className = 'msg ' + cls;
+  div.textContent = text;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  return div;
+}
+
+function addTyping(){
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  return div;
+}
+
+function setBusy(busy){
+  chatInput.disabled = busy;
+  chatSend.disabled = busy;
+  chatQuick.querySelectorAll('.qbtn').forEach(b => b.disabled = busy);
+}
+
+function sendToAgent(userText){
+  addMessage(userText, 'user');
+  setBusy(true);
+  const typing = addTyping();
+  setTimeout(() => {
+    typing.remove();
+    const answer = findAnswer(userText);
+    const replyText = answer ? answer.reply : buildFallback(userText);
+    const botMsg = addMessage(replyText, 'bot');
+    if(answer && answer.cta){
+      botMsg.style.cursor = 'pointer';
+      botMsg.style.borderLeft = '3px solid var(--brass)';
+      botMsg.title = 'Klicken: Termin buchen';
+      botMsg.addEventListener('click', () => {
+        document.querySelector('.calendly-trigger').click();
+      });
+    }
+    setBusy(false);
+    chatInput.focus();
+  }, 600);
+}
+
+// modal → scroll to chat agent
+document.getElementById('modalAgentLink').addEventListener('click', () => {
+  closeModal();
+  setTimeout(() => {
+    document.getElementById('agent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => document.getElementById('chatInput').focus(), 500);
+  }, 200);
+});
+
+function submitChat(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+  chatInput.value = '';
+  sendToAgent(text);
+}
+
+chatSend.addEventListener('click', submitChat);
+chatInput.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter'){ e.preventDefault(); submitChat(); }
+});
+chatQuick.addEventListener('click', (e) => {
+  const btn = e.target.closest('.qbtn');
+  if(!btn) return;
+  sendToAgent(btn.dataset.q);
+});
+</script>
+
+</body>
+</html>
