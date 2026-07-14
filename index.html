@@ -2,7 +2,7 @@
 <html lang="de" prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <!-- ═══ SEO CORE ═══ -->
 <title>Coverly KG — Digitaler Versicherungsmakler für ganz Deutschland</title>
@@ -85,6 +85,23 @@
       "inLanguage": "de-DE"
     },
     {
+      "@type": "Blog",
+      "@id": "https://www.coverly-kg.de/#blog",
+      "name": "Coverly Ratgeber",
+      "description": "Versicherungswissen für Privatpersonen und Betriebe",
+      "publisher": {"@id": "https://www.coverly-kg.de/#organization"},
+      "blogPost": [
+        {"@type":"BlogPosting","headline":"BU-Versicherung: Wer braucht sie wirklich und was kostet sie?","keywords":"Berufsunfähigkeitsversicherung, BU Versicherung, BU Selbstständige"},
+        {"@type":"BlogPosting","headline":"PKV oder GKV? So treffen Selbstständige die richtige Entscheidung","keywords":"Private Krankenversicherung, PKV wechseln, PKV Vergleich"},
+        {"@type":"BlogPosting","headline":"bAV für KMU: Wie Arbeitgeber Mitarbeiter binden und Steuern sparen","keywords":"betriebliche Altersvorsorge, bAV KMU, Entgeltumwandlung"},
+        {"@type":"BlogPosting","headline":"Welche Versicherungen braucht mein Betrieb wirklich?","keywords":"Betriebshaftpflicht, Cyberversicherung KMU, Sachversicherung Betrieb"},
+        {"@type":"BlogPosting","headline":"Altersvorsorge für Selbstständige: Die 3 besten Optionen","keywords":"Altersvorsorge Selbstständige, Basisrente, Rürup-Rente"},
+        {"@type":"BlogPosting","headline":"Risikolebensversicherung: Wann lohnt sie sich?","keywords":"Risikolebensversicherung, Familie absichern, Kredit absichern"},
+        {"@type":"BlogPosting","headline":"bKV als Mitarbeiter-Benefit: So gewinnen Sie Fachkräfte","keywords":"betriebliche Krankenversicherung, Mitarbeiterbenefit, bKV"},
+        {"@type":"BlogPosting","headline":"GmbH-Geschäftsführer richtig absichern","keywords":"Geschäftsführerversicherung, D&O Versicherung, GmbH Absicherung"}
+      ]
+    },
+    {
       "@type": "FAQPage",
       "mainEntity": [
         {
@@ -114,7 +131,7 @@
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Spectral:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root{
   --paper: #EEF0EA;
@@ -128,6 +145,14 @@
   --brass-light: #E4C179;
   --teal: #4ECBA4;
   --teal-dim: rgba(78,203,164,0.18);
+  --glass: rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.12);
+  --glass-dark: rgba(14,33,28,0.6);
+  --shadow-lg: 0 32px 64px -20px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 40px rgba(78,203,164,0.18);
+  --grad-text: linear-gradient(135deg, #fff 0%, #4ECBA4 100%);
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   --white: #FCFCF9;
   --line: rgba(21,33,28,0.14);
   --line-light: rgba(252,252,249,0.18);
@@ -140,7 +165,7 @@ html{scroll-behavior:smooth;}
 body{
   background:var(--paper);
   color:var(--ink);
-  font-family:'IBM Plex Sans', sans-serif;
+  font-family:'Inter', sans-serif;
   font-size:16px;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
@@ -148,8 +173,8 @@ body{
 img,svg{display:block; max-width:100%;}
 a{color:inherit; text-decoration:none;}
 ul{list-style:none;}
-h1,h2,h3,h4{font-family:'Spectral', serif; font-weight:600; letter-spacing:-0.01em; color:var(--ink);}
-.mono{font-family:'IBM Plex Mono', monospace;}
+h1,h2,h3,h4{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em; color:var(--ink);}
+.mono{font-family:'JetBrains Mono', monospace;}
 
 .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
 @media (max-width:640px){ .wrap{padding:0 20px;} }
@@ -188,12 +213,12 @@ header::after{
 }
 .logo-mark{flex:0 0 36px; display:block;}
 .logo-wordmark{
-  font-family:'DM Sans', sans-serif; font-size:22px; font-weight:700;
-  color:var(--white); letter-spacing:-.03em; line-height:1;
+  font-family:'Space Grotesk', sans-serif; font-size:21px; font-weight:700;
+  color:var(--white); letter-spacing:-.04em; line-height:1;
 }
 .logo-wordmark .tl{color:var(--teal);}
 .logo-kg{
-  font-family:'IBM Plex Mono', monospace; font-size:10.5px; font-weight:400;
+  font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:400;
   color:rgba(255,255,255,0.35); letter-spacing:.1em; text-transform:uppercase;
   margin-top:3px; display:block;
 }
@@ -217,24 +242,24 @@ header::after{
 /* CTA button */
 .nav-cta{
   display:inline-flex; align-items:center; gap:7px;
-  background:var(--brass) !important; color:var(--navy-2) !important;
-  padding:9px 18px; border-radius:4px;
+  background:linear-gradient(135deg, var(--teal) 0%, #38b895 100%) !important;
+  color:var(--navy-2) !important;
+  padding:9px 20px; border-radius:100px;
   font-size:13.5px; font-weight:700; letter-spacing:.01em;
   border:none !important;
-  transition:background .18s, transform .18s, box-shadow .18s;
-  box-shadow:0 2px 10px rgba(192,151,62,0.3);
+  transition:all .2s ease;
+  box-shadow:0 4px 16px rgba(78,203,164,0.3);
 }
 .nav-cta::after{ content:'→'; font-size:12px; }
 .nav-cta:hover{
-  background:var(--brass-light) !important;
-  transform:translateY(-1px);
-  box-shadow:0 4px 16px rgba(192,151,62,0.4);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(78,203,164,0.4);
 }
 
 /* Trust badge in header */
 .nav-badge{
   display:flex; align-items:center; gap:6px;
-  font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.06em;
+  font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.06em;
   color:rgba(252,252,249,0.4); text-transform:uppercase;
   border:1px solid rgba(252,252,249,0.12); padding:4px 10px; border-radius:3px;
   margin-right:6px;
@@ -274,46 +299,89 @@ header::after{
 
 /* ---------- hero ---------- */
 .hero{
-  padding:76px 0 100px;
-  position:relative;
-  overflow:hidden;
+  position:relative; overflow:hidden;
+  min-height:100vh; display:flex; align-items:center;
+  background:var(--navy-2);
 }
+/* Video Background */
+.hero-video{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  opacity:0.3; z-index:0;
+}
+@media(max-width:768px){
+  .hero-video{display:none;} /* Daten sparen auf Mobilgeräten */
+}
+.hero-overlay{
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(135deg, rgba(14,33,28,0.92) 0%, rgba(14,33,28,0.7) 50%, rgba(14,33,28,0.85) 100%);
+}
+/* Animated gradient fallback when no video */
+.hero-gradient-bg{
+  position:absolute; inset:0; z-index:0;
+  background:linear-gradient(135deg, #0E211C 0%, #16302B 40%, #0d2820 70%, #0E211C 100%);
+}
+.hero-gradient-bg::before{
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 70% 40%, rgba(78,203,164,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 40% at 20% 80%, rgba(192,151,62,0.06) 0%, transparent 50%);
+  animation:heroGlow 8s ease-in-out infinite alternate;
+}
+@keyframes heroGlow{
+  from{opacity:.6;}
+  to{opacity:1;}
+}
+.hero-content{position:relative; z-index:2; width:100%; padding:100px 0 80px;}
 .hero-grid{
-  display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center;
+  display:grid; grid-template-columns:1.1fr 0.9fr; gap:72px; align-items:center;
 }
-@media (max-width:960px){
-  .hero-grid{grid-template-columns:1fr; gap:56px;}
-}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr; gap:48px;} .hero-content{padding:80px 0 60px;}}
 .eyebrow{
   display:inline-flex; align-items:center; gap:8px;
-  font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:.06em;
-  color:var(--brick); text-transform:uppercase; margin-bottom:22px;
+  font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.08em;
+  color:var(--teal); text-transform:uppercase; margin-bottom:20px;
+  background:rgba(78,203,164,0.1); border:1px solid rgba(78,203,164,0.25);
+  padding:6px 14px; border-radius:100px;
 }
-.eyebrow::before{content:"§34d GewO"; border:1px solid var(--brick); padding:3px 8px; border-radius:2px; font-size:11px;}
+.eyebrow::before{content:"§34d GewO · Lizenziert";}
 h1.hero-title{
-  font-size:clamp(38px, 5.2vw, 60px);
-  line-height:1.06;
-  margin-bottom:22px;
+  font-size:clamp(38px, 5.2vw, 64px);
+  line-height:1.06; margin-bottom:20px;
+  color:var(--white); letter-spacing:-.02em;
 }
-h1.hero-title em{font-style:italic; color:var(--navy);}
+h1.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg, #4ECBA4 0%, #a8e6d4 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
 .hero-sub{
-  font-size:18px; color:var(--ink-soft); max-width:46ch; margin-bottom:34px;
+  font-size:18px; color:rgba(252,252,249,0.72); max-width:48ch; margin-bottom:36px; line-height:1.7;
 }
-.hero-ctas{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:40px;}
+.hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
 .btn{
-  display:inline-flex; align-items:center; gap:10px;
-  padding:15px 26px; border-radius:var(--radius);
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 28px; border-radius:100px;
   font-size:15px; font-weight:600; cursor:pointer;
-  transition:transform .2s, background .2s, border-color .2s;
-  border:1px solid transparent;
+  transition:all .25s cubic-bezier(.22,.61,.36,1);
+  border:1px solid transparent; text-decoration:none;
 }
-.btn-primary{background:var(--navy); color:var(--white);}
-.btn-primary:hover{transform:translateY(-2px); background:var(--navy-2);}
-.btn-ghost{background:transparent; color:var(--ink); border-color:var(--ink);}
-.btn-ghost:hover{transform:translateY(-2px); border-color:var(--brass); color:var(--brass);}
-.hero-trust{display:flex; gap:28px; flex-wrap:wrap; font-size:13.5px; color:var(--ink-soft);}
-.hero-trust span{display:flex; align-items:center; gap:8px;}
-.hero-trust .dot{width:6px; height:6px; border-radius:50%; background:var(--brass);}
+.btn-primary{
+  background:linear-gradient(135deg, var(--teal) 0%, #38b895 100%);
+  color:var(--navy-2);
+  box-shadow:0 8px 32px rgba(78,203,164,0.3);
+}
+.btn-primary:hover{transform:translateY(-3px); box-shadow:0 16px 48px rgba(78,203,164,0.4);}
+.btn-ghost{
+  background:rgba(255,255,255,0.06);
+  color:var(--white);
+  border-color:rgba(255,255,255,0.2);
+  backdrop-filter:blur(8px);
+}
+.btn-ghost:hover{transform:translateY(-3px); background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.35);}
+.hero-trust{display:flex; gap:20px; flex-wrap:wrap; font-size:13px; color:rgba(252,252,249,0.5);}
+.hero-trust span{display:flex; align-items:center; gap:7px;}
+.hero-trust .dot{width:5px; height:5px; border-radius:50%; background:var(--teal); flex:0 0 5px;}
 
 /* signature: coverage stack */
 .stack{
@@ -322,20 +390,23 @@ h1.hero-title em{font-style:italic; color:var(--navy);}
 }
 .policy-card{
   position:absolute;
-  width:260px; height:170px;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:6px;
-  box-shadow:0 18px 40px -18px rgba(15,30,25,0.25);
-  padding:20px 22px;
-  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  width:240px; height:155px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px;
+  box-shadow:0 24px 48px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+  padding:18px 20px;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  transition:transform .5s cubic-bezier(.22,.61,.36,1), box-shadow .5s ease;
   display:flex; flex-direction:column; justify-content:space-between;
+  color:var(--white);
 }
 .policy-card .pc-top{display:flex; justify-content:space-between; align-items:flex-start;}
-.policy-card .pc-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--brass); border:1px solid var(--brass); padding:2px 7px; border-radius:2px;}
-.policy-card .pc-title{font-family:'Spectral', serif; font-size:19px; margin-top:14px; font-weight:600;}
-.policy-card .pc-check{width:22px; height:22px; border-radius:50%; background:var(--navy); color:var(--white); display:flex; align-items:center; justify-content:center; font-size:12px;}
-.stack:hover .policy-card{box-shadow:0 24px 50px -18px rgba(15,30,25,0.32);}
+.policy-card .pc-tag{font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--teal); border:1px solid rgba(78,203,164,0.35); padding:2px 8px; border-radius:100px; background:rgba(78,203,164,0.08);}
+.policy-card .pc-title{font-family:'Space Grotesk', sans-serif; font-size:18px; margin-top:12px; font-weight:600; color:var(--white);}
+.policy-card .pc-check{width:22px; height:22px; border-radius:50%; background:var(--teal); color:var(--navy-2); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;}
+.stack:hover .policy-card{box-shadow:0 32px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);}
 
 .pc1{transform:rotate(-9deg) translate(-92px,-58px); z-index:1;}
 .pc2{transform:rotate(-2deg) translate(-24px,-6px); z-index:2;}
@@ -360,18 +431,26 @@ h1.hero-title em{font-style:italic; color:var(--navy);}
 .audience-cards{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
 @media(max-width:720px){.audience-cards{grid-template-columns:1fr;}}
 .audience-card{
-  display:flex; align-items:flex-start; gap:20px;
+  display:flex; align-items:flex-start; gap:22px;
   background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
-  border-radius:8px; padding:28px 24px; text-decoration:none; color:var(--white);
-  transition:background .2s, border-color .2s, transform .2s;
-  position:relative;
+  border-radius:20px; padding:32px 28px; text-decoration:none; color:var(--white);
+  transition:all .3s cubic-bezier(.22,.61,.36,1);
+  position:relative; overflow:hidden;
+  backdrop-filter:blur(8px);
 }
-.audience-card:hover{background:rgba(255,255,255,0.09); border-color:rgba(255,255,255,0.22); transform:translateY(-2px);}
+.audience-card::before{
+  content:''; position:absolute; inset:0; opacity:0;
+  transition:opacity .3s;
+}
+.audience-card:first-child::before{background:linear-gradient(135deg, rgba(78,203,164,0.08) 0%, transparent 60%);}
+.audience-card:last-child::before{background:linear-gradient(135deg, rgba(192,151,62,0.08) 0%, transparent 60%);}
+.audience-card:hover::before{opacity:1;}
+.audience-card:hover{background:rgba(255,255,255,0.09); border-color:rgba(255,255,255,0.2); transform:translateY(-4px); box-shadow:0 20px 48px rgba(0,0,0,0.2);}
 .ac-icon{
   width:52px; height:52px; flex:0 0 52px; border-radius:10px;
   background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center;
 }
-.ac-body h3{font-family:"Spectral",serif; font-size:19px; margin-bottom:8px; color:var(--white);}
+.ac-body h3{font-family:"Space Grotesk",sans-serif; font-size:19px; margin-bottom:8px; color:var(--white);}
 .ac-body p{font-size:14px; color:rgba(252,252,249,0.65); line-height:1.6; margin-bottom:14px;}
 .ac-tags{display:flex; flex-wrap:wrap; gap:6px;}
 .ac-tags span{font-size:11.5px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); padding:3px 9px; border-radius:20px; color:rgba(252,252,249,0.65);}
@@ -384,40 +463,48 @@ h1.hero-title em{font-style:italic; color:var(--navy);}
 section{padding:96px 0;}
 .section-head{max-width:640px; margin-bottom:56px;}
 .section-head .eyebrow-line{
-  font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:.08em;
+  font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:.08em;
   text-transform:uppercase; color:var(--brass); margin-bottom:14px; display:block;
 }
 .section-head h2{font-size:clamp(28px,3.4vw,38px); margin-bottom:14px;}
 .section-head p{color:var(--ink-soft); font-size:16.5px;}
 
 /* ---------- services (§ paragraphs) ---------- */
-.services{background:var(--paper-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.services{background:var(--paper); padding-top:88px; padding-bottom:88px;}
 .svc-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line);}
 .svc-card{background:var(--paper-alt); padding:34px 30px; transition:background .25s; cursor:pointer;}
 .svc-card:hover{background:var(--card);}
 .svc-card:focus-visible{outline:2px solid var(--brass); outline-offset:-2px;}
-.svc-num{font-family:'IBM Plex Mono', monospace; color:var(--brass); font-size:15px; margin-bottom:16px; display:block;}
-.svc-card-actions{display:flex; align-items:center; gap:14px; margin-top:16px;}
-.svc-more{font-size:13px; color:var(--brass); font-weight:600; display:inline-flex; align-items:center; gap:5px;}
+.svc-num{font-family:'JetBrains Mono', monospace; color:var(--brass); font-size:15px; margin-bottom:16px; display:block;}
+.svc-card-actions{display:flex; align-items:center; gap:12px; margin-top:18px;}
+.svc-more{font-size:13px; color:var(--teal); font-weight:600; display:inline-flex; align-items:center; gap:5px; transition:gap .2s;}
+.svc-card:hover .svc-more{gap:8px;}
 .svc-anfrage{
   font-size:12.5px; color:var(--ink-soft); font-weight:600;
-  border:1px solid var(--line); border-radius:2px; padding:5px 11px;
-  background:var(--card); cursor:pointer; transition:border-color .2s, color .2s, background .2s;
-  font-family:'IBM Plex Sans',sans-serif;
+  border:1px solid var(--line); border-radius:100px; padding:5px 14px;
+  background:var(--white); cursor:pointer; transition:all .2s;
+  font-family:'Inter',sans-serif;
 }
-.svc-anfrage:hover{border-color:var(--brass); color:var(--brass); background:var(--paper);}
-.svc-card:hover .svc-anfrage{border-color:var(--brass); color:var(--brass);}
+.svc-anfrage:hover{border-color:var(--teal); color:var(--navy-2); background:rgba(78,203,164,0.1);}
+.svc-anfrage{min-height:36px;}
+.svc-card:hover .svc-anfrage{border-color:var(--teal); color:var(--navy-2);}
 .svc-card h3{font-size:21px; margin-bottom:10px;}
 .svc-card p{color:var(--ink-soft); font-size:14.8px;}
 
 /* ---------- process ---------- */
 .process-list{display:flex; flex-direction:column;}
 .process-item{
-  display:grid; grid-template-columns:64px 1fr; gap:24px;
-  padding:30px 0; border-top:1px solid var(--line);
+  display:grid; grid-template-columns:56px 1fr; gap:28px;
+  padding:28px 0; border-top:1px solid var(--line);
+  transition:padding .2s;
 }
 .process-item:last-child{border-bottom:1px solid var(--line);}
-.process-step{font-family:'IBM Plex Mono', monospace; font-size:26px; color:var(--ink-soft); opacity:.5;}
+.process-step{
+  font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--teal);
+  width:44px; height:44px; border-radius:50%; border:1.5px solid rgba(78,203,164,0.3);
+  display:flex; align-items:center; justify-content:center; flex:0 0 44px;
+  background:rgba(78,203,164,0.06); font-weight:600;
+}
 .process-item h3{font-size:20px; margin-bottom:6px;}
 .process-item p{color:var(--ink-soft); font-size:15px; max-width:56ch;}
 
@@ -440,7 +527,7 @@ section{padding:96px 0;}
   display:flex; align-items:center; justify-content:center; font-size:13px; margin-top:2px;
 }
 .agent-point div{font-size:14.5px; color:rgba(252,252,249,0.85);}
-.agent-point strong{color:var(--white); display:block; font-size:15.5px; margin-bottom:2px; font-family:'Spectral',serif; font-weight:600;}
+.agent-point strong{color:var(--white); display:block; font-size:15.5px; margin-bottom:2px; font-family:'Space Grotesk',sans-serif; font-weight:600;}
 
 /* chat widget */
 .chatcard{
@@ -461,7 +548,7 @@ section{padding:96px 0;}
 }
 .chat-header .bot-dot{width:9px; height:9px; border-radius:50%; background:#4CAF7D;}
 .chat-header .ch-title{font-size:14px; font-weight:600;}
-.chat-header .ch-sub{font-size:11.5px; color:rgba(252,252,249,0.6); font-family:'IBM Plex Mono',monospace;}
+.chat-header .ch-sub{font-size:11.5px; color:rgba(252,252,249,0.6); font-family:'JetBrains Mono',monospace;}
 .chat-body{flex:1; padding:18px 18px 8px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;}
 .msg{max-width:80%; padding:11px 15px; border-radius:12px; font-size:14px; line-height:1.5;}
 .msg.bot{background:var(--card); border:1px solid var(--line); align-self:flex-start; border-bottom-left-radius:2px;}
@@ -487,7 +574,7 @@ section{padding:96px 0;}
 }
 .chat-input-row input{
   flex:1; border:1px solid var(--line); border-radius:20px; padding:11px 16px;
-  font-family:'IBM Plex Sans', sans-serif; font-size:14px; background:var(--white); color:var(--ink);
+  font-family:'Inter', sans-serif; font-size:14px; background:var(--white); color:var(--ink);
 }
 .chat-input-row input:focus{outline:none; border-color:var(--brass);}
 .chat-send{
@@ -519,7 +606,7 @@ section{padding:96px 0;}
   display:flex; align-items:center; justify-content:center; transition:border-color .2s, color .2s;
 }
 .modal-close:hover{border-color:var(--brass); color:var(--brass);}
-.modal-tag{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--brass); letter-spacing:.05em; text-transform:uppercase; margin-bottom:10px; display:block;}
+.modal-tag{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--brass); letter-spacing:.05em; text-transform:uppercase; margin-bottom:10px; display:block;}
 .modal-panel h3{font-size:26px; margin-bottom:16px; padding-right:30px;}
 .modal-intro{color:var(--ink-soft); font-size:15.5px; margin-bottom:22px;}
 .modal-points{display:flex; flex-direction:column; gap:12px; margin-bottom:22px;}
@@ -534,12 +621,14 @@ section{padding:96px 0;}
 }
 .modal-cta{display:flex; gap:12px; flex-wrap:wrap;}
 .btn-brass{
-  background:var(--brass); color:var(--navy-2); font-weight:700;
-  border:1px solid var(--brass); border-radius:var(--radius); padding:13px 20px;
-  font-size:14px; cursor:pointer; transition:background .2s, transform .2s;
-  font-family:'IBM Plex Sans',sans-serif;
+  background:linear-gradient(135deg, var(--brass) 0%, var(--brass-light) 100%);
+  color:var(--navy-2); font-weight:700;
+  border:none; border-radius:100px; padding:13px 22px;
+  font-size:14px; cursor:pointer; transition:all .25s ease;
+  font-family:'Inter',sans-serif;
+  box-shadow:0 6px 20px rgba(192,151,62,0.3);
 }
-.btn-brass:hover{background:var(--brass-light); transform:translateY(-1px);}
+.btn-brass:hover{transform:translateY(-2px); box-shadow:0 12px 32px rgba(192,151,62,0.4);}
 
 /* ---------- Anfrageformular Modal ---------- */
 .form-overlay{
@@ -559,7 +648,7 @@ section{padding:96px 0;}
   border-bottom:2px solid var(--brass); position:sticky; top:0; z-index:2;
 }
 .form-header .fh-tag{
-  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--brass-light);
+  font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--brass-light);
   letter-spacing:.07em; text-transform:uppercase; margin-bottom:8px; display:block;
 }
 .form-header h3{font-size:22px; color:var(--white); margin:0;}
@@ -573,7 +662,7 @@ section{padding:96px 0;}
 .form-body{padding:32px 36px 28px;}
 .form-section{margin-bottom:28px;}
 .form-section-title{
-  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase;
+  font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase;
   color:var(--brass); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--line);
   display:block;
 }
@@ -587,7 +676,7 @@ section{padding:96px 0;}
 .form-group select,
 .form-group textarea{
   border:1px solid var(--line); border-radius:3px; padding:10px 13px;
-  font-family:'IBM Plex Sans',sans-serif; font-size:14px; color:var(--ink);
+  font-family:'Inter',sans-serif; font-size:14px; color:var(--ink);
   background:var(--white); transition:border-color .2s, box-shadow .2s;
   width:100%;
 }
@@ -626,7 +715,7 @@ section{padding:96px 0;}
 .form-submit{
   background:var(--navy); color:var(--white); border:none; border-radius:3px;
   padding:13px 28px; font-size:14.5px; font-weight:700; cursor:pointer;
-  font-family:'IBM Plex Sans',sans-serif; transition:background .2s, transform .2s;
+  font-family:'Inter',sans-serif; transition:background .2s, transform .2s;
   display:flex; align-items:center; gap:8px;
 }
 .form-submit:hover{background:var(--navy-2); transform:translateY(-1px);}
@@ -636,7 +725,7 @@ section{padding:96px 0;}
   text-align:center; padding:56px 36px;
 }
 .form-success .fs-icon{font-size:48px; margin-bottom:16px;}
-.form-success h4{font-family:'Spectral',serif; font-size:24px; margin-bottom:10px; color:var(--navy);}
+.form-success h4{font-family:'Space Grotesk',sans-serif; font-size:24px; margin-bottom:10px; color:var(--navy);}
 .form-success p{color:var(--ink-soft); font-size:15px; max-width:38ch; margin:0 auto 24px;}
 .form-progress{height:3px; background:var(--line); margin:0 36px 24px;}
 .form-progress-bar{height:100%; background:var(--brass); border-radius:2px; transition:width .4s var(--ease);}
@@ -652,7 +741,7 @@ section{padding:96px 0;}
   background:var(--navy); color:var(--white);
   border:none; border-radius:32px; padding:14px 20px 14px 16px;
   box-shadow:0 16px 36px -14px rgba(15,30,25,0.5);
-  cursor:pointer; font-family:'IBM Plex Sans', sans-serif; font-size:14.5px; font-weight:600;
+  cursor:pointer; font-family:'Inter', sans-serif; font-size:14.5px; font-weight:600;
   transition:transform .2s, background .2s;
 }
 .chat-fab:hover{transform:translateY(-2px); background:var(--navy-2);}
@@ -667,8 +756,9 @@ section{padding:96px 0;}
 .trust{border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
 .trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
 @media (max-width:760px){.trust-grid{grid-template-columns:repeat(2,1fr);}}
-.trust-cell{background:var(--paper); padding:34px 26px;}
-.trust-cell .tv{font-family:'Spectral',serif; font-size:34px; font-weight:600; color:var(--navy); margin-bottom:6px;}
+.trust-cell{background:var(--white); padding:36px 28px; transition:background .2s;}
+.trust-cell:hover{background:var(--paper);}
+.trust-cell .tv{font-family:'Space Grotesk',sans-serif; font-size:36px; font-weight:600; color:var(--navy); margin-bottom:6px; background:linear-gradient(135deg, var(--navy) 0%, #2a5a4e 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
 .trust-cell .tl{font-size:13px; color:var(--ink-soft);}
 
 /* ---------- trustpilot ---------- */
@@ -705,29 +795,251 @@ section{padding:96px 0;}
 .reviews-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:0;}
 @media(max-width:900px){.reviews-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:580px){.reviews-grid{grid-template-columns:1fr;}}
-.review-card{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:26px 24px; display:flex; flex-direction:column; gap:14px;}
+.review-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius-lg); padding:28px 24px; display:flex; flex-direction:column; gap:14px; transition:all .3s ease; box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.review-card:hover{transform:translateY(-3px); box-shadow:0 16px 40px rgba(0,0,0,0.08); border-color:rgba(244,181,55,0.3);}
 .review-stars{display:flex; gap:3px; color:#F4B537; font-size:15px;}
 .review-text{font-size:14.5px; color:var(--ink); line-height:1.65; flex:1; font-style:italic;}
-.review-text::before{content:'"'; font-family:'Spectral',serif; font-size:28px; color:var(--brass); line-height:0; vertical-align:-10px; margin-right:4px;}
+.review-text::before{content:'"'; font-family:'Space Grotesk',sans-serif; font-size:28px; color:var(--brass); line-height:0; vertical-align:-10px; margin-right:4px;}
 .review-author{display:flex; flex-direction:column; gap:3px; border-top:1px solid var(--line); padding-top:14px; margin-top:auto;}
 .review-name{font-size:14px; font-weight:600; color:var(--ink);}
-.review-meta{font-size:12.5px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+.review-meta{font-size:12.5px; color:var(--ink-soft); font-family:'JetBrains Mono',monospace;}
 .review-source{display:flex; align-items:center; gap:6px; margin-top:6px;}
 .review-source svg{flex:0 0 16px;}
 .review-source span{font-size:11.5px; color:var(--ink-soft);}
 .reviews-cta{text-align:center; margin-top:36px;}
 .reviews-avg{display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:32px;}
-.reviews-avg .ra-score{font-family:'Spectral',serif; font-size:42px; font-weight:600; color:var(--navy); line-height:1;}
+.reviews-avg .ra-score{font-family:'Space Grotesk',sans-serif; font-size:42px; font-weight:600; color:var(--navy); line-height:1;}
 .reviews-avg .ra-detail{display:flex; flex-direction:column; gap:3px;}
 .reviews-avg .ra-stars{display:flex; gap:2px; color:#F4B537; font-size:16px;}
 .reviews-avg .ra-count{font-size:12.5px; color:var(--ink-soft);}
 
 /* ---------- final CTA ---------- */
-.final-cta{text-align:center; padding:110px 0;}
-.final-cta h2{font-size:clamp(30px,4vw,46px); margin-bottom:18px; max-width:18ch; margin-left:auto; margin-right:auto;}
-.final-cta p{color:var(--ink-soft); max-width:48ch; margin:0 auto 36px;}
+.final-cta{
+  text-align:center; padding:110px 0;
+  background:var(--navy-2);
+  position:relative; overflow:hidden;
+}
+.final-cta::before{
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(78,203,164,0.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+.final-cta h2{font-size:clamp(30px,4vw,48px); margin-bottom:18px; max-width:20ch; margin-left:auto; margin-right:auto; color:var(--white);}
+.final-cta p{color:rgba(252,252,249,0.65); max-width:48ch; margin:0 auto 36px;}
 .final-cta .btn{margin:0 auto;}
-.final-ctas-row{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+.final-ctas-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+/* ---------- blog / ratgeber ---------- */
+.blog{padding:96px 0; background:var(--paper);}
+.blog-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:24px; margin-top:0;}
+@media(max-width:720px){.blog-grid{grid-template-columns:1fr;}}
+.blog-card{
+  background:var(--white); border:1px solid var(--line); border-radius:var(--radius-lg);
+  overflow:hidden; display:flex; flex-direction:column;
+  transition:all .3s cubic-bezier(.22,.61,.36,1);
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+.blog-card:hover{transform:translateY(-4px); box-shadow:0 20px 48px rgba(0,0,0,0.1); border-color:rgba(78,203,164,0.25);}
+.blog-card-header{padding:28px 24px 0;}
+.blog-cat{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--teal); background:rgba(78,203,164,0.1); border:1px solid rgba(78,203,164,0.2); padding:3px 10px; border-radius:100px; display:inline-block; margin-bottom:12px;}
+.blog-card h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-.01em; font-size:19px; line-height:1.3; margin-bottom:10px; color:var(--navy-2);}
+.blog-card .blog-excerpt{font-size:14px; color:var(--ink-soft); line-height:1.65; margin-bottom:18px;}
+.blog-card-footer{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; border-top:1px solid var(--line); margin-top:auto;}
+.blog-meta{font-size:12px; color:var(--ink-soft); font-family:'JetBrains Mono',monospace;}
+.blog-read{font-size:13px; font-weight:600; color:var(--teal); display:flex; align-items:center; gap:5px; cursor:pointer; background:none; border:none; font-family:'Inter',sans-serif; transition:gap .2s;}
+.blog-read:hover{gap:9px;}
+
+/* Article Modal */
+.article-overlay{
+  position:fixed; inset:0; background:rgba(14,33,28,0.65);
+  display:none; align-items:flex-start; justify-content:center; z-index:700;
+  padding:20px; backdrop-filter:blur(3px); overflow-y:auto;
+}
+.article-overlay.open{display:flex;}
+.article-panel{
+  background:var(--white); width:100%; max-width:720px;
+  border-radius:16px; margin:auto;
+  box-shadow:0 40px 90px -20px rgba(0,0,0,0.5);
+  animation:modalIn .35s var(--ease);
+  overflow:hidden;
+}
+.article-header{
+  background:var(--navy-2); padding:36px 40px 32px; position:relative;
+}
+@media(max-width:600px){.article-header{padding:28px 20px 24px;}}
+.article-close{
+  position:absolute; top:16px; right:16px; width:34px; height:34px;
+  border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08);
+  border-radius:50%; cursor:pointer; color:var(--white); font-size:14px;
+  display:flex; align-items:center; justify-content:center; transition:all .2s;
+}
+.article-close:hover{border-color:var(--teal); background:rgba(78,203,164,0.2);}
+.article-cat{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--teal); margin-bottom:12px; display:block;}
+.article-header h2{font-size:clamp(22px,4vw,30px); color:var(--white); line-height:1.2; padding-right:40px;}
+.article-header .art-meta{font-size:12.5px; color:rgba(252,252,249,0.5); font-family:'JetBrains Mono',monospace; margin-top:12px;}
+.article-body{padding:36px 40px 40px; font-size:15.5px; line-height:1.75; color:var(--ink);}
+@media(max-width:600px){.article-body{padding:24px 20px 28px;}}
+.article-body h3{font-family:'Space Grotesk',sans-serif; font-size:21px; color:var(--navy-2); margin:28px 0 10px;}
+.article-body h4{font-size:16px; font-weight:700; color:var(--navy-2); margin:20px 0 8px;}
+.article-body p{margin-bottom:16px;}
+.article-body ul{margin:12px 0 18px 20px; display:flex; flex-direction:column; gap:6px;}
+.article-body li{color:var(--ink);}
+.article-body li::marker{color:var(--teal);}
+.article-highlight{background:rgba(78,203,164,0.08); border-left:3px solid var(--teal); padding:16px 20px; border-radius:0 8px 8px 0; margin:20px 0; font-size:15px;}
+.article-cta-box{background:var(--navy-2); border-radius:12px; padding:24px 28px; margin-top:32px; text-align:center;}
+.article-cta-box p{color:rgba(252,252,249,0.75); font-size:14.5px; margin-bottom:16px;}
+.article-cta-box h4{color:var(--white); font-size:18px; margin-bottom:10px;}
+
+/* ═══════════════════════════════════════════════
+   MOBILE OPTIMIERUNG — Smartphone-First
+═══════════════════════════════════════════════ */
+
+/* Touch targets min 44px */
+a, button, .svc-card, .audience-card, .qbtn, .svc-anfrage{
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile hero tweaks */
+@media(max-width:640px){
+  .hero{ min-height:100svh; }
+  .hero-content{ padding:90px 0 60px; }
+  h1.hero-title{ font-size:36px; line-height:1.1; }
+  .hero-sub{ font-size:16px; margin-bottom:28px; }
+  .hero-ctas{ flex-direction:column; gap:12px; }
+  .hero-ctas .btn{ width:100%; justify-content:center; padding:16px 24px; font-size:16px; }
+  .hero-trust{ gap:12px; font-size:12px; }
+  .stack{ display:none; } /* Hide card stack on mobile */
+  .eyebrow{ font-size:11px; }
+}
+
+/* Mobile nav */
+@media(max-width:640px){
+  .nav{ height:64px; }
+  .logo-wordmark{ font-size:20px; }
+}
+
+/* Audience split mobile */
+@media(max-width:640px){
+  .audience-cards{ grid-template-columns:1fr; gap:14px; }
+  .audience-card{ padding:24px 20px; border-radius:16px; }
+  .ac-body h3{ font-size:17px; }
+  .ac-body p{ font-size:13.5px; }
+  .ac-icon{ width:44px; height:44px; flex:0 0 44px; }
+}
+
+/* Service cards mobile */
+@media(max-width:640px){
+  .svc-grid{ grid-template-columns:1fr; gap:12px; }
+  .svc-card{ padding:24px 20px; border-radius:14px; }
+  .svc-card h3{ font-size:18px; }
+  .svc-card-actions{ flex-wrap:wrap; gap:10px; }
+  .svc-anfrage{ font-size:13px; padding:7px 16px; }
+}
+
+/* Section heads mobile */
+@media(max-width:640px){
+  section{ padding:64px 0; }
+  .section-head h2{ font-size:26px; }
+  .section-head p{ font-size:15px; }
+  .section-head{ margin-bottom:36px; }
+}
+
+/* Process mobile */
+@media(max-width:640px){
+  .process-item{ grid-template-columns:44px 1fr; gap:16px; padding:22px 0; }
+  .process-item h3{ font-size:17px; }
+  .process-item p{ font-size:14px; }
+}
+
+/* Agent section mobile */
+@media(max-width:640px){
+  .agent-grid{ grid-template-columns:1fr; }
+  .chatcard{ height:520px; }
+  .agent-points{ gap:14px; }
+}
+
+/* Chat widget mobile */
+@media(max-width:640px){
+  .chat-quick{ gap:8px; padding:10px 14px 14px; }
+  .qbtn{ font-size:12.5px; padding:8px 12px; }
+  .chat-input-row{ padding:12px 14px; gap:8px; }
+  .chat-input-row input{ font-size:16px; } /* Verhindert Zoom beim Tippen auf iOS */
+  .chat-send{ width:42px; height:42px; flex:0 0 42px; }
+  .msg{ font-size:13.5px; padding:10px 14px; }
+}
+
+/* Trust section mobile */
+@media(max-width:640px){
+  .trust-grid{ grid-template-columns:1fr 1fr; }
+  .trust-cell{ padding:24px 16px; }
+  .trust-cell .tv{ font-size:28px; }
+}
+
+/* Reviews mobile */
+@media(max-width:640px){
+  .reviews-grid{ grid-template-columns:1fr; gap:14px; }
+  .review-card{ padding:22px 18px; }
+  .reviews-avg{ flex-direction:column; gap:8px; text-align:center; }
+  .ra-stars{ justify-content:center; }
+}
+
+/* Forms mobile */
+@media(max-width:640px){
+  .form-panel{ border-radius:12px 12px 0 0; max-height:96vh; }
+  .form-header{ padding:22px 20px 18px; }
+  .form-body{ padding:24px 16px 20px; }
+  .form-row{ grid-template-columns:1fr !important; }
+  .form-footer{ padding:16px 16px 20px; flex-direction:column; align-items:stretch; }
+  .form-submit{ justify-content:center; padding:16px; font-size:15px; }
+  .form-group input, .form-group select, .form-group textarea{ font-size:16px; } /* Kein iOS Zoom */
+}
+
+/* Form overlay on mobile: sheet from bottom */
+@media(max-width:640px){
+  .form-overlay{ align-items:flex-end; padding:0; }
+  .form-panel{ max-width:100%; border-radius:20px 20px 0 0; }
+}
+
+/* Modal mobile */
+@media(max-width:640px){
+  .modal-overlay{ padding:0; align-items:flex-end; }
+  .modal-panel{ border-radius:20px 20px 0 0; max-height:90vh; padding:28px 20px 24px; }
+  .modal-panel h3{ font-size:22px; }
+  .modal-intro{ font-size:14.5px; }
+  .modal-cta{ flex-direction:column; }
+  .modal-cta .btn{ width:100%; justify-content:center; }
+}
+
+/* Final CTA mobile */
+@media(max-width:640px){
+  .final-cta{ padding:72px 0; }
+  .final-cta h2{ font-size:28px; }
+  .final-ctas-row{ flex-direction:column; align-items:center; }
+  .final-ctas-row .btn{ width:100%; max-width:320px; justify-content:center; }
+}
+
+/* Floating FAB mobile */
+@media(max-width:640px){
+  .chat-fab{ right:16px; bottom:16px; }
+}
+
+/* Footer mobile */
+@media(max-width:640px){
+  .footer-grid{ grid-template-columns:1fr; gap:28px; }
+  .footer-bottom{ flex-direction:column; gap:8px; font-size:12px; text-align:center; }
+}
+
+/* Trustpilot bar mobile */
+@media(max-width:640px){
+  .tp-section{ gap:12px; padding:10px 16px; font-size:12px; }
+  .tp-cta-row{ flex-direction:column; align-items:center; }
+  .tp-review-btn{ width:100%; justify-content:center; max-width:280px; }
+}
+
+/* Audience split mobile */
+@media(max-width:640px){
+  .audience-split{ padding:56px 0 48px; }
+}
 
 /* ---------- footer ---------- */
 footer{background:var(--navy-2); color:rgba(252,252,249,0.7); padding:56px 0 30px;}
@@ -735,13 +1047,172 @@ footer{background:var(--navy-2); color:rgba(252,252,249,0.7); padding:56px 0 30p
 @media (max-width:760px){.footer-grid{grid-template-columns:1fr; gap:32px;}}
 footer .logo{color:var(--white);}
 .footer-brand p{font-size:14px; margin-top:14px; max-width:36ch; color:rgba(252,252,249,0.55);}
-footer h4{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:rgba(252,252,249,0.5); margin-bottom:16px; font-weight:500;}
+footer h4{font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:rgba(252,252,249,0.5); margin-bottom:16px; font-weight:500;}
 footer ul li{margin-bottom:11px; font-size:14.5px;}
 footer ul li a:hover{color:var(--brass-light);}
 .footer-bottom{border-top:1px solid var(--line-light); padding-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12.5px; color:rgba(252,252,249,0.45);}
 
 /* skip link / focus */
-a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-offset:2px;}
+a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
+
+/* ---------- blog / ratgeber ---------- */
+.blog{padding:96px 0; background:var(--paper);}
+.blog-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:24px; margin-top:0;}
+@media(max-width:720px){.blog-grid{grid-template-columns:1fr;}}
+.blog-card{
+  background:var(--white); border:1px solid var(--line); border-radius:var(--radius-lg);
+  overflow:hidden; display:flex; flex-direction:column;
+  transition:all .3s cubic-bezier(.22,.61,.36,1);
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+.blog-card:hover{transform:translateY(-4px); box-shadow:0 20px 48px rgba(0,0,0,0.1); border-color:rgba(78,203,164,0.25);}
+.blog-card-header{padding:28px 24px 0;}
+.blog-cat{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--teal); background:rgba(78,203,164,0.1); border:1px solid rgba(78,203,164,0.2); padding:3px 10px; border-radius:100px; display:inline-block; margin-bottom:12px;}
+.blog-card h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-.01em; font-size:19px; line-height:1.3; margin-bottom:10px; color:var(--navy-2);}
+.blog-card .blog-excerpt{font-size:14px; color:var(--ink-soft); line-height:1.65; margin-bottom:18px;}
+.blog-card-footer{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; border-top:1px solid var(--line); margin-top:auto;}
+.blog-meta{font-size:12px; color:var(--ink-soft); font-family:'JetBrains Mono',monospace;}
+.blog-read{font-size:13px; font-weight:600; color:var(--teal); display:flex; align-items:center; gap:5px; cursor:pointer; background:none; border:none; font-family:'Inter',sans-serif; transition:gap .2s;}
+.blog-read:hover{gap:9px;}
+
+/* Article Modal */
+.article-overlay{
+  position:fixed; inset:0; background:rgba(14,33,28,0.65);
+  display:none; align-items:flex-start; justify-content:center; z-index:700;
+  padding:20px; backdrop-filter:blur(3px); overflow-y:auto;
+}
+.article-overlay.open{display:flex;}
+.article-panel{
+  background:var(--white); width:100%; max-width:720px;
+  border-radius:16px; margin:auto;
+  box-shadow:0 40px 90px -20px rgba(0,0,0,0.5);
+  animation:modalIn .35s var(--ease);
+  overflow:hidden;
+}
+.article-header{
+  background:var(--navy-2); padding:36px 40px 32px; position:relative;
+}
+@media(max-width:600px){.article-header{padding:28px 20px 24px;}}
+.article-close{
+  position:absolute; top:16px; right:16px; width:34px; height:34px;
+  border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08);
+  border-radius:50%; cursor:pointer; color:var(--white); font-size:14px;
+  display:flex; align-items:center; justify-content:center; transition:all .2s;
+}
+.article-close:hover{border-color:var(--teal); background:rgba(78,203,164,0.2);}
+.article-cat{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--teal); margin-bottom:12px; display:block;}
+.article-header h2{font-size:clamp(22px,4vw,30px); color:var(--white); line-height:1.2; padding-right:40px;}
+.article-header .art-meta{font-size:12.5px; color:rgba(252,252,249,0.5); font-family:'JetBrains Mono',monospace; margin-top:12px;}
+.article-body{padding:36px 40px 40px; font-size:15.5px; line-height:1.75; color:var(--ink);}
+@media(max-width:600px){.article-body{padding:24px 20px 28px;}}
+.article-body h3{font-family:'Space Grotesk',sans-serif; font-size:21px; color:var(--navy-2); margin:28px 0 10px;}
+.article-body h4{font-size:16px; font-weight:700; color:var(--navy-2); margin:20px 0 8px;}
+.article-body p{margin-bottom:16px;}
+.article-body ul{margin:12px 0 18px 20px; display:flex; flex-direction:column; gap:6px;}
+.article-body li{color:var(--ink);}
+.article-body li::marker{color:var(--teal);}
+.article-highlight{background:rgba(78,203,164,0.08); border-left:3px solid var(--teal); padding:16px 20px; border-radius:0 8px 8px 0; margin:20px 0; font-size:15px;}
+.article-cta-box{background:var(--navy-2); border-radius:12px; padding:24px 28px; margin-top:32px; text-align:center;}
+.article-cta-box p{color:rgba(252,252,249,0.75); font-size:14.5px; margin-bottom:16px;}
+.article-cta-box h4{color:var(--white); font-size:18px; margin-bottom:10px;}
+
+/* ═══════════════════════════════════════════
+   SMARTPHONE OPTIMIERUNG
+   ═══════════════════════════════════════════ */
+
+/* On mobile: disable video to save data, show gradient instead */
+@media(max-width:768px){
+  .hero-video{display:none;}
+  .hero{min-height:100svh;}
+  .hero-content{padding:80px 0 56px;}
+  h1.hero-title{font-size:clamp(34px, 9vw, 48px);}
+  .hero-sub{font-size:16px; max-width:100%;}
+  .hero-ctas{flex-direction:column; gap:10px;}
+  .hero-ctas .btn{width:100%; justify-content:center;}
+  .hero-trust{gap:12px; font-size:12.5px;}
+
+  /* Service cards: single column, compact */
+  .svc-grid{grid-template-columns:1fr; gap:12px;}
+  .svc-card{padding:24px 20px;}
+  .svc-card h3{font-size:18px;}
+
+  /* Audience cards: stack */
+  .audience-cards{grid-template-columns:1fr; gap:12px;}
+  .audience-card{padding:24px 20px; gap:16px;}
+  .ac-body h3{font-size:17px;}
+  .ac-body p{font-size:13.5px;}
+
+  /* Process: compact */
+  .process-item{grid-template-columns:44px 1fr; gap:16px; padding:22px 0;}
+  .process-item h3{font-size:17px;}
+  .process-item p{font-size:14px;}
+
+  /* Reviews: single column */
+  .reviews-grid{grid-template-columns:1fr; gap:12px;}
+  .review-card{padding:22px 18px;}
+
+  /* Trust: 2 cols */
+  .trust-grid{grid-template-columns:1fr 1fr;}
+  .trust-cell{padding:24px 18px;}
+  .trust-cell .tv{font-size:28px;}
+
+  /* Chat widget */
+  .chatcard{height:480px;}
+  .form-panel{max-height:96vh;}
+  .form-body{padding:20px 16px 16px;}
+  .form-header{padding:20px 16px 16px;}
+  .form-row{grid-template-columns:1fr;}
+
+  /* Modal */
+  .modal-panel{padding:24px 18px 22px; margin:12px;}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr; gap:28px;}
+
+  /* Floating chat button */
+  .chat-fab{right:16px; bottom:16px; padding:13px;}
+  .chat-fab .fab-label{display:none;}
+
+  /* Final CTA */
+  .final-cta{padding:72px 0;}
+  .final-ctas-row{flex-direction:column; align-items:center; gap:10px;}
+  .final-ctas-row .btn{width:100%; max-width:320px; justify-content:center;}
+
+  /* Trustpilot bar */
+  .tp-section{gap:12px; padding:10px 0; flex-direction:column; align-items:center;}
+
+  /* Forms responsive */
+  .form-footer{flex-direction:column; align-items:stretch;}
+  .form-submit{justify-content:center;}
+
+  /* Section headings */
+  .section-head h2{font-size:clamp(24px,7vw,32px);}
+  section{padding:64px 0;}
+}
+
+@media(max-width:480px){
+  .wrap{padding:0 16px;}
+  h1.hero-title{font-size:clamp(30px,10vw,42px);}
+  .nav{height:64px;}
+  .trust-grid{grid-template-columns:1fr 1fr;}
+  .trust-cell .tv{font-size:24px; -webkit-text-fill-color:var(--navy);}
+  .audience-card{border-radius:14px;}
+}
+
+/* Tablet */
+@media(min-width:769px) and (max-width:1024px){
+  h1.hero-title{font-size:clamp(36px,5vw,52px);}
+  .svc-grid{grid-template-columns:repeat(2,1fr);}
+  .reviews-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* Touch device: remove hover transforms that feel laggy */
+@media(hover:none){
+  .svc-card:hover{transform:none;}
+  .audience-card:hover{transform:none;}
+  .review-card:hover{transform:none;}
+  .btn:hover{transform:none;}
+}
 </style>
 <!-- Trustpilot Widget Script -->
 <script type="text/javascript" src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
@@ -776,6 +1247,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
     <a href="#privat">Für Privatpersonen</a>
     <a href="#betriebe">Für Betriebe</a>
     <a href="#ablauf">Ablauf</a>
+    <a href="#blog">Ratgeber</a>
     <a href="#agent">KI-Agent</a>
     <a href="#kontakt">Kontakt</a>
     <a href="#" class="calendly-trigger" id="mobileCta">Termin sichern →</a>
@@ -802,6 +1274,13 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 </div>
 
 <section class="hero">
+  <!-- Gradient animated background (replace src with your MP4 for real video) -->
+  <div class="hero-gradient-bg"></div>
+  <video class="hero-video" autoplay muted loop playsinline preload="none">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
   <div class="wrap hero-grid">
     <div>
       <span class="eyebrow">Digitale Versicherungsberatung</span>
@@ -1054,6 +1533,130 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
   </div>
 </div>
 
+
+<!-- ═══ BLOG / RATGEBER ═══ -->
+<section class="blog" id="blog">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow-line">Ratgeber</span>
+      <h2>Versicherungswissen, das weiterhilft.</h2>
+      <p>Verständliche Artikel zu allen Bereichen — damit Sie informiert entscheiden, nicht überredet werden.</p>
+    </div>
+    <div class="blog-grid reveal">
+
+      <div class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-cat">Berufsunfähigkeit</span>
+          <h3>BU-Versicherung: Wer braucht sie wirklich und was kostet sie?</h3>
+          <p class="blog-excerpt">Jeder vierte Arbeitnehmer wird vor dem Rentenalter berufsunfähig. Trotzdem unterschätzen viele dieses Risiko. Was die BU leistet und warum sie besonders für Selbstständige unverzichtbar ist.</p>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-meta">8 Min. Lesezeit</span>
+          <button class="blog-read" data-article="bu-artikel">Weiterlesen →</button>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-cat">Krankenversicherung</span>
+          <h3>PKV oder GKV? So treffen Selbstständige die richtige Entscheidung</h3>
+          <p class="blog-excerpt">Wer aus der gesetzlichen Krankenversicherung in die PKV wechselt, trifft eine weitreichende Entscheidung. Alle Vor- und Nachteile im Überblick — inklusive der häufigsten Fehler.</p>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-meta">7 Min. Lesezeit</span>
+          <button class="blog-read" data-article="pkv-artikel">Weiterlesen →</button>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-cat">Betriebliche Altersvorsorge</span>
+          <h3>bAV für KMU: Wie Arbeitgeber Mitarbeiter binden und Steuern sparen</h3>
+          <p class="blog-excerpt">Die betriebliche Altersvorsorge ist ein unterschätztes Instrument. Für Betriebe und Mitarbeitende entstehen erhebliche steuerliche Vorteile. Was Sie als Arbeitgeber wissen müssen.</p>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-meta">6 Min. Lesezeit</span>
+          <button class="blog-read" data-article="bav-artikel">Weiterlesen →</button>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-cat">Sachversicherungen</span>
+          <h3>Welche Versicherungen braucht mein Betrieb wirklich?</h3>
+          <p class="blog-excerpt">Viele Betriebe sind an den falschen Stellen versichert und an anderen gar nicht. Eine ehrliche Checkliste der wichtigsten Betriebsversicherungen — von der Haftpflicht bis zur Cyberversicherung.</p>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-meta">9 Min. Lesezeit</span>
+          <button class="blog-read" data-article="sach-artikel">Weiterlesen →</button>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-cat">Private Altersvorsorge</span>
+          <h3>Altersvorsorge für Selbstständige: Die 3 besten Optionen im Vergleich</h3>
+          <p class="blog-excerpt">Selbstständige haben keine gesetzliche Rente als Sicherheitsnetz. Basisrente, ETF-Depot oder Rentenversicherung — was wirklich sinnvoll ist und worauf es dabei ankommt.</p>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-meta">7 Min. Lesezeit</span>
+          <button class="blog-read" data-article="alters-artikel">Weiterlesen →</button>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-cat">Risikoleben</span>
+          <h3>Risikolebensversicherung: Wann lohnt sie sich und wie viel brauche ich?</h3>
+          <p class="blog-excerpt">Eine Risikolebensversicherung kostet wenig und kann im Ernstfall eine Familie finanziell retten. Wer sie wirklich braucht und wie die richtige Summe berechnet wird.</p>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-meta">5 Min. Lesezeit</span>
+          <button class="blog-read" data-article="leben-artikel">Weiterlesen →</button>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-cat">Betriebliche Krankenversicherung</span>
+          <h3>bKV als Mitarbeiter-Benefit: So gewinnen Sie Fachkräfte</h3>
+          <p class="blog-excerpt">Im Kampf um Talente reicht ein gutes Gehalt allein nicht mehr. Die betriebliche Krankenversicherung ist einer der attraktivsten und kostengünstigsten Benefits, die Arbeitgeber bieten können.</p>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-meta">5 Min. Lesezeit</span>
+          <button class="blog-read" data-article="bkv-artikel">Weiterlesen →</button>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-header">
+          <span class="blog-cat">Geschäftsführer</span>
+          <h3>GmbH-Geschäftsführer richtig absichern: Was viele vergessen</h3>
+          <p class="blog-excerpt">Geschäftsführer einer GmbH genießen oft weniger gesetzlichen Schutz als Angestellte — und haften stärker. Welche Versicherungen unverzichtbar sind und warum die meisten Lücken haben.</p>
+        </div>
+        <div class="blog-card-footer">
+          <span class="blog-meta">6 Min. Lesezeit</span>
+          <button class="blog-read" data-article="gf-artikel">Weiterlesen →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Article Modals -->
+<div class="article-overlay" id="articleOverlay">
+  <div class="article-panel" id="articlePanel">
+    <div class="article-header">
+      <span class="article-cat" id="articleCat"></span>
+      <h2 id="articleTitle"></h2>
+      <div class="art-meta" id="articleMeta"></div>
+      <button class="article-close" id="articleClose">✕</button>
+    </div>
+    <div class="article-body" id="articleBody"></div>
+  </div>
+</div>
+
 <section id="ablauf">
   <div class="wrap">
     <div class="section-head reveal">
@@ -1063,19 +1666,19 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
     </div>
     <div class="process-list reveal">
       <div class="process-item">
-        <span class="process-step mono">01</span>
+        <span class="process-step">01</span>
         <div><h3>Bedarfsanalyse online</h3><p>Kurzer Fragebogen oder 15-minütiger Video-Call — wir verschaffen uns einen Überblick über Ihren Betrieb.</p></div>
       </div>
       <div class="process-item">
-        <span class="process-step mono">02</span>
+        <span class="process-step">02</span>
         <div><h3>Vergleich & Empfehlung</h3><p>Wir prüfen den Markt statt nur einen Anbieter — Sie erhalten eine nachvollziehbare Empfehlung.</p></div>
       </div>
       <div class="process-item">
-        <span class="process-step mono">03</span>
+        <span class="process-step">03</span>
         <div><h3>Digitaler Abschluss</h3><p>Unterlagen, Prüfung und Unterschrift laufen vollständig online — ohne Papierstapel.</p></div>
       </div>
       <div class="process-item">
-        <span class="process-step mono">04</span>
+        <span class="process-step">04</span>
         <div><h3>Laufende Betreuung</h3><p>Ihr Vertrag wird regelmäßig geprüft und wächst mit Ihrem Unternehmen mit.</p></div>
       </div>
     </div>
@@ -2188,6 +2791,415 @@ document.querySelectorAll('.svc-anfrage').forEach(btn => {
     if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); e.stopPropagation(); openFormModal(btn.dataset.form); }
   });
 });
+
+
+// ═══════════════════════════════════════════════
+//  BLOG ARTIKEL — Vollständige Inhalte
+// ═══════════════════════════════════════════════
+const ARTICLES = {
+
+'bu-artikel': {
+  cat: 'Berufsunfähigkeit',
+  title: 'BU-Versicherung: Wer braucht sie wirklich und was kostet sie?',
+  meta: '8 Min. Lesezeit · Coverly Ratgeber',
+  body: `
+    <p>Statistisch wird jeder vierte Arbeitnehmer vor dem Rentenalter berufsunfähig. Trotzdem verzichten viele auf eine Berufsunfähigkeitsversicherung (BU) — oft weil sie die Kosten scheuen oder das Risiko unterschätzen. Dabei ist die BU nach einhelliger Meinung von Verbraucherschützern die wichtigste Privatversicherung überhaupt.</p>
+
+    <h3>Was ist eine Berufsunfähigkeitsversicherung?</h3>
+    <p>Eine BU zahlt eine monatliche Rente, wenn Sie Ihren zuletzt ausgeübten Beruf aus gesundheitlichen Gründen dauerhaft nicht mehr ausüben können — in der Regel ab einer Einschränkung von 50 Prozent. Das können Krankheiten sein, Unfälle, aber auch psychische Erkrankungen.</p>
+
+    <div class="article-highlight">💡 Wichtig: Rund 30 % aller BU-Fälle gehen auf psychische Erkrankungen zurück — Burnout, Depressionen und Angststörungen. Achten Sie darauf, dass Ihr Tarif diese ohne Einschränkungen abdeckt.</div>
+
+    <h3>Wer braucht eine BU besonders dringend?</h3>
+    <ul>
+      <li><strong>Selbstständige und Freiberufler:</strong> Sie zahlen oft nicht in die gesetzliche Rentenversicherung ein — und haben damit im Ernstfall keinerlei Absicherung.</li>
+      <li><strong>GmbH-Geschäftsführer:</strong> Häufig nicht sozialversicherungspflichtig und somit ohne staatliche Erwerbsminderungsrente.</li>
+      <li><strong>Berufseinsteiger:</strong> Je früher der Abschluss, desto günstigere Beiträge und einfachere Gesundheitsprüfung.</li>
+      <li><strong>Handwerker und körperlich Tätige:</strong> Das Berufsunfähigkeitsrisiko ist statistisch höher — die BU ist damit besonders wichtig.</li>
+    </ul>
+
+    <h3>Was kostet eine BU?</h3>
+    <p>Der Beitrag hängt von vier Faktoren ab: Beruf, Eintrittsalter, Gesundheitszustand und gewünschter Rentenhöhe. Als grobe Orientierung:</p>
+    <ul>
+      <li>30-jähriger Bürokaufmann, 1.500 € Monatsrente: ca. 50–80 € im Monat</li>
+      <li>30-jähriger Elektriker, 1.500 € Monatsrente: ca. 100–160 € im Monat</li>
+      <li>35-jährige Ärztin, 2.000 € Monatsrente: ca. 130–200 € im Monat</li>
+    </ul>
+    <p>Faustregel: Die BU-Rente sollte 70–80 % des Nettoeinkommens absichern, um den Lebensstandard zu erhalten.</p>
+
+    <h3>Worauf beim Abschluss achten?</h3>
+    <ul>
+      <li><strong>Verzicht auf abstrakte Verweisung:</strong> Der Versicherer darf Sie nicht auf einen anderen Beruf verweisen. Das ist heute Marktstandard — prüfen Sie es trotzdem.</li>
+      <li><strong>Rückwirkende Leistung:</strong> Gute Tarife zahlen rückwirkend ab Beginn der Berufsunfähigkeit, nicht erst ab Antragstellung.</li>
+      <li><strong>Nachversicherungsgarantie:</strong> Ermöglicht spätere Erhöhung der Rente ohne neue Gesundheitsprüfung.</li>
+      <li><strong>Weltweit gültig:</strong> Für Selbstständige mit internationaler Tätigkeit essenziell.</li>
+    </ul>
+
+    <h3>Die Gesundheitsprüfung: Ehrlichkeit ist Pflicht</h3>
+    <p>Beim Abschluss müssen Gesundheitsfragen beantwortet werden. Fehlerhafte oder unvollständige Angaben können dazu führen, dass der Versicherer im Leistungsfall die Zahlung verweigert. Wer Vorerkrankungen hat, sollte vor dem offiziellen Antrag eine anonyme Risikovoranfrage stellen — das vermeidet negative Einträge im Versicherungssystem.</p>
+
+    <div class="article-cta-box">
+      <h4>Persönlichen BU-Vergleich anfragen</h4>
+      <p>Wir vergleichen für Sie den Markt und empfehlen den Tarif, der wirklich zu Ihrem Beruf und Ihrer Situation passt — kostenlos und unverbindlich.</p>
+      <a href="#" class="btn btn-primary calendly-trigger" style="margin:0 auto;">Kostenlosen Termin buchen →</a>
+    </div>
+  `
+},
+
+'pkv-artikel': {
+  cat: 'Private Krankenversicherung',
+  title: 'PKV oder GKV? So treffen Selbstständige die richtige Entscheidung',
+  meta: '7 Min. Lesezeit · Coverly Ratgeber',
+  body: `
+    <p>Selbstständige stehen vor einer weitreichenden Frage: Private Krankenversicherung (PKV) oder freiwillig in der gesetzlichen Krankenkasse (GKV) bleiben? Diese Entscheidung wirkt sich auf Jahrzehnte aus und sollte gut durchdacht sein.</p>
+
+    <h3>PKV vs. GKV: Die wichtigsten Unterschiede</h3>
+    <ul>
+      <li><strong>Beitragsberechnung:</strong> Die GKV nimmt einen Prozentsatz des Einkommens. Die PKV berechnet den Beitrag nach Alter und Gesundheitszustand beim Eintritt — unabhängig vom Einkommen.</li>
+      <li><strong>Leistungsumfang:</strong> Die PKV bietet individuell wählbare Leistungen: Chefarztbehandlung, Einzelzimmer, erweiterter Zahnersatz, Heilpraktiker.</li>
+      <li><strong>Familie:</strong> In der GKV können Kinder und nicht berufstätige Partner beitragsfrei mitversichert werden. In der PKV zahlt jedes Mitglied einen eigenen Beitrag.</li>
+    </ul>
+
+    <h3>Wann lohnt sich die PKV für Selbstständige?</h3>
+    <p>Die PKV ist für Selbstständige besonders dann attraktiv, wenn:</p>
+    <ul>
+      <li>Das Nettoeinkommen dauerhaft über 3.000 € monatlich liegt</li>
+      <li>Keine oder wenige Kinder vorhanden sind</li>
+      <li>Der Gesundheitszustand gut ist (niedrige Beiträge beim Eintritt)</li>
+      <li>Wert auf hochwertige medizinische Versorgung gelegt wird</li>
+    </ul>
+
+    <div class="article-highlight">💡 Für Selbstständige mit schwankendem Einkommen ist die PKV besonders interessant, da der Beitrag einkommensunabhängig ist. In schlechten Geschäftsjahren zahlen Sie den gleichen Beitrag wie in guten.</div>
+
+    <h3>Wann ist die GKV die bessere Wahl?</h3>
+    <ul>
+      <li>Bei niedrigem oder sehr schwankendem Einkommen</li>
+      <li>Mit Kindern, die mitversichert werden sollen</li>
+      <li>Wenn der Partner nicht berufstätig ist und mitversichert werden soll</li>
+      <li>Bei relevanten Vorerkrankungen (PKV-Aufnahme eventuell teurer oder abgelehnt)</li>
+    </ul>
+
+    <h3>Der PKV-Wechsel: Was dabei zu beachten ist</h3>
+    <p>Wer von der GKV in die PKV wechselt, sollte wissen: Die Rückkehr ist im späteren Leben schwierig. Als Selbstständiger ist eine Rückkehr in die GKV nur möglich, wenn man wieder Arbeitnehmer wird und unter der Versicherungspflichtgrenze liegt.</p>
+
+    <h3>Alterungsrückstellungen als Schutz vor hohen Beiträgen im Alter</h3>
+    <p>Die PKV bildet während der Einzahlungsjahre Rückstellungen, die den Beitragsanstieg im Alter dämpfen. Zusätzlich kann ein Basistarif abgeschlossen werden, der die Beiträge im Alter auf GKV-Niveau begrenzt.</p>
+
+    <div class="article-cta-box">
+      <h4>Persönlichen PKV-Vergleich anfordern</h4>
+      <p>Wir erstellen einen unabhängigen Vergleich für Ihre konkrete Situation — inklusive Risikovoranfrage bei Vorerkrankungen.</p>
+      <a href="#" class="btn btn-primary calendly-trigger" style="margin:0 auto;">Jetzt beraten lassen →</a>
+    </div>
+  `
+},
+
+'bav-artikel': {
+  cat: 'Betriebliche Altersvorsorge',
+  title: 'bAV für KMU: Wie Arbeitgeber Mitarbeiter binden und Steuern sparen',
+  meta: '6 Min. Lesezeit · Coverly Ratgeber',
+  body: `
+    <p>Die betriebliche Altersvorsorge (bAV) gilt als eine der effektivsten Methoden zur Mitarbeiterbindung. Dennoch nutzen viele kleine und mittlere Betriebe dieses Instrument noch nicht oder nicht optimal. Dabei profitieren sowohl Arbeitgeber als auch Arbeitnehmer erheblich.</p>
+
+    <h3>Wie funktioniert die betriebliche Altersvorsorge?</h3>
+    <p>Bei der bAV zahlt der Mitarbeitende einen Teil seines Bruttogehalts in eine Altersvorsorge ein — das nennt sich Entgeltumwandlung. Dieser Betrag ist bis zu bestimmten Grenzen steuer- und sozialversicherungsfrei. Der Arbeitgeber ist gesetzlich verpflichtet, mindestens 15 % des umgewandelten Betrags als Zuschuss beizusteuern.</p>
+
+    <div class="article-highlight">💡 Beispiel: Zahlt ein Mitarbeitender 100 € aus seinem Bruttogehalt in die bAV, kostet ihn das netto je nach Steuerklasse nur 50–60 €. Gleichzeitig spart der Arbeitgeber Sozialabgaben auf den umgewandelten Betrag.</div>
+
+    <h3>Die fünf Durchführungswege der bAV</h3>
+    <ul>
+      <li><strong>Direktversicherung:</strong> Am häufigsten genutzt, einfach zu administrieren. Der Arbeitgeber schließt eine Lebensversicherung für den Arbeitnehmer ab.</li>
+      <li><strong>Pensionskasse:</strong> Ähnlich wie Direktversicherung, oft höhere Garantien.</li>
+      <li><strong>Pensionsfonds:</strong> Höhere Renditechancen, kapitalmarktorientiert.</li>
+      <li><strong>Unterstützungskasse:</strong> Für höhere Beiträge oberhalb der Direktversicherungsgrenze.</li>
+      <li><strong>Direktzusage:</strong> Der Betrieb verpflichtet sich direkt zur Zahlung — bilanzwirksam, mit Rückdeckung empfohlen.</li>
+    </ul>
+
+    <h3>Welche Steuervorteile entstehen?</h3>
+    <p>Beiträge zur bAV sind bis zu 4 % der Beitragsbemessungsgrenze (2025: 3.696 €/Jahr) steuer- und sozialversicherungsfrei. Weitere 4 % sind nur steuerfrei. Das bedeutet: Auf bis zu 7.392 € jährlich werden keine Lohnsteuer und keine Sozialabgaben fällig.</p>
+
+    <h3>bAV als Recruiting-Instrument</h3>
+    <p>Im Kampf um Fachkräfte wird die bAV immer wichtiger. Eine Studie zeigt: Für 70 % der Arbeitnehmer spielt die betriebliche Altersvorsorge eine Rolle bei der Arbeitgeberwahl. Als KMU können Sie damit gegen große Konzerne punkten — oft kostengünstiger als eine direkte Gehaltserhöhung.</p>
+
+    <h3>Was passiert bei Jobwechsel?</h3>
+    <p>Seit 2018 sind bAV-Ansprüche nach drei Jahren und ab 21 Jahren unverfallbar. Der Arbeitnehmer behält seine Ansprüche also auch nach dem Ausscheiden. Direktversicherungen können zum neuen Arbeitgeber mitgenommen werden.</p>
+
+    <div class="article-cta-box">
+      <h4>bAV-Konzept für Ihren Betrieb</h4>
+      <p>Wir übernehmen Anbieterauswahl, Konzepterstellung und Mitarbeiterkommunikation — komplett für Sie.</p>
+      <a href="#" class="btn btn-primary calendly-trigger" style="margin:0 auto;">Kostenloses bAV-Gespräch →</a>
+    </div>
+  `
+},
+
+'sach-artikel': {
+  cat: 'Betriebliche Sachversicherungen',
+  title: 'Welche Versicherungen braucht mein Betrieb wirklich?',
+  meta: '9 Min. Lesezeit · Coverly Ratgeber',
+  body: `
+    <p>Viele Betriebe sind an den falschen Stellen überversichert und an anderen gar nicht abgesichert. Eine fundierte Bestandsanalyse deckt regelmäßig sowohl Lücken als auch Doppelversicherungen auf. Dieser Artikel gibt Ihnen einen Überblick über die wichtigsten Betriebsversicherungen.</p>
+
+    <h3>Die unverzichtbare Grundlage: Betriebshaftpflicht</h3>
+    <p>Die Betriebshaftpflicht ist die wichtigste Versicherung für jeden Betrieb — ohne Ausnahme. Sie schützt vor Schadensersatzforderungen Dritter (Kunden, Lieferanten, Passanten), die durch Ihre Geschäftstätigkeit entstehen. Ohne sie haften Sie persönlich und unbegrenzt mit Ihrem gesamten Privatvermögen.</p>
+    <ul>
+      <li>Personenschäden (z. B. Kunde stürzt in Ihren Räumen)</li>
+      <li>Sachschäden (z. B. Mitarbeiter beschädigt Kundeninventar)</li>
+      <li>Vermögensschäden (z. B. falsche Beratung führt zu finanziellem Schaden)</li>
+    </ul>
+
+    <div class="article-highlight">⚠️ Branchenhinweis: Für Dienstleister und Berater ist zusätzlich eine Berufshaftpflicht (Vermögensschadenhaftpflicht) notwendig — die normale Betriebshaftpflicht deckt reine Vermögensschäden durch Beratungsfehler meist nicht ab.</div>
+
+    <h3>Inhaltsversicherung: Schutz für Ihre Betriebseinrichtung</h3>
+    <p>Die Inhaltsversicherung schützt Ihre Betriebseinrichtung, Waren, Maschinen und technische Geräte gegen Feuer, Einbruch, Leitungswasser und Sturm. Wichtig: Die Versicherungssumme muss dem tatsächlichen Wert entsprechen — Unterversicherung ist ein häufiges Problem und kann im Schadenfall zu anteiliger Kürzung der Leistung führen.</p>
+
+    <h3>Cyberversicherung: Das unterschätzte Risiko</h3>
+    <p>Hackerangriffe sind längst kein Problem mehr, das nur Großkonzerne betrifft. Laut Bundesamt für Sicherheit in der Informationstechnik (BSI) sind KMU besonders gefährdet, weil sie oft weniger Schutzmaßnahmen haben. Eine Cyberversicherung übernimmt:</p>
+    <ul>
+      <li>Kosten für IT-Forensik und Datenwiederherstellung</li>
+      <li>Betriebsunterbrechungsschäden durch den Angriff</li>
+      <li>Lösegeldforderungen (Ransomware)</li>
+      <li>Haftpflichtansprüche betroffener Kunden oder Partner</li>
+      <li>Anwaltskosten und PR-Maßnahmen</li>
+    </ul>
+
+    <h3>Betriebsunterbrechungsversicherung: Wenn der Betrieb stillsteht</h3>
+    <p>Was passiert, wenn nach einem Brandschaden oder Einbruch für Wochen kein Betrieb möglich ist? Ohne Betriebsunterbrechungsversicherung laufen Fixkosten (Miete, Löhne, Kredite) weiter, während keine Einnahmen fließen. Die Versicherung ersetzt den entgangenen Gewinn und die weiterlaufenden Kosten.</p>
+
+    <h3>Kfz und Fuhrpark</h3>
+    <p>Wer Firmenwagen betreibt, braucht Kfz-Haftpflicht (gesetzliche Pflicht) und sollte Teil- oder Vollkasko prüfen. Ab drei Fahrzeugen lohnt sich eine Flottenlösung — oft günstiger als Einzelverträge und einfacher zu verwalten.</p>
+
+    <h3>Die häufigsten Fehler bei Betriebsversicherungen</h3>
+    <ul>
+      <li>Versicherungssummen wurden seit Jahren nicht angepasst (Unterversicherung)</li>
+      <li>Gleiche Risiken sind doppelt versichert (Doppelversicherung)</li>
+      <li>Neue Tätigkeitsbereiche oder Standorte wurden nicht gemeldet</li>
+      <li>Cyberrisiken sind gar nicht berücksichtigt</li>
+    </ul>
+
+    <div class="article-cta-box">
+      <h4>Bestandsanalyse für Ihren Betrieb</h4>
+      <p>Wir prüfen Ihre bestehenden Verträge auf Lücken und Doppelversicherungen — kostenlos und ohne Verpflichtung.</p>
+      <a href="#" class="btn btn-primary calendly-trigger" style="margin:0 auto;">Analyse anfordern →</a>
+    </div>
+  `
+},
+
+'alters-artikel': {
+  cat: 'Private Altersvorsorge',
+  title: 'Altersvorsorge für Selbstständige: Die 3 besten Optionen im Vergleich',
+  meta: '7 Min. Lesezeit · Coverly Ratgeber',
+  body: `
+    <p>Selbstständige und Freiberufler stehen beim Thema Altersvorsorge vor einer besonderen Herausforderung: Ohne gesetzliche Rentenversicherung ist jeder selbst verantwortlich. Das ist eine große Freiheit — aber auch eine große Verantwortung. Drei Optionen stehen im Fokus.</p>
+
+    <h3>Option 1: Basisrente (Rürup-Rente)</h3>
+    <p>Die Basisrente ist die steuerlich attraktivste Altersvorsorge für Selbstständige. Beiträge sind nahezu vollständig als Sonderausgaben absetzbar — 2025 bis zu 29.344 € bei Einzelveranlagung. Wer einen Grenzsteuersatz von 42 % hat, erhält faktisch fast die Hälfte seiner Beiträge als Steuerersparnis zurück.</p>
+    <ul>
+      <li>✅ Hohe Steuerersparnis, besonders bei hohem Einkommen</li>
+      <li>✅ Lebenslange Rentenzahlung, kein Kapitalverzehr</li>
+      <li>❌ Kein Kapitalwahlrecht, kein vorzeitiger Zugriff</li>
+      <li>❌ Nicht vererbbar (außer mit Hinterbliebenenrente)</li>
+    </ul>
+
+    <div class="article-highlight">💡 Besonders attraktiv: Fondsgebundene Basisrentenverträge investieren die Beiträge in ETFs — kombiniert die Steuervorteile der Rürup-Rente mit den Renditechancen des Kapitalmarkts.</div>
+
+    <h3>Option 2: ETF-Depot (private Geldanlage)</h3>
+    <p>Ein breit gestreutes ETF-Depot in globale Aktienindizes (z. B. MSCI World) hat historisch langfristig Renditen von 7–9 % pro Jahr erzielt. Vorteile: maximale Flexibilität, keine Bindung, vererbbar.</p>
+    <ul>
+      <li>✅ Flexibel, jederzeit zugänglich</li>
+      <li>✅ Vererbbar, übertragbar</li>
+      <li>✅ Keine Versicherungskosten</li>
+      <li>❌ Keine Steuervorteile beim Einzahlen</li>
+      <li>❌ Kein Schutz vor Langlebigkeitsrisiko (Kapital kann aufgebraucht sein)</li>
+    </ul>
+
+    <h3>Option 3: Fondsgebundene Rentenversicherung</h3>
+    <p>Kombination aus ETF-Investition und Versicherungsmantel. Vorteil: Ertragsanteilbesteuerung statt Abgeltungsteuer bei Auszahlung als Rente. Nachteil: Kosten des Versicherungsmantels.</p>
+
+    <h3>Die optimale Strategie: Kombination</h3>
+    <p>Für die meisten Selbstständigen empfiehlt sich eine Kombination: Basisrente für die steuerlich geförderte Grundversorgung, ETF-Depot für den flexiblen Teil. Das Verhältnis hängt vom Steuersatz und der persönlichen Situation ab.</p>
+
+    <h3>Wann anfangen?</h3>
+    <p>So früh wie möglich. Bei einer monatlichen Einzahlung von 300 € ergibt sich nach 30 Jahren (7 % Rendite) ein Kapital von ca. 340.000 €. Wer erst 10 Jahre später startet, kommt bei gleicher Rate nur auf ca. 155.000 €. Der Zinseszinseffekt ist enorm.</p>
+
+    <div class="article-cta-box">
+      <h4>Individuelle Altersvorsorge-Strategie</h4>
+      <p>Wir analysieren Ihre Situation und erstellen eine konkrete Vorsorgeempfehlung — inklusive Steueroptimierung.</p>
+      <a href="#" class="btn btn-primary calendly-trigger" style="margin:0 auto;">Kostenlos beraten lassen →</a>
+    </div>
+  `
+},
+
+'leben-artikel': {
+  cat: 'Risikolebensversicherung',
+  title: 'Risikolebensversicherung: Wann lohnt sie sich und wie viel brauche ich?',
+  meta: '5 Min. Lesezeit · Coverly Ratgeber',
+  body: `
+    <p>Eine Risikolebensversicherung gehört zu den günstigsten und gleichzeitig wirkungsvollsten Versicherungen überhaupt. Ein 30-Jähriger zahlt für 300.000 € Todesfallschutz oft weniger als 20 € im Monat. Für Familien und Kreditnehmer ist sie kaum zu ersetzen.</p>
+
+    <h3>Wie funktioniert eine Risikolebensversicherung?</h3>
+    <p>Im Unterschied zur Kapitallebensversicherung hat die Risikolebensversicherung keine Sparkomponente. Sie zahlt ausschließlich im Todesfall — dafür ist sie deutlich günstiger. Die vereinbarte Summe wird an die Hinterbliebenen ausgezahlt.</p>
+
+    <h3>Für wen ist eine Risikolebensversicherung sinnvoll?</h3>
+    <ul>
+      <li><strong>Familien mit Kindern:</strong> Wenn ein Elternteil stirbt, sichert die Risikoleben den Lebensstandard der Familie.</li>
+      <li><strong>Immobilienkäufer:</strong> Viele Banken empfehlen oder verlangen eine Absicherung für den Kredit. Eine annuitätisch fallende Police passt sich der sinkenden Restschuld an.</li>
+      <li><strong>Alleinverdiener:</strong> Wer das Familieneinkommen maßgeblich trägt, sollte dieses absichern.</li>
+      <li><strong>Geschäftspartner:</strong> Gegenseitige Absicherung von Gesellschaftern gegen den Ausfall des anderen.</li>
+    </ul>
+
+    <div class="article-highlight">💡 Faustregel für die Versicherungssumme: 3–5 Jahresgehälter des Hauptverdieners. Bei laufenden Krediten: mindestens die Restschuld absichern.</div>
+
+    <h3>Welche Laufzeit ist richtig?</h3>
+    <p>Die Laufzeit sollte sich an Ihren Verpflichtungen orientieren: bis zur Volljährigkeit der Kinder, bis der Kredit abbezahlt ist oder bis zum Renteneintritt. Oft sind 20–25 Jahre sinnvoll.</p>
+
+    <h3>Was kostet eine Risikolebensversicherung?</h3>
+    <ul>
+      <li>30-jähriger Nichtraucher, 300.000 €, 20 Jahre Laufzeit: ca. 15–25 €/Monat</li>
+      <li>35-jähriger Nichtraucher, 300.000 €, 25 Jahre Laufzeit: ca. 22–38 €/Monat</li>
+      <li>Raucher zahlen deutlich mehr — ein weiterer Grund aufzuhören</li>
+    </ul>
+
+    <div class="article-cta-box">
+      <h4>Risikoleben-Angebot anfordern</h4>
+      <p>Wir vergleichen für Sie die besten Tarife und finden die optimale Absicherungssumme für Ihre Situation.</p>
+      <a href="#" class="btn btn-primary calendly-trigger" style="margin:0 auto;">Angebot anfordern →</a>
+    </div>
+  `
+},
+
+'bkv-artikel': {
+  cat: 'Betriebliche Krankenversicherung',
+  title: 'bKV als Mitarbeiter-Benefit: So gewinnen Sie Fachkräfte',
+  meta: '5 Min. Lesezeit · Coverly Ratgeber',
+  body: `
+    <p>Der Fachkräftemangel ist real — und ein gutes Gehalt allein reicht nicht mehr. Immer mehr Arbeitnehmer achten auf zusätzliche Benefits. Die betriebliche Krankenversicherung (bKV) gehört zu den attraktivsten und kostengünstigsten Zusatzleistungen, die Arbeitgeber bieten können.</p>
+
+    <h3>Was ist eine betriebliche Krankenversicherung?</h3>
+    <p>Bei der bKV schließt der Arbeitgeber für seine Belegschaft eine Gruppenversicherung ab, die Gesundheitsleistungen über den gesetzlichen Standard hinaus abdeckt. Entscheidender Vorteil: Es gibt meist keine individuelle Gesundheitsprüfung — alle Mitarbeitenden werden aufgenommen, unabhängig von Vorerkrankungen.</p>
+
+    <h3>Welche Leistungen sind typisch?</h3>
+    <ul>
+      <li>Zahnersatz und professionelle Zahnreinigung</li>
+      <li>Sehhilfen (Brille, Kontaktlinsen)</li>
+      <li>Vorsorgeuntersuchungen über den GKV-Standard</li>
+      <li>Krankenhaus-Zusatzleistungen (Chefarzt, Einzelzimmer)</li>
+      <li>Gesundheitsbudget für flexible Nutzung</li>
+      <li>Psychologische Beratung und Coaching</li>
+    </ul>
+
+    <h3>Die steuerlichen Vorteile der bKV</h3>
+    <p>Beiträge zur bKV sind bis zu 50 € monatlich je Mitarbeitendem steuer- und sozialversicherungsfrei (Sachbezugsfreigrenze). Das bedeutet: Der Arbeitgeber gibt 50 €, der Mitarbeitende hat einen Vorteil von bis zu 50 € netto — eine Gehaltserhöhung wäre um Steuer und Sozialabgaben weniger wert.</p>
+
+    <div class="article-highlight">💡 Rechenbeispiel: 50 € monatlicher bKV-Beitrag entsprechen für einen Mitarbeitenden mit 35 % Steuer und Sozialabgaben einer Brutto-Gehaltserhöhung von ca. 77 € — bei gleichen Kosten für den Arbeitgeber.</div>
+
+    <h3>Für welche Betriebe eignet sich die bKV?</h3>
+    <p>Grundsätzlich für alle Betriebe ab einem Mitarbeitenden. Besonders effektiv ist sie für Unternehmen, die:</p>
+    <ul>
+      <li>im Wettbewerb um qualifizierte Mitarbeitende stehen</li>
+      <li>die Fehlzeiten reduzieren möchten (gesündere Mitarbeitende)</li>
+      <li>ihre Arbeitgebermarke stärken wollen</li>
+    </ul>
+
+    <div class="article-cta-box">
+      <h4>bKV-Konzept für Ihren Betrieb</h4>
+      <p>Wir finden die passende bKV-Lösung für Ihre Mitarbeiterzahl und Ihr Budget — ohne Verwaltungsaufwand für Sie.</p>
+      <a href="#" class="btn btn-primary calendly-trigger" style="margin:0 auto;">Beratungstermin buchen →</a>
+    </div>
+  `
+},
+
+'gf-artikel': {
+  cat: 'Geschäftsführer-Absicherung',
+  title: 'GmbH-Geschäftsführer richtig absichern: Was viele vergessen',
+  meta: '6 Min. Lesezeit · Coverly Ratgeber',
+  body: `
+    <p>GmbH-Geschäftsführer tragen eine besondere Verantwortung — und damit auch ein besonderes Risiko. Viele Geschäftsführer unterschätzen dabei, wie wenig Schutz das gesetzliche System bietet und wie groß das persönliche Haftungsrisiko tatsächlich ist.</p>
+
+    <h3>Das Sozialversicherungsproblem bei GmbH-Geschäftsführern</h3>
+    <p>Ob ein GmbH-Geschäftsführer sozialversicherungspflichtig ist, hängt vom Gesellschaftsanteil ab. Wer mehr als 50 % der Anteile hält oder maßgeblichen Einfluss auf die Gesellschaft hat, gilt meist als nicht abhängig Beschäftigter — und zahlt keine Beiträge zur gesetzlichen Rentenversicherung und Krankenversicherung. Das bedeutet: keine gesetzliche Rente, kein gesetzlicher BU-Schutz.</p>
+
+    <div class="article-highlight">⚠️ Viele Geschäftsführer bemerken erst spät, dass sie trotz jahrelanger Tätigkeit kaum gesetzliche Rentenanwartschaften aufgebaut haben.</div>
+
+    <h3>D&O-Versicherung: Schutz vor persönlicher Haftung</h3>
+    <p>Die Directors & Officers Versicherung (D&O) schützt Geschäftsführer vor persönlichen Haftungsansprüchen aus ihrer Tätigkeit. Solche Ansprüche können kommen von:</p>
+    <ul>
+      <li>Gesellschaftern (bei Fehlentscheidungen)</li>
+      <li>Gläubigern (bei Insolvenzverschleppung)</li>
+      <li>Behörden (bei steuerlichen Vergehen)</li>
+      <li>Kunden und Vertragspartnern</li>
+    </ul>
+    <p>Ohne D&O haften Geschäftsführer mit ihrem gesamten Privatvermögen — einschließlich Haus, Ersparnisse, Altersvorsorge.</p>
+
+    <h3>Berufsunfähigkeit besonders kritisch</h3>
+    <p>Da viele Geschäftsführer keine gesetzliche Erwerbsminderungsrente erhalten, ist die private BU-Absicherung existenziell. Fällt der Geschäftsführer aus, bricht oft der gesamte Betrieb ein — das betrifft nicht nur das private Einkommen, sondern auch die Mitarbeitenden.</p>
+
+    <h3>Altersvorsorge über die Gesellschaft</h3>
+    <p>Eine Pensionszusage der GmbH an den Gesellschafter-Geschäftsführer kann steuerlich attraktiv sein. Wichtig: Ohne Rückdeckungsversicherung ist die Zusage im Insolvenzfall der GmbH wertlos. Eine Rückdeckungsversicherung sichert ab, dass die Leistungen auch tatsächlich erbracht werden können.</p>
+
+    <h3>Die optimale Absicherung für Geschäftsführer</h3>
+    <ul>
+      <li>D&O-Versicherung (Haftungsschutz)</li>
+      <li>BU-Versicherung (Einkommensschutz)</li>
+      <li>Private Krankenversicherung (Gesundheitsschutz)</li>
+      <li>Basisrente oder Pensionszusage (Altersvorsorge)</li>
+    </ul>
+
+    <div class="article-cta-box">
+      <h4>Absicherung für Geschäftsführer</h4>
+      <p>Wir analysieren Ihre konkrete Situation und zeigen, wo Lücken bestehen — kostenlos und ohne Verpflichtung.</p>
+      <a href="#" class="btn btn-primary calendly-trigger" style="margin:0 auto;">Jetzt beraten lassen →</a>
+    </div>
+  `
+}
+
+};
+
+// ─── Article Modal Engine ─────────────────────────────────────────
+const articleOverlay = document.getElementById('articleOverlay');
+const articlePanel = document.getElementById('articlePanel');
+const articleCat = document.getElementById('articleCat');
+const articleTitle = document.getElementById('articleTitle');
+const articleMeta = document.getElementById('articleMeta');
+const articleBody = document.getElementById('articleBody');
+const articleClose = document.getElementById('articleClose');
+
+function openArticle(key){
+  const a = ARTICLES[key]; if(!a) return;
+  articleCat.textContent = a.cat;
+  articleTitle.textContent = a.title;
+  articleMeta.textContent = a.meta;
+  articleBody.innerHTML = a.body;
+  articleOverlay.classList.add('open');
+  articleOverlay.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  // Re-wire calendly triggers inside article
+  articleBody.querySelectorAll('.calendly-trigger').forEach(b => {
+    b.addEventListener('click', e => { e.preventDefault(); if(CALENDLY_URL !== '#') window.open(CALENDLY_URL,'_blank'); else alert('Calendly-Link wird eingerichtet.'); });
+  });
+}
+function closeArticle(){
+  articleOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+articleClose.addEventListener('click', closeArticle);
+articleOverlay.addEventListener('click', e => { if(e.target===articleOverlay) closeArticle(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape' && articleOverlay.classList.contains('open')) closeArticle(); });
+document.querySelectorAll('.blog-read').forEach(btn => {
+  btn.addEventListener('click', () => openArticle(btn.dataset.article));
+});
+
+// Mobile: pause hero video to save battery
+(function(){
+  const vid = document.getElementById('heroVideo');
+  if(!vid) return;
+  if(window.innerWidth <= 768){
+    vid.pause();
+    vid.removeAttribute('autoplay');
+  }
+  // Pause when tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden){ vid.pause(); } else if(window.innerWidth > 768){ vid.play().catch(()=>{}); }
+  });
+})();
 
 document.getElementById('chatFab').addEventListener('click', () => {
   document.getElementById('agent').scrollIntoView({ behavior: 'smooth', block: 'start' });
