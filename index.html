@@ -1055,26 +1055,6 @@ footer ul li a:hover{color:var(--brass-light);}
 /* skip link / focus */
 a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
 
-/* ---------- blog / ratgeber ---------- */
-.blog{padding:96px 0; background:var(--paper);}
-.blog-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:24px; margin-top:0;}
-@media(max-width:720px){.blog-grid{grid-template-columns:1fr;}}
-.blog-card{
-  background:var(--white); border:1px solid var(--line); border-radius:var(--radius-lg);
-  overflow:hidden; display:flex; flex-direction:column;
-  transition:all .3s cubic-bezier(.22,.61,.36,1);
-  box-shadow:0 2px 12px rgba(0,0,0,0.04);
-}
-.blog-card:hover{transform:translateY(-4px); box-shadow:0 20px 48px rgba(0,0,0,0.1); border-color:rgba(78,203,164,0.25);}
-.blog-card-header{padding:28px 24px 0;}
-.blog-cat{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--teal); background:rgba(78,203,164,0.1); border:1px solid rgba(78,203,164,0.2); padding:3px 10px; border-radius:100px; display:inline-block; margin-bottom:12px;}
-.blog-card h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-.01em; font-size:19px; line-height:1.3; margin-bottom:10px; color:var(--navy-2);}
-.blog-card .blog-excerpt{font-size:14px; color:var(--ink-soft); line-height:1.65; margin-bottom:18px;}
-.blog-card-footer{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; border-top:1px solid var(--line); margin-top:auto;}
-.blog-meta{font-size:12px; color:var(--ink-soft); font-family:'JetBrains Mono',monospace;}
-.blog-read{font-size:13px; font-weight:600; color:var(--teal); display:flex; align-items:center; gap:5px; cursor:pointer; background:none; border:none; font-family:'Inter',sans-serif; transition:gap .2s;}
-.blog-read:hover{gap:9px;}
-
 /* Article Modal */
 .article-overlay{
   position:fixed; inset:0; background:rgba(14,33,28,0.65);
@@ -1313,6 +1293,8 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-off
   </div>
 </section>
 
+
+
 <!-- Audience Split -->
 <section class="audience-split" id="leistungen">
   <div class="wrap">
@@ -1500,40 +1482,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-off
   </div>
 </section>
 
-<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
-  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-close" id="modalClose" aria-label="Schließen">✕</button>
-    <span class="modal-tag" id="modalTag"></span>
-    <h3 id="modalTitle"></h3>
-    <p class="modal-intro" id="modalIntro"></p>
-    <div class="modal-points" id="modalPoints"></div>
-    <p class="modal-note" id="modalNote"></p>
-    <div class="modal-cta">
-      <a href="#" class="btn btn-primary calendly-trigger">Beratungstermin sichern →</a>
-      <button class="btn btn-brass" id="modalFormBtn" type="button">Angebot anfordern</button>
-      <button class="btn btn-ghost" id="modalAgentLink" type="button">Frage an den KI-Agenten</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ ANFRAGEFORMULARE ═══ -->
-<div class="form-overlay" id="formOverlay" aria-hidden="true">
-  <div class="form-panel" role="dialog" aria-modal="true" aria-labelledby="formTitle">
-    <div class="form-header">
-      <span class="fh-tag" id="formTag"></span>
-      <h3 id="formTitle"></h3>
-      <button class="form-close" id="formClose" aria-label="Schließen">✕</button>
-    </div>
-    <div class="form-progress"><div class="form-progress-bar" id="formProgress" style="width:0%"></div></div>
-    <div class="form-body" id="formBody"></div>
-    <div class="form-footer" id="formFooter">
-      <button class="form-submit" id="formSubmit" type="button">Anfrage absenden →</button>
-      <p class="form-privacy">Ihre Daten werden vertraulich behandelt und ausschließlich für die Angebotserstellung genutzt.</p>
-    </div>
-  </div>
-</div>
-
-
 <!-- ═══ BLOG / RATGEBER ═══ -->
 <section class="blog" id="blog">
   <div class="wrap">
@@ -1656,6 +1604,41 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-off
     <div class="article-body" id="articleBody"></div>
   </div>
 </div>
+
+
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Schließen">✕</button>
+    <span class="modal-tag" id="modalTag"></span>
+    <h3 id="modalTitle"></h3>
+    <p class="modal-intro" id="modalIntro"></p>
+    <div class="modal-points" id="modalPoints"></div>
+    <p class="modal-note" id="modalNote"></p>
+    <div class="modal-cta">
+      <a href="#" class="btn btn-primary calendly-trigger">Beratungstermin sichern →</a>
+      <button class="btn btn-brass" id="modalFormBtn" type="button">Angebot anfordern</button>
+      <button class="btn btn-ghost" id="modalAgentLink" type="button">Frage an den KI-Agenten</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ANFRAGEFORMULARE ═══ -->
+<div class="form-overlay" id="formOverlay" aria-hidden="true">
+  <div class="form-panel" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+    <div class="form-header">
+      <span class="fh-tag" id="formTag"></span>
+      <h3 id="formTitle"></h3>
+      <button class="form-close" id="formClose" aria-label="Schließen">✕</button>
+    </div>
+    <div class="form-progress"><div class="form-progress-bar" id="formProgress" style="width:0%"></div></div>
+    <div class="form-body" id="formBody"></div>
+    <div class="form-footer" id="formFooter">
+      <button class="form-submit" id="formSubmit" type="button">Anfrage absenden →</button>
+      <p class="form-privacy">Ihre Daten werden vertraulich behandelt und ausschließlich für die Angebotserstellung genutzt.</p>
+    </div>
+  </div>
+</div>
+
 
 <section id="ablauf">
   <div class="wrap">
