@@ -1393,6 +1393,15 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-off
           <button class="svc-anfrage" data-form="individuell" type="button">Angebot anfordern</button>
         </div>
       </div>
+      <div class="svc-card" data-key="zahn_privat" role="button" tabindex="0">
+        <span class="svc-num">P·7</span>
+        <h3>Zahnzusatzversicherung</h3>
+        <p>Die GKV übernimmt bei Zahnersatz oft nur die Hälfte. Ein guter Zusatztarif schließt diese Lücke — günstig und ohne Gesundheitsprüfung.</p>
+        <div class="svc-card-actions">
+          <span class="svc-more">Mehr erfahren →</span>
+          <button class="svc-anfrage" data-form="zahn" type="button">Angebot anfordern</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2204,6 +2213,31 @@ const serviceDetails = {
     ]
   },
 
+  zahn: {
+    tag: 'Zahnzusatz',
+    title: 'Angebot Zahnzusatzversicherung anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:false },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'kv', label:'Krankenversicherung', type:'select', req:true, half:false, options:['Gesetzlich (GKV)','Privat (PKV)'] },
+      ]},
+      { title: 'Zahngesundheit', fields: [
+        { id:'behandlung', label:'Läuft aktuell eine Behandlung oder ist eine angeraten?', type:'select', req:true, half:false, options:['Nein','Ja – bereits begonnen','Ja – vom Zahnarzt angeraten','Ja – geplant (eigener Wunsch)'] },
+        { id:'fehlende_zaehne', label:'Fehlen Zähne?', type:'select', req:true, half:true, options:['Nein','1 bis 3 fehlende Zähne','4 oder mehr fehlende Zähne','Bereits ersetzt (Implantat/Prothese)'] },
+        { id:'prothese', label:'Prothese oder Implantat vorhanden?', type:'select', req:false, half:true, options:['Nein','Teilprothese','Vollprothese','Implantat(e)'] },
+        { id:'leistungen', label:'Gewünschte Leistungen', type:'checks', req:true, options:['Zahnersatz & Kronen','Implantate','Professionelle Zahnreinigung','Kieferorthopädie','Inlays & Veneers','Rundum-Schutz'] },
+        { id:'budget', label:'Monatliches Budget', type:'select', req:false, half:false, options:['bis 15 €','15 – 25 €','25 – 40 €','über 40 €','Egal – bitte empfehlen'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Angaben', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
   individuell: {
     tag: '§8 · Individuelle Beratung',
     title: 'Individuelle Beratung',
@@ -2282,10 +2316,12 @@ const FORMS = {
       { title: 'Persönliche Angaben', fields: [
         { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
         { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:false },
+        { id:'groesse', label:'Körpergröße (cm)', type:'text', req:true, half:true, hint:'z. B. 175' },
+        { id:'gewicht', label:'Körpergewicht (kg)', type:'text', req:true, half:true, hint:'z. B. 75' },
         { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
         { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
-        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
-        { id:'status', label:'Beschäftigungsstatus', type:'select', req:true, half:true, options:['Angestellt','Selbstständig','Freiberufler:in','Beamter / Beamtin','Geschäftsführer:in'] },
+        { id:'status', label:'Beschäftigungsstatus', type:'select', req:true, half:false, options:['Angestellt','Selbstständig','Freiberufler:in','Beamter / Beamtin','Geschäftsführer:in'] },
       ]},
       { title: 'Beruf & Einkommen', fields: [
         { id:'beruf', label:'Berufsbezeichnung', type:'text', req:true, half:false, hint:'z. B. Softwareentwickler, Elektroinstallateur, Arzt' },
@@ -2312,10 +2348,12 @@ const FORMS = {
       { title: 'Persönliche Angaben', fields: [
         { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
         { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:false },
+        { id:'groesse', label:'Körpergröße (cm)', type:'text', req:true, half:true, hint:'z. B. 175' },
+        { id:'gewicht', label:'Körpergewicht (kg)', type:'text', req:true, half:true, hint:'z. B. 75' },
         { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
         { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
-        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:true },
-        { id:'status', label:'Beschäftigungsstatus', type:'select', req:true, half:true, options:['Angestellt','Selbstständig / Freiberufler:in','Beamter / Beamtin','Geschäftsführer:in (GmbH)'] },
+        { id:'status', label:'Beschäftigungsstatus', type:'select', req:true, half:false, options:['Angestellt','Selbstständig / Freiberufler:in','Beamter / Beamtin','Geschäftsführer:in (GmbH)'] },
       ]},
       { title: 'Einkommen & aktuelle Versicherung', fields: [
         { id:'bruttogehalt', label:'Jahresbruttogehalt / -einkommen', type:'select', req:true, half:true, options:['unter 50.000 €','50.000 – 66.000 €','66.000 – 80.000 €','80.000 – 100.000 €','100.000 – 150.000 €','über 150.000 €'] },
@@ -2575,6 +2613,31 @@ const FORMS = {
     ]
   },
 
+  zahn: {
+    tag: 'Zahnzusatz',
+    title: 'Angebot Zahnzusatzversicherung anfordern',
+    sections: [
+      { title: 'Persönliche Angaben', fields: [
+        { id:'vorname', label:'Vorname', type:'text', req:true, half:true },
+        { id:'nachname', label:'Nachname', type:'text', req:true, half:true },
+        { id:'geburtsdatum', label:'Geburtsdatum', type:'date', req:true, half:false },
+        { id:'email', label:'E-Mail-Adresse', type:'email', req:true, half:true },
+        { id:'telefon', label:'Telefon', type:'tel', req:false, half:true },
+        { id:'kv', label:'Krankenversicherung', type:'select', req:true, half:false, options:['Gesetzlich (GKV)','Privat (PKV)'] },
+      ]},
+      { title: 'Zahngesundheit', fields: [
+        { id:'behandlung', label:'Läuft aktuell eine Behandlung oder ist eine angeraten?', type:'select', req:true, half:false, options:['Nein','Ja – bereits begonnen','Ja – vom Zahnarzt angeraten','Ja – geplant (eigener Wunsch)'] },
+        { id:'fehlende_zaehne', label:'Fehlen Zähne?', type:'select', req:true, half:true, options:['Nein','1 bis 3 fehlende Zähne','4 oder mehr fehlende Zähne','Bereits ersetzt (Implantat/Prothese)'] },
+        { id:'prothese', label:'Prothese oder Implantat vorhanden?', type:'select', req:false, half:true, options:['Nein','Teilprothese','Vollprothese','Implantat(e)'] },
+        { id:'leistungen', label:'Gewünschte Leistungen', type:'checks', req:true, options:['Zahnersatz & Kronen','Implantate','Professionelle Zahnreinigung','Kieferorthopädie','Inlays & Veneers','Rundum-Schutz'] },
+        { id:'budget', label:'Monatliches Budget', type:'select', req:false, half:false, options:['bis 15 €','15 – 25 €','25 – 40 €','über 40 €','Egal – bitte empfehlen'] },
+      ]},
+      { title: 'Anmerkungen', fields: [
+        { id:'anmerkung', label:'Sonstige Angaben', type:'textarea', req:false, half:false },
+      ]},
+    ]
+  },
+
   individuell: {
     tag: '§8 · Individuelle Beratung',
     title: 'Individuelle Anfrage stellen',
@@ -2705,6 +2768,8 @@ document.addEventListener('keydown', e => { if(e.key==='Escape' && formOverlay.c
 formSubmit.addEventListener('click', () => {
   const cfg = FORMS[currentFormKey];
   if(!cfg) return;
+
+  // Validate required fields
   let valid = true;
   formBody.querySelectorAll('[required]').forEach(el => {
     el.classList.remove('error');
@@ -2713,7 +2778,6 @@ formSubmit.addEventListener('click', () => {
       valid = false;
     }
   });
-  // Check at least one checkbox group marked required
   cfg.sections.forEach(sec => sec.fields.forEach(f => {
     if(f.type==='checks' && f.req){
       const checked = formBody.querySelectorAll(`[name="${f.id}"]:checked`);
@@ -2722,34 +2786,55 @@ formSubmit.addEventListener('click', () => {
   }));
   if(!valid){ formBody.querySelector('.error, .form-checks')?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
 
-  // Compose email
-  let body = `Neue Anfrage: ${cfg.title}\n${'─'.repeat(40)}\n`;
+  // Disable button
+  formSubmit.disabled = true;
+  formSubmit.textContent = 'Wird gesendet …';
+
+  // Build FormData for Formspree
+  const data = new FormData();
+  data.append('_subject', 'Angebotsanfrage: ' + cfg.tag);
+  data.append('Bereich', cfg.title);
   cfg.sections.forEach(sec => {
-    body += `\n${sec.title.toUpperCase()}\n`;
     sec.fields.forEach(f => {
       if(f.type==='checks'){
         const vals = [...formBody.querySelectorAll(`[name="${f.id}"]:checked`)].map(c=>c.value);
-        if(vals.length) body += `${f.label}: ${vals.join(', ')}\n`;
+        if(vals.length) data.append(f.label, vals.join(', '));
       } else {
         const el = formBody.querySelector(`[name="${f.id}"]`);
-        if(el && el.value) body += `${f.label}: ${el.value}\n`;
+        if(el && el.value) data.append(f.label, el.value);
       }
     });
   });
 
-  const mailTo = `mailto:mail@coverly-kg.de?subject=${encodeURIComponent('Angebotsanfrage: '+cfg.tag)}&body=${encodeURIComponent(body)}`;
-  window.open(mailTo, '_blank');
-
-  // Success state
-  document.getElementById('formFooter').style.display = 'none';
-  formBody.innerHTML = `
-    <div class="form-success">
-      <div class="fs-icon">✓</div>
-      <h4>Anfrage wird vorbereitet</h4>
-      <p>Ihr E-Mail-Programm öffnet sich mit Ihren Angaben. Bitte senden Sie die E-Mail ab — wir melden uns innerhalb von 24 Stunden.</p>
-      <button class="btn btn-primary" onclick="closeFormModal()" style="margin:0 auto">Schließen</button>
-    </div>`;
-  formProgress.style.width = '100%';
+  // POST to Formspree
+  fetch('https://formspree.io/f/mwvgvzda', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(r => {
+    if(r.ok){
+      document.getElementById('formFooter').style.display = 'none';
+      formBody.innerHTML = `
+        <div class="form-success">
+          <div class="fs-icon">🎉</div>
+          <h4>Anfrage erhalten!</h4>
+          <p>Super, danke! Wir melden uns innerhalb von 24 Stunden mit deinem persönlichen Vergleich.</p>
+          <p style="margin-bottom:20px;font-size:13.5px;color:var(--ink-soft);">Oder buche direkt deinen kostenlosen Termin:</p>
+          <a href="${CALENDLY_URL}" target="_blank" class="btn btn-primary" style="margin:0 auto;display:inline-flex;">📅 Termin buchen →</a>
+        </div>`;
+      formProgress.style.width = '100%';
+    } else {
+      formSubmit.disabled = false;
+      formSubmit.textContent = 'Erneut versuchen';
+      alert('Etwas hat nicht geklappt. Bitte erneut versuchen.');
+    }
+  })
+  .catch(() => {
+    formSubmit.disabled = false;
+    formSubmit.textContent = 'Erneut versuchen';
+    alert('Verbindungsfehler. Bitte erneut versuchen.');
+  });
 });
 
 // Open form from service card (right-click / shift-click) or from modal CTA
