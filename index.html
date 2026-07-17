@@ -2793,7 +2793,18 @@ formSubmit.addEventListener('click', () => {
   // Build FormData for Formspree
   const data = new FormData();
   data.append('_subject', 'Angebotsanfrage: ' + cfg.tag);
-  data.append('Bereich', cfg.title);
+  // Bereich als kurzes Keyword für Make-Router
+  const bereichKey = cfg.id === 'bu' ? 'BU' :
+    cfg.id === 'pkv' ? 'PKV' :
+    cfg.id === 'altersvorsorge_privat' ? 'Altersvorsorge' :
+    cfg.id === 'zahn' ? 'Zahnzusatz' :
+    cfg.id === 'bav' ? 'bAV' :
+    cfg.id === 'bkv' ? 'bKV' :
+    cfg.id === 'gfv' ? 'GFV' :
+    cfg.id === 'basisrente' ? 'Basisrente' :
+    cfg.id === 'sach' ? 'Sachversicherung' :
+    cfg.id === 'risikoleben' ? 'Risikoleben' : cfg.title;
+  data.append('Bereich', bereichKey);
   cfg.sections.forEach(sec => {
     sec.fields.forEach(f => {
       if(f.type==='checks'){
