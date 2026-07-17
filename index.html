@@ -2806,6 +2806,15 @@ formSubmit.addEventListener('click', () => {
     });
   });
 
+  // Sende an Make (Automation) + Formspree (Archiv)
+  const makePayload = {};
+  for(const [k,v] of data.entries()) makePayload[k] = v;
+  fetch('https://hook.eu1.make.com/pnbr1lpjc2oy1jvisatuw7zryjfl18rf', {
+    method: 'POST',
+    body: JSON.stringify(makePayload),
+    headers: { 'Content-Type': 'application/json' }
+  }).catch(()=>{});
+
   // POST to Formspree
   fetch('https://formspree.io/f/mwvgvzda', {
     method: 'POST',
