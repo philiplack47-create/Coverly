@@ -308,8 +308,48 @@ function submitForm(){
   if(btn){ btn.textContent = 'Wird gesendet …'; btn.disabled = true; }
 
   // Sende an Formspree (Archiv) UND Make (Automation)
+  // Build Make payload with readable field names
   const makeData = {};
-  for(const [k,v] of data.entries()) makeData[k] = v;
+  const labelMap = {
+    'vorname': 'Vorname',
+    'nachname': 'Nachname',
+    'email': 'E-Mail-Adresse',
+    'telefon': 'Telefon',
+    'geburtsdatum': 'Geburtsdatum',
+    'groesse': 'Körpergröße (cm)',
+    'gewicht': 'Körpergewicht (kg)',
+    'status': 'Beschäftigungsstatus',
+    'beruf': 'Beruf',
+    'rente': 'Gewünschte BU-Rente',
+    'laufzeit': 'Laufzeit',
+    'raucher': 'Raucherstatus',
+    'vorerkrankung': 'Vorerkrankungen',
+    'einkommen': 'Einkommen',
+    'beitrag': 'Monatsbeitrag',
+    'renteneintritt': 'Renteneintritt',
+    'anlageform': 'Anlageform',
+    'bu_zusatz': 'BU-Zusatz',
+    'aktuelle_kv': 'Aktuelle Krankenversicherung',
+    'familienstand': 'Familienstand',
+    'kinder': 'Kinder',
+    'bruttogehalt': 'Bruttoeinkommen',
+    'kv': 'Krankenversicherung',
+    'behandlung': 'Laufende Behandlung',
+    'fehlende_zaehne': 'Fehlende Zähne',
+    'prothese': 'Prothese/Implantat',
+    'budget': 'Budget',
+    'anmerkung': 'Anmerkungen',
+    '_subject': 'Betreff',
+    'seite': 'Seite',
+    'leistungen': 'Gewünschte Leistungen',
+    'gesetzliche_rente': 'Gesetzliche Rente',
+  };
+  for(const [k,v] of data.entries()){
+    const label = labelMap[k] || k;
+    makeData[label] = v;
+  }
+  // Ensure Bereich is set
+  if(!makeData['Bereich']) makeData['Bereich'] = document.title;
   fetch('https://hook.eu1.make.com/pnbr1lpjc2oy1jvisatuw7zryjfl18rf', {
     method: 'POST',
     body: JSON.stringify(makeData),
