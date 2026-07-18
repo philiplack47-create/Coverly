@@ -2817,22 +2817,10 @@ formSubmit.addEventListener('click', () => {
     });
   });
 
-  // Sende an Make (Automation) + Formspree (Archiv)
-  const makePayload = {};
-  for(const [k,v] of data.entries()) makePayload[k] = v;
+  // Sende an Make als URL-encoded (Make empfängt saubere Key-Value-Paare)
   try {
-    const makeStr = JSON.stringify(makePayload);
-    const sent = navigator.sendBeacon(
-      'https://hook.eu1.make.com/pnbr1lpjc2oy1jvisatuw7zryjfl18rf',
-      new Blob([makeStr], {type: 'text/plain'})
-    );
-    if(!sent){
-      fetch('https://hook.eu1.make.com/pnbr1lpjc2oy1jvisatuw7zryjfl18rf', {
-        method:'POST', mode:'no-cors',
-        body: makeStr,
-        headers:{'Content-Type':'text/plain'}
-      });
-    }
+    const makeParams = new URLSearchParams(data);
+    navigator.sendBeacon('https://hook.eu1.make.com/pnbr1lpjc2oy1jvisatuw7zryjfl18rf', makeParams);
   } catch(e) {}
 
   // POST to Formspree
